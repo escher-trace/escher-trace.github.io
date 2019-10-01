@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>2. Edit the Individual Graphs - Escher Trace</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "2. Edit the Individual Graphs";
+    var mkdocs_page_input_path = "EditIndivGraphs.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Escher Trace</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="tocbase current">
+    
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GettingStarted/">1. Getting Started</a>
+  </li>
+    
+      
+
+
+  
+    
+    <li class="navtree toctree-l1 page current">
+      <a class="current" href="./">
+        2. Edit the Individual Graphs
+      </a>
+    </li>
+    
+      
+
+
+
+  <li class="toctree-l1 current">
+    <ul class="subnav-l1 current">
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#21-right-click-on-graphs">2.1  Right Click on Graphs</a>
+        </li>
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#22-delete-graph">2.2  Delete Graph</a>
+        </li>
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#23-downloading-an-individual-graph">2.3  Downloading an Individual Graph</a>
+        </li>
+    
+      
+          
+
+  <li class="toctree-l2">
+    <a href="#24-change-the-graph-aesthetics">
+      2.4  Change the Graph Aesthetics
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2">
+    <ul class="subnav-l2 toc-hidden">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#241-change-graph-size">2.4.1   Change Graph Size</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#242-change-graph-color-scheme">2.4.2   Change Graph Color Scheme</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#25-access-additional-graph-types-for-this-metabolite">2.5  Access additional Graph Types for this Metabolite</a>
+        </li>
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#26-show-data">2.6  Show Data</a>
+        </li>
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#27-changing-graph-title-or-y-axis-label">2.7  Changing Graph Title or Y-axis Label</a>
+        </li>
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#28-generating-graphs-for-individual-isotopologues">2.8  Generating Graphs for Individual Isotopologues</a>
+        </li>
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#29-moving-the-graphs">2.9  Moving the Graphs</a>
+        </li>
+    
+    </ul>
+  </li>
+
+
+  
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GraphTypes/">3. Changing the Displayed Graph Type</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GraphAttributes/">4. Changing Graph Attributes</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../DataDisplayed/">5. Changing Data Displayed</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../Analysis/">6. Analysis</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../EditData/">7. Edit the Data</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../SaveWorkspace/">8. Save Workspace</a>
+  </li>
+    
+  </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Escher Trace</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>2. Edit the Individual Graphs</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="2-edit-the-individual-graphs">2. Edit the Individual Graphs</h1>
+<p>Individual graphs generated by Escher Trace can be edited, downloaded, are used to access additional data associated with the graphed metabolite. You can change the title or the label on the left axis by clicking on either and typing the desired name. You can also get a separate graph of each individual isotopologue. This applies to all graphs available in the tool, not only the ones showed in this user guide.</p>
+<h2 id="21-right-click-on-graphs"><h3>2.1  Right Click on Graphs</h3></h2>
+<p>Right Clicking on graphs will make a dropdown menu appear that includes five options: Delete, Show Data, Download, Change Graph, and multiple fragments of the individual metabolite if applicable. These operations apply only to the graph/metabolite that was right clicked.</p>
+<p>After Right Clicking on a graph:</p>
+<p><img alt="Screenshot" src="../img/RightClick.png" style="width:500px" /></p>
+<p>To get rid of the dropdown menu simply click away from the graph and menu.</p>
+<h2 id="22-delete-graph"><h3>2.2  Delete Graph</h3></h2>
+<p>To delete a graph, click on delete after making the dropdown menu appear.</p>
+<p><img alt="Screenshot" src="../img/DeleteIndiv.png" style="width:500px" /></p>
+<h2 id="23-downloading-an-individual-graph"><h3>2.3  Downloading an Individual Graph</h3></h2>
+<p>After making the dropdown menu appear hover over download then select the file type you want to download the graph as, either SVG or PNG.</p>
+<p><img alt="Screenshot" src="../img/DownloadIndiv.png" style="width:500px" /></p>
+<h2 id="24-change-the-graph-aesthetics"><h3>2.4  Change the Graph Aesthetics</h3></h2>
+<p>After hovering over Change Graph additional options will appear allowing you to change the  size and color scheme of the individual graph.</p>
+<h3 id="241-change-graph-size"><h3>2.4.1   Change Graph Size</h3></h3>
+<p>Hover over Size and left click to make the Graph Size popup appear.</p>
+<p>Interact with the Graph Size popup as described <a href="../GraphAttributes/#41-changing-size">here.</a></p>
+<p><img alt="Screenshot" src="../img/IndivGraphSizeHeight.png" style="width:350px" /></p>
+<h3 id="242-change-graph-color-scheme"><h3>2.4.2   Change Graph Color Scheme</h3></h3>
+<p>Hover over Color and left click to make the Color Scheme popup appear.</p>
+<p>Interact with the Color Scheme popup as described <a href="../GraphAttributes/#421-selecting-the-graph-color-scheme">here.</a></p>
+<h2 id="25-access-additional-graph-types-for-this-metabolite"><h3>2.5  Access additional Graph Types for this Metabolite</h3></h2>
+<p>The last option allows you to select a different graph type for specifically the selected metabolite. Simply hover over the metabolite/fragment name then click the desired graph type and that graph will appear.
+Hovering:</p>
+<p><img alt="Screenshot" src="../img/DifferentGraphTypeIndiv.png" style="width:500px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/DifferentGraphTypeIndivAfter.png" style="width:500px" /></p>
+<h2 id="26-show-data"><h3>2.6  Show Data</h3></h2>
+<p>Left click on Show Data to display the data used to generate the selected graph.</p>
+<p>While Hovering:</p>
+<p><img alt="Screenshot" src="../img/ShowDataIndiv.png" style="width:500px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/ShowDataIndivAfter.png" /></p>
+<p>Scroll through the data using the bar at the bottom of the table:</p>
+<p><img alt="Screenshot" src="../img/ShowDataIndivScroll.png" /></p>
+<p>Copy the Table:</p>
+<p><img alt="Screenshot" src="../img/ShowDataIndivCopy.png" /></p>
+<p>Close the Table: </p>
+<p><img alt="Screenshot" src="../img/ShowDataIndivClose.png" /></p>
+<h2 id="27-changing-graph-title-or-y-axis-label"><h3>2.7  Changing Graph Title or Y-axis Label</h3></h2>
+<p>To edit the graph title or y-axis label of a graph, first: hover over the text and it will turn red, then left click.</p>
+<p>Before Hover:</p>
+<p><img alt="Screenshot" src="../img/IndivGraph.png" style="width:500px" /></p>
+<p>After Hover:</p>
+<p><img alt="Screenshot" src="../img/IndivGraphTitle.png" style="width:500px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/IndivGraphTitleText.png" style="width:500px" /></p>
+<p>Change the text in the text input. Move through the text input with arrow keys and delete with backspace. When the desired name is entered press enter.</p>
+<h2 id="28-generating-graphs-for-individual-isotopologues"><h3>2.8  Generating Graphs for Individual Isotopologues</h3></h2>
+<p>If you want generate a graph of a specific isotopologue (e.g M0) click on the desired isotopologue on the x-axis, for M0 click M0.
+NOTE: This option is only available for MID graphs.</p>
+<p>When Hovering:</p>
+<p><img alt="Screenshot" src="../img/IndivGraphIsotop.png" style="width:500px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/IndivGraphIsotopAfter.png" style="width:500px" /></p>
+<h2 id="29-moving-the-graphs"><h3>2.9  Moving the Graphs</h3></h2>
+<p>To move the graphs simple hover over the graph click and hold then drag to desired location.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../GraphTypes/" class="btn btn-neutral float-right" title="3. Changing the Displayed Graph Type">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../GettingStarted/" class="btn btn-neutral" title="1. Getting Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../GettingStarted/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../GraphTypes/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

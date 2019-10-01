@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>5. Changing Data Displayed - Escher Trace</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "5. Changing Data Displayed";
+    var mkdocs_page_input_path = "DataDisplayed.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Escher Trace</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="tocbase current">
+    
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GettingStarted/">1. Getting Started</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../EditIndivGraphs/">2. Edit the Individual Graphs</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GraphTypes/">3. Changing the Displayed Graph Type</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GraphAttributes/">4. Changing Graph Attributes</a>
+  </li>
+    
+      
+
+
+  
+    
+    <li class="navtree toctree-l1 page current">
+      <a class="current" href="./">
+        5. Changing Data Displayed
+      </a>
+    </li>
+    
+      
+
+
+
+  <li class="toctree-l1 current">
+    <ul class="subnav-l1 current">
+    
+      
+          
+
+  <li class="toctree-l2 current with-children">
+    <a href="#51-metabolites-to-display">
+      5.1 Metabolites to Display
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2 current">
+    <ul class="subnav-l2 current">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#511-make-the-options-appear">5.1.1 Make the Options Appear</a>
+        </li>
+    
+      
+          
+
+  <li class="toctree-l3">
+    <a href="#512-functionality-of-metabolites-selection">
+      5.1.2 Functionality of Metabolites Selection
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l3">
+    <ul class="subnav-l3 toc-hidden">
+    
+      
+        <li class="toctree-l4">
+          <a class="toctree-l5" href="#5121-entries-displayed">5.1.2.1 Entries Displayed</a>
+        </li>
+    
+      
+        <li class="toctree-l4">
+          <a class="toctree-l5" href="#5122-search-for-specific-metabolite">5.1.2.2 Search for Specific Metabolite</a>
+        </li>
+    
+      
+        <li class="toctree-l4">
+          <a class="toctree-l5" href="#5123-select-all">5.1.2.3 Select All</a>
+        </li>
+    
+      
+        <li class="toctree-l4">
+          <a class="toctree-l5" href="#5124-moving-pages">5.1.2.4 Moving Pages</a>
+        </li>
+    
+      
+        <li class="toctree-l4">
+          <a class="toctree-l5" href="#5125-submit-or-abort-changes">5.1.2.5 Submit or Abort Changes</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+    </ul>
+  </li>
+
+      
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#52-isotopologues-to-display">5.2 Isotopologues to Display</a>
+        </li>
+    
+    </ul>
+  </li>
+
+
+  
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../Analysis/">6. Analysis</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../EditData/">7. Edit the Data</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../SaveWorkspace/">8. Save Workspace</a>
+  </li>
+    
+  </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Escher Trace</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>5. Changing Data Displayed</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="5-changing-data-displayed"><h2>5. Changing Data Displayed</h2></h1>
+<p>This portion of the guide will explain how to edit the metabolite and isotopologue data that appears on the Escher Map.</p>
+<h2 id="51-metabolites-to-display"><h3>5.1 Metabolites to Display</h3></h2>
+<p>This button allows the user to choose which metabolites will have data displayed on the Escher Map.</p>
+<h3 id="511-make-the-options-appear"><h3>5.1.1 Make the Options Appear</h3></h3>
+<p>Hover over the Metabolites to Display button and left click to make the selection appear.</p>
+<p><img alt="Screenshot" src="../img/MetabolitesDisplay.png" style="width:300px" /></p>
+<p>After the Metabolite to Display popup appears, the user may begin selecting metabolites whose data they would like to have displayed on the Escher Map. </p>
+<h3 id="512-functionality-of-metabolites-selection"><h3>5.1.2 Functionality of Metabolites Selection</h3></h3>
+<p>This section of the guide will explain how to select metabolites and different options the user has to find and make selections.</p>
+<h4 id="5121-entries-displayed"><h3>5.1.2.1 Entries Displayed</h3></h4>
+<p>Change the number of entries displayed in the popup by clicking on the drop down menu in the top left and selecting a number.</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplayShow.png" style="width:300px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplayShowAfter.png" style="width:300px" /></p>
+<h4 id="5122-search-for-specific-metabolite"><h3>5.1.2.2 Search for Specific Metabolite</h3></h4>
+<p>In the top right of the menu is a search bar. Click in the white box next to search and enter the name of the metabolite of interest. The table will automatically update search results with each entered character.</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplaySearch.png" style="width:300px" /></p>
+<p>After First Letter Typed:</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplayType.png" style="width:300px" /></p>
+<h4 id="5123-select-all"><h3>5.1.2.3 Select All</h3></h4>
+<p>Click Select All to select all metabolites in the table.</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplaySelect.png" style="width:300px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplaySelectAfter.png" style="width:300px" /></p>
+<h4 id="5124-moving-pages"><h3>5.1.2.4 Moving Pages</h3></h4>
+<p>Move through pages by clicking Next, Previous, or the Page Number.</p>
+<p>Next:</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplayNext.png" style="width:300px" /></p>
+<p>Previous: </p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplayPrevious.png" style="width:300px" /></p>
+<p>Page Number:</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplayPage.png" style="width:300px" /></p>
+<h4 id="5125-submit-or-abort-changes"><h3>5.1.2.5 Submit or Abort Changes</h3></h4>
+<p>When finished with selections click Submit Form, to abandon changes click the X in the top right corner.</p>
+<p>Submit Changes:</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplaySubmit.png" style="width:300px" /></p>
+<p>Before Submit:</p>
+<p><em>AVI ADD PHOTO</em></p>
+<p>Only selected metabolites will be displayed on the Escher Map after submitting the table. </p>
+<p>After Submit:</p>
+<p><em>AVI ADD PHOTO</em></p>
+<p>Abort Changes:</p>
+<p><img alt="Screenshot" src="../img/MetaboliteDisplayAbort.png" style="width:300px" /></p>
+<h2 id="52-isotopologues-to-display"><h3>5.2 Isotopologues to Display</h3></h2>
+<p>This button allows the user to limit the isotopologue range that will be included in graphs generated for each metabolite/fragment. The majority instructions for how to interact with the table can be found above in the Metabolites to Display section of the guide. The main difference is how to select the individual metabolite’s isotopologue limit. Rather than checking a box, the user must click a dropdown menu and select an isotopolgue which will be used as the upper range for the displayed isotopologues. For example, selecting M3 results in M0, M1, M2, M3 isotopologue data being included for graph of the selected metabolite/fragment. The default selection for all metabolites/fragments is all isotopologues included in the uploaded data file. The isotopologue will be applied to ALL graph types of the selected metabolite.</p>
+<p>NOTE: The selected isotopologue limit is important for Mole Percent Enrichment calculations and graphs, as only isotopologues through the selected isotopologue are included in the enrichment calculation, and the selected isotopologue limit is assumed to be the total number of carbons in the selected metabolite/fragment. For example if M4 is selected for a fragment, Escher Trace assumes that there are 4 carbons in the metabolite and calculates the enrichment with this number.  </p>
+<p><img alt="Screenshot" src="../img/IsotopologueDisplay.png" style="width:300px" /></p>
+<p>To submit changes click submit form. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Analysis/" class="btn btn-neutral float-right" title="6. Analysis">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../GraphAttributes/" class="btn btn-neutral" title="4. Changing Graph Attributes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../GraphAttributes/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Analysis/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

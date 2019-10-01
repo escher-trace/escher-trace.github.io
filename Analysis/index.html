@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>6. Analysis - Escher Trace</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "6. Analysis";
+    var mkdocs_page_input_path = "Analysis.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Escher Trace</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="tocbase current">
+    
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GettingStarted/">1. Getting Started</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../EditIndivGraphs/">2. Edit the Individual Graphs</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GraphTypes/">3. Changing the Displayed Graph Type</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../GraphAttributes/">4. Changing Graph Attributes</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../DataDisplayed/">5. Changing Data Displayed</a>
+  </li>
+    
+      
+
+
+  
+    
+    <li class="navtree toctree-l1 page current">
+      <a class="current" href="./">
+        6. Analysis
+      </a>
+    </li>
+    
+      
+
+
+
+  <li class="toctree-l1 current">
+    <ul class="subnav-l1 current">
+    
+      
+          
+
+  <li class="toctree-l2 current with-children">
+    <a href="#61-compare-metabolites">
+      6.1 Compare Metabolites
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2 current">
+    <ul class="subnav-l2 current">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#610-make-the-options-appear">6.1.0 Make the Options Appear</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#611-select-which-conditions">6.1.1 Select which Conditions</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#612-data-list">6.1.2 Data List</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#613-submit-or-abort-changes">6.1.3 Submit or Abort Changes</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+      
+          
+
+  <li class="toctree-l2">
+    <a href="#62-normalize-abundances">
+      6.2  Normalize Abundances
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2">
+    <ul class="subnav-l2 toc-hidden">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#621-make-options-appear">6.2.1 Make Options Appear</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#622-condition-to-normalize-to">6.2.2 Condition to Normalize to</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#623-metabolite-to-normalize-to">6.2.3 Metabolite to Normalize to</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#624-enter-cell-numbersample-mass-for-each-group">6.2.4 Enter Cell Number/Sample Mass for Each Group </a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#625-submit-or-abort-changes">6.2.5 Submit or Abort Changes</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+      
+          
+
+  <li class="toctree-l2">
+    <a href="#63-enter-timepoints">
+      6.3 Enter Timepoints
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2">
+    <ul class="subnav-l2 toc-hidden">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#631-make-options-appear">6.3.1 Make Options Appear</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#632-enter-time-units">6.3.2 Enter Time Units</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#633-enter-condition-name">6.3.3 Enter Condition Name</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#634-enter-timepoint">6.3.4 Enter Timepoint</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#635-submit-or-abort-changes">6.3.5 Submit or Abort Changes</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+      
+          
+
+  <li class="toctree-l2">
+    <a href="#64-enter-quantitative-standards">
+      6.4 Enter Quantitative Standards
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2">
+    <ul class="subnav-l2 toc-hidden">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#641-making-options-appear">6.4.1 Making Options Appear</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#642-concentration-units">6.4.2 Concentration Units</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#643-standard-isotopologue">6.4.3 Standard Isotopologue</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#644-standard-concentration">6.4.4 Standard Concentration</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#645-submit-or-abort-changes">6.4.5 Submit or Abort Changes</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+    </ul>
+  </li>
+
+
+  
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../EditData/">7. Edit the Data</a>
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="../SaveWorkspace/">8. Save Workspace</a>
+  </li>
+    
+  </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Escher Trace</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>6. Analysis</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="6-analysis">6. Analysis</h1>
+<p>This portion of the guide will explain how to normalize conditions, compare individual metabolites, enter time points, and enter quantitative standards.</p>
+<h2 id="61-compare-metabolites"><h3>6.1 Compare Metabolites</h3></h2>
+<p>This button allows the user to generate graphs directly comparing metbolite abundance, enrichment, or individual isotopologue labeling across metabolites and conditions.</p>
+<h3 id="610-make-the-options-appear"><h3>6.1.0 Make the Options Appear</h3></h3>
+<p>Make the options appear by hovering over the Compare Metabolites Button and then left click.</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolites.png" /></p>
+<h3 id="611-select-which-conditions"><h3>6.1.1 Select which Conditions</h3></h3>
+<p>First the user needs to click and drag each condition they want included in the graph below the area that says To Graph. </p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesSelect.png" /></p>
+<p>Wait for the blue rectangle to appear then let go:</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesEx.png" /></p>
+<p>Items can move back and forth between Condition List and To Graph, if the user changes their mind.</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesUndo.png" /></p>
+<h3 id="612-data-list"><h3>6.1.2 Data List</h3></h3>
+<p>Next, the user needs to select the metabolite, fragment, and data type they want to include in the graph. All three are handled by a drop down menu.</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesData.png" /></p>
+<p>Make the selections for each type:</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesDataSelect.png" /></p>
+<p>As shown a button labeled Add Data will appear once all three options are selected.</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesDataAdd.png" /></p>
+<p>Click Add Data to add the data entry to the data list:</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesDataAddAfter.png" /></p>
+<p>Add more metabolite-fragment-data type combinations by performing the drop down menu selections again.</p>
+<h3 id="613-submit-or-abort-changes"><h3>6.1.3 Submit or Abort Changes</h3></h3>
+<p>Submit your selections by clicking Submit Metabolite Selections to generate a graph of the specified data across the specified condition, or abort selections by clicking the X in the top right.</p>
+<p>Submit:</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesSubmit.png" /></p>
+<p>Abort:</p>
+<p><img alt="Screenshot" src="../img/CompareMetabolitesAbort.png" /></p>
+<h2 id="62-normalize-abundances"><h3>6.2  Normalize Abundances</h3></h2>
+<p>This button allows the user to normalize metabolite abundances to a specific experimental condition, an internal standard (metabolite) and/or by cell numbers/sample mass.</p>
+<h3 id="621-make-options-appear"><h3>6.2.1 Make Options Appear</h3></h3>
+<p>Hover over Enter Cell Number and left click to make the menu appear.</p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundances.png" style="width:300px" /></p>
+<h3 id="622-condition-to-normalize-to"><h3>6.2.2 Condition to Normalize to</h3></h3>
+<p>Click the drop down menu and select the group that you would like all metabolite abundances to normalized to. The default selection is N/A, meaning abundances will not be normalized to a specific condition. A common selection for this option would be the wild-type or control condition of your study.</p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesCondition.png" style="width:300px" /></p>
+<p>After Selection: 
+<em>AVI</em></p>
+<h3 id="623-metabolite-to-normalize-to"><h3>6.2.3 Metabolite to Normalize to</h3></h3>
+<p>Select an individual metabolite to normalize everything to by clicking the drop down menu and selecting the metabolite. The default selection is N/A, meaning abundances will not be normalized to a specific metabolite/fragment. A common selection for this option would be the internal standard included in all samples.</p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesMetabolite.png" style="width:300px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesMetaboliteAfter.png" style="width:300px" /></p>
+<p>Scroll through until you find the desired metabolite and left click after hovering over the metabolite name. </p>
+<h3 id="624-enter-cell-numbersample-mass-for-each-group"><h3>6.2.4 Enter Cell Number/Sample Mass for Each Group </h3></h3>
+<p>Enter the measured cell number or sample for each group by clicking the white box and typing the appropriate number. The default selection is 1, meaning abundances will not be normalized to a specific cell number or sample mass.</p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesCellNumber.png" style="width:300px" /></p>
+<h3 id="625-submit-or-abort-changes"><h3>6.2.5 Submit or Abort Changes</h3></h3>
+<p>Submit your selections by clicking Submit Form or Abort Changes by clicking the X in the top right. If submitted, all abundance graphs will be reprinted with the normalization parameters applied.</p>
+<p>Submit: </p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesSubmit.png" style="width:350px" /></p>
+<p>Before Submit:</p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesBefore.png" /></p>
+<p>After Submit:</p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesSubmitAfter.png" /></p>
+<p>Abort: </p>
+<p><img alt="Screenshot" src="../img/NormalizeAbundancesAbort.png" style="width:400px" /></p>
+<h2 id="63-enter-timepoints"><h3>6.3 Enter Timepoints</h3></h2>
+<p>This button allows the user to enter time point information allowing for creation of kinetic (time-course) graphs for single isotopologues, metabolite abundances, and mole percent enrichment of a metabolite.</p>
+<h3 id="631-make-options-appear"><h3>6.3.1 Make Options Appear</h3></h3>
+<p>Hover over the Enter Timepoints button and left click.</p>
+<p><img alt="Screenshot" src="../img/TimePointsHover.png" style="width:200px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/TimePoints.png" style="width:450px" /></p>
+<h3 id="632-enter-time-units"><h3>6.3.2 Enter Time Units</h3></h3>
+<p>Click in the white box next to Time Units and type the unit of time i.e. seconds, minutes</p>
+<p><img alt="Screenshot" src="../img/TimePointsUnits.png" style="width:450px" /></p>
+<h3 id="633-enter-condition-name"><h3>6.3.3 Enter Condition Name</h3></h3>
+<p>Click in the white box below Condition Name and type the desired name for each group.</p>
+<p><img alt="Screenshot" src="../img/TimePointsCondition.png" style="width:450px" /></p>
+<h3 id="634-enter-timepoint"><h3>6.3.4 Enter Timepoint</h3></h3>
+<p>Click in the white box below Timepoint and type the desired time point for each group.</p>
+<p><img alt="Screenshot" src="../img/TimePointsEnter.png" style="width:450px" /></p>
+<h3 id="635-submit-or-abort-changes"><h3>6.3.5 Submit or Abort Changes</h3></h3>
+<p>Submit the selections by clicking Submit Form or abort changes by clicking the X in the top right. If the form was filled out correctly, submission will cause additional graph types (Kinetic Abundance and Kinetic MPE) to appear in the Escher Trace Menu under Graph Type. Additionally these options will appear in the context menu's for each graph (acessed by right-clicking a graph). The kinetic graph of an individual isotopologue can be accessed by selecting the desired isotopologue on the x-axis of an MID graph.</p>
+<p>Submit:</p>
+<p><img alt="Screenshot" src="../img/TimePointsSubmit.png" style="width:450px" /></p>
+<p>Before Submit:</p>
+<p><img alt="Screenshot" src="../img/TimePointsBefore.png" /></p>
+<p>After Submit:</p>
+<p><em>AVI</em></p>
+<p>Abort: </p>
+<p><img alt="Screenshot" src="../img/TimePointsAbort.png" style="width:450px" /></p>
+<h2 id="64-enter-quantitative-standards"><h3>6.4 Enter Quantitative Standards</h3></h2>
+<p>This portion of the user guide will explain how to input quantitative standards including into Escher Trace to allow for absolute quantitation of metabolites. The Standard Concentration input will only be selectable if a Standard Isotopologue selection other than NA is selected.</p>
+<h3 id="641-making-options-appear"><h3>6.4.1 Making Options Appear</h3></h3>
+<p>Hover over the Enter Quantitative Standards button and left click.</p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/QuantitativeStandards.png" style="width:450px" /></p>
+<p>For general understanding of how to use the menu see the Metabolites to Display(Make a hyperlink to this section of the guide) portion of the guide.</p>
+<h3 id="642-concentration-units"><h3>6.4.2 Concentration Units</h3></h3>
+<p>Click the white box next to Concentration Units and type the desired name of the Units.</p>
+<p><img alt="Screenshot" src="../img/QuantitativeStandardsUnits.png" style="width:450px" /></p>
+<h3 id="643-standard-isotopologue"><h3>6.4.3 Standard Isotopologue</h3></h3>
+<p>Select the desired standard isotopologue by hovering over the drop down menu next to the desired metabolite and selecting the specific isotopologue.</p>
+<p><img alt="Screenshot" src="../img/QuantitativeStandardsIsotop.png" style="width:450px" /></p>
+<p>After Click:</p>
+<p><img alt="Screenshot" src="../img/QuantitativeStandardsIsotopAfter.png" style="width:450px" /></p>
+<p>Left click on desired isotopologue. </p>
+<h3 id="644-standard-concentration"><h3>6.4.4 Standard Concentration</h3></h3>
+<p>Input standard concentration by left clicking on the white box below Standard Concentration and in line with the desired metabolite that you would like to change.</p>
+<p><img alt="Screenshot" src="../img/QuantitativeStandardsConcentration.png" style="width:450px" /></p>
+<h3 id="645-submit-or-abort-changes"><h3>6.4.5 Submit or Abort Changes</h3></h3>
+<p>To submit changes left click Submit Form to abort changes left click on the X in the top right.</p>
+<p>Submit:</p>
+<p><img alt="Screenshot" src="../img/QuantitativeStandardsSubmit.png" style="width:450px" /></p>
+<p>Before Submit:</p>
+<p><em>AVI</em></p>
+<p>After Submit:</p>
+<p><em>AVI</em></p>
+<p>Abort:</p>
+<p><img alt="Screenshot" src="../img/QuantitativeStandardsAbort.png" style="width:450px" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../EditData/" class="btn btn-neutral float-right" title="7. Edit the Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../DataDisplayed/" class="btn btn-neutral" title="5. Changing Data Displayed"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../DataDisplayed/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../EditData/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
