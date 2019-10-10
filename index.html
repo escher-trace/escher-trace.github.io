@@ -1,4 +1,4 @@
-<!-- index_AK_JM_056_fileuploadcheck.html - An Escher map with metabolite structures.
+<!-- index_AK_JM_057_bugfix_timecourse.html - An Escher map with metabolite structures.
 The MIT License (MIT)
 This software is Copyright © 2015 The Regents of the University of
 California. All Rights Reserved.
@@ -651,9 +651,9 @@ THE SOFTWARE.
                         <div class="clearfix bg-white blue">
 
                             <div class="col col-3">
-                                <h2 class="h3 m0 PopUp_title">
+                                <h2 class="h3 m0 PopUp_title" style="padding-top: 1rem;">
                                 <!--<h2 style="font-size: x-large; font-weight: bold;">-->
-                                13C Carbon Diagram Creator
+                                    <sup>13</sup>C Carbon Diagram Creator
                                 </h2>
                                 <p class="PopUp_descriptive_paragraph">
                                 <!--<p style="font-size: medium">-->
@@ -4524,8 +4524,8 @@ function begin_graph_display(){
         unmapped_count=0;
         //The for loop below prints out initial graphs of data for metabolites not included in the escher map
         //for(data_metabolite in selected_metabolites){
-        for(k=0;k<selected_metabolites.length; k++){
-            var data_metabolite=selected_metabolites[k]
+        for(k_nsm=0;k_nsm<selected_metabolites.length; k_nsm++){
+            var data_metabolite=selected_metabolites[k_nsm]
             if(map_metabolites.indexOf(data_metabolite)<0){
                     unmapped_metabolites.push(data_metabolite)//saves the metabolites that are not displayed on the eshcermap into the array unmapped_metabolites
                     met_MIDs=selectMID[data_metabolite]// selects the metabolite data corresponding to the bigg_id of the metabolite-circle
@@ -5330,6 +5330,8 @@ function reprint_graphs(){ //removes previously displayed graphs, replaces them 
                         if(graph_type=="Kin_MPE"){
                             d3.select('#'+mass_fragment+'_'+graph_type).remove() //removes previous Kin_MPE                
                             makegraph_timecourse(mass_fragment,loc_var,ConditionAmount,metabolite_fragment,MIDs,ConditionNames,svg_car,"MPE")
+                            //makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_name,MIDs,ConditionNames,svg,mode)
+                            
                        }
                         if(graph_type=="CG_graph"){
                             d3.select('#'+mass_fragment+'_'+graph_type).remove()                           
@@ -8089,20 +8091,20 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
     }
 
     for(j=0;j<Group_Names.length;j++){
-        k=0;
+        k_tc=0;
         for(i=0;i<Condition_Times.length;i++){
             if(Condition_Times[i].group_name==Group_Names[j]){
                 if(mode=="MID_select_iso"){
-                    Kinetic_Condition_data[Group_Names[j]][k]={x: Condition_Times[i].timepoint, y: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].frequency, y_error: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].error}
+                    Kinetic_Condition_data[Group_Names[j]][k_tc]={x: Condition_Times[i].timepoint, y: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].frequency, y_error: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].error}
                 }
                 else if(mode=="total_abundance"){
-                    Kinetic_Condition_data[Group_Names[j]][k]={x: Condition_Times[i].timepoint, y: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].total_abundance, y_error: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].total_abundance_error}
+                    Kinetic_Condition_data[Group_Names[j]][k_tc]={x: Condition_Times[i].timepoint, y: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].total_abundance, y_error: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].total_abundance_error}
                 }
                 else if(mode=="MPE"){
-                    Kinetic_Condition_data[Group_Names[j]][k]={x: Condition_Times[i].timepoint, y: MPE[i], y_error: MPE_error[i]}
+                    Kinetic_Condition_data[Group_Names[j]][k_tc]={x: Condition_Times[i].timepoint, y: MPE[i], y_error: MPE_error[i]}
                 }
 
-                k++;
+                k_tc++;
             }
         }
     }
@@ -8114,7 +8116,7 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
     
     ybound=0; //will hold the maximum y axis value
     //finds maximum value of the y axis and lengths of the mass fragment for all conditions
-    k=0
+    k_tc=0
 
     
     //for(var prop in MIDs){    //cycles through conditions ***Make more specific, only go through MIDs keys which correspond to group_names of Condition_Times whos Groups are inlcuded in Group_Names**AK 19-10-02
