@@ -31,8 +31,8 @@ THE SOFTWARE.
 <!-- JS -->  
  <!--   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>    -->
-    <script src="long-press-event.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>    
+    <script src="long-press-event.js"></script>-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> <!-- jquery --> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> <!-- escher --> 
@@ -10038,7 +10038,8 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
     
    // load the map and embedded CSS
    //AK: This will be the first bit of javascript to be executed, despite being located near the end of the file. 
-   d3.json('RECON1.Glycolysis TCA compact final.json', function(e, data) { //access data in the map file (RECON1.Glycolysis TCA (Presentable 2).json)
+   //d3.json('RECON1.Glycolysis TCA compact final.json', function(e, data) { //access data in the map file (RECON1.Glycolysis TCA (Presentable 2).json)
+   d3.json('RECON1.Glycolysis TCA Serine.json', function(e, data) { //access data in the map file (RECON1.Glycolysis TCA (Presentable 2).json)
        if (e) console.warn(e);
        /*var options = {
            menu: 'all',
@@ -10175,6 +10176,192 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
 
                                     for(i=0;i<parsed_Data.length;i++){
                                         if(parsed_Data[i].Metabolite!=""){ //if currently at a row of the csv where there is a metabolite name entered, then enter the count as M0
+                                            iso=0;
+                                            metab=parsed_Data[i].Metabolite
+                                            frag=parsed_Data[i].Fragment
+                                            frag=frag.split('(M0)')[0] //removes (M0) from the fragment names                        
+                                            Fragment_Formulas[frag]=parsed_Data[i].Formula
+                                            for(k=0;k<FileNames.length;k++){
+                                                rawFileCounts["rawFile"+(k+1).toString()][metab][frag].uncorrected_counts[0]={"fragment":"M0","counts":Number(parsed_Data[i][FileNames[k]])}
+                                        }
+                                        iso++                        
+                                        }else{
+                                            for(k=0;k<FileNames.length;k++){
+                                                rawFileCounts["rawFile"+(k+1).toString()][metab][frag].uncorrected_counts[iso]={"fragment":"M"+iso.toString(),"counts":Number(parsed_Data[i][FileNames[k]])}
+                                            }
+                                        iso++    
+                                       }
+                                    }
+                                    
+                                    var FinalCheckisSuccess=true
+                                            //var regex = /^[A-Za-z0-9 ]+$/
+                                    var regex = /^[a-z0-9]+$/i //regex for onl alpha numeric characters
+ 
+                                            //Validate TextBox value against the Regex.
+                                    
+                                    for(i=0;i<Object.keys(Fragment_Formulas).length;i++){
+                                        current_formula=Fragment_Formulas[Object.keys(Fragment_Formulas)[i]]
+                                        if(current_formula.length<1){
+                                            FinalCheckisSuccess=false
+                                        }
+                                        
+                                        isValid = regex.test(current_formula); //test to ensure only alpha numeric characters are included in current_formula
+                                        if(isValid==false){
+                                            FinalCheckisSuccess=false
+                                        }
+    
+                                    }
+                                    
+                                    if(FinalCheckisSuccess){
+                                        FileMIDs=returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas) //submits rawFileCounts to be corrected, outputs FileMIDs
+                                        result={"FileMIDs":FileMIDs, "FileNames":FileNames}
+                                        console.log(result)                                        
+                                        document.getElementById("loading-background").style.display = "none";   
+                                        add_structures(result); //AK: calls the add_structures() function which runs AK generated content (graph generation and manipulation)
+                                    }else{
+                                        alert("There was a problem reading your data. Please check __ and make sure you are following all of the requirements") //warning
+                                        Uncorrected_CSV_Reset()                        
+                                    }
+                                    
+                                }else{
+                                    alert("Incorrect CSV Schema. Please make sure CSV follows the schema found at ____") //warning
+                                    Uncorrected_CSV_Reset()                        
+
+                                }
+
+                          }
+                          
+                          user_file.readAsText(files.item(0)); //allows for the user_file to be read
+                    }
+                    else { //no
+                        alert("Incorrect file type upload. Please upload a CSV file.") //warning
+                        Uncorrected_CSV_Reset()                        
+                    }
+                }
+            }              
+            
+        
+         function Uncorrected_CSV_Reset(){
+            document.getElementById("loading-background").style.display = "none";   
+            document.getElementById("PopUp_Upload_Data").style.display = "block";   
+            document.getElementById("enter_data").style.display = "block"; 
+         }
+
+
+         };  //closes import of MIDs document.getElementById('import_csv').onclick
+               
+       
+       
+       
+        document.getElementById('import_corrected_csv').onclick = function() { //translates to "upon click of the button 'import_csv' execute the function below
+            document.getElementById("PopUp_Upload_Data").style.display = "none";   
+            document.getElementById("enter_data").style.display = "none";   
+
+            document.getElementById("loading-background").style.display = "block";   
+               
+             
+              var files = document.getElementById('select_corrected_Files_csv').files; //sets the var files equal to the user selected files
+              if (files.length <= 0) { //check to ensure the user selected a file, if yes, then move on
+                return false;
+              }
+
+              var user_file = new FileReader();
+              user_file.onload = function(e) {
+                    var csv_data = e.target.result; //AK: this is the magic line, var result holds the data from the users file
+                    var parsed_Data=d3.csvParse(csv_data);
+                    var FileMIDs={}
+                    FileNames=[]
+                    for(i=2;i<parsed_Data.columns.length;i++){ //currently i=3 due to presence of Metabolite, Fragment columns
+                        FileNames.push(parsed_Data.columns[i])
+                    } 
+                    metab=""
+                    frag=""
+                    j=-1
+                    iso=-1;//changed from 0 to -1
+                    //plan, make shell by going through the first file, then copy the shell x(file number) times, then fill it  
+                    for(i=0;i<parsed_Data.length;i++){ // this loo generates the shell
+                        if(parsed_Data[i].Metabolite!=""){
+                            metab=parsed_Data[i].Metabolite
+                            frag=parsed_Data[i+1].Fragment //changed from i to i+1 because the row below will contain the fragment name
+                            frag=frag.split('(M0)')[0] //removes (M0) from the fragment names                        
+                            for(k=0;k<FileNames.length;k++){
+                                
+                                if(typeof FileMIDs["File"+(k+1).toString()]== 'undefined'){
+                                    FileMIDs["File"+(k+1).toString()]={}
+                                }
+                                if(typeof FileMIDs["File"+(k+1).toString()][metab]== 'undefined'){
+                                    FileMIDs["File"+(k+1).toString()][metab]={}
+                                }
+                                FileMIDs["File"+(k+1).toString()][metab][frag]={}
+                                FileMIDs["File"+(k+1).toString()][metab][frag].abundance=0                                
+                                FileMIDs["File"+(k+1).toString()][metab][frag].labeling=[]                                
+                            }   
+                        }
+                    }
+
+                    for(i=0;i<parsed_Data.length;i++){
+                        if(parsed_Data[i].Metabolite!=""){ //if currently at a row of the csv where there is a metabolite name entered, then enter the count as M0
+                            iso=-1;//changed from 0 to -1
+                            metab=parsed_Data[i].Metabolite
+                            frag=parsed_Data[i+1].Fragment //changed from i to i+1 because the row below will contain the fragment name
+                            frag=frag.split('(M0)')[0] //removes (M0) from the fragment names                        
+                            for(k=0;k<FileNames.length;k++){
+                                FileMIDs["File"+(k+1).toString()][metab][frag].abundance=Number(parsed_Data[i][FileNames[k]])
+                            }
+                                
+                        iso++                        
+                        }else{
+                            for(k=0;k<FileNames.length;k++){
+                                FileMIDs["File"+(k+1).toString()][metab][frag].labeling[iso]={"fragment":"M"+iso.toString(),"frequency":Number(parsed_Data[i][FileNames[k]])}
+                            }
+                        iso++    
+                       }
+                    }  
+                    result={"FileMIDs":FileMIDs, "FileNames":FileNames}
+                    console.log(result)
+                    document.getElementById("loading-background").style.display = "none";   
+                    add_structures(result); //AK: calls the add_structures() function which runs AK generated content (graph generation and manipulation)
+
+               } //closes user_file.onload = function(e)
+              user_file.readAsText(files.item(0)); //allows for the user_file to be read
+
+         };  //closes import of MIDs document.getElementById('import_csv').onclick
+               
+       
+       
+       
+        $('#close_popup_upload_data').click( function() {
+            document.getElementById("PopUp_Upload_Data").style.display = "none";   
+        } );
+ 
+    function dragstarted(d) {
+      d3.select(this).raise().classed("active", true);
+    }
+
+    function dragged(d) {
+    //function [d.x,d.y]=dragged(d) {
+                d.x += d3.event.dx
+                d.y += d3.event.dy
+                d3.select(this).attr("transform", function(d,i){
+                    return "translate(" + [ d.x,d.y ] + ")"
+                    //return "translate(" +  d.x + "," + d.y  + ")"
+                })
+    }
+
+    function dragended(d) {
+      d3.select(this).classed("active", false);
+    }          
+        
+        
+       
+  }); //closes d3.json()
+      
+      
+      
+  </script>
+</html>      
+      
+ bolite!=""){ //if currently at a row of the csv where there is a metabolite name entered, then enter the count as M0
                                             iso=0;
                                             metab=parsed_Data[i].Metabolite
                                             frag=parsed_Data[i].Fragment
