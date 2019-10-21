@@ -4932,8 +4932,8 @@ function print_graphs(data,met_MIDs,svg_car){
                    makegraph_abundance(metab_frag_name,loc_var,ConditionAmount,data.bigg_id,MIDs,ConditionNames,svg_car)  
                }
                if(graph_type_loop=="Kin_abundance"){
-                selected_Iso_MID=obtain_isotopologue_data(data.bigg_id,metab_frag_name,0) //obtain the isotopologue specific data via obtain_isotopologue_data of M0 as M0 contains total_abundance and total_abundance_error
-                   makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,data.bigg_id,selected_Iso_MID,ConditionNames,svg_car,"total_abundance")
+                //selected_Iso_MID=obtain_isotopologue_data(data.bigg_id,metab_frag_name,0) //obtain the isotopologue specific data via obtain_isotopologue_data of M0 as M0 contains total_abundance and total_abundance_error
+                   makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,data.bigg_id,MIDs,ConditionNames,svg_car,"total_abundance")
                }
                if(graph_type_loop=="Kin_MPE"){
                    makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,data.bigg_id,MIDs,ConditionNames,svg_car,"MPE")
@@ -9528,8 +9528,8 @@ function reprint_specific_graph(metab_name,metab_frag_name,graph_type,svg){ //re
                 makegraph_MPE(metab_frag_name,loc_var,ConditionAmount,metab_name,MIDs,ConditionNames,svg)
                 
             }else if(graph_type=="Kin_abundance"){
-                selected_Iso_MID=obtain_isotopologue_data(metab_name,metab_frag_name,0)
-                makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,metab_name,selected_Iso_MID,ConditionNames,svg,"total_abundance")                     
+                //selected_Iso_MID=obtain_isotopologue_data(metab_name,metab_frag_name,0)
+                makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,metab_name,MIDs,ConditionNames,svg,"total_abundance")                     
                 
             }else if(graph_type=="Kin_MPE"){
                 makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,metab_name,MIDs,ConditionNames,svg,"MPE")                     
