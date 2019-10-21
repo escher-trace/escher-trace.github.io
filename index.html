@@ -1,4 +1,4 @@
-<!-- index_AK_JM_060_taphold.html - An Escher map with metabolite structures.
+<!-- index_AK_JM_065_abundanceIso.html - An Escher map with metabolite structures.
 The MIT License (MIT)
 This software is Copyright © 2015 The Regents of the University of
 California. All Rights Reserved.
@@ -40,7 +40,7 @@ THE SOFTWARE.
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script><!-- DataTables -->     
     <script src="https://d3js.org/d3.v4.min.js"></script><!-- d3 -->     
     <script src="escher.js" charset="utf-8"></script><!-- escher --> 
-    <script src="d3.contextMenu4_edit.js"></script><!-- context menu --> 
+    <script src="d3.contextMenu5.js"></script><!-- context menu --> 
     <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
    <!-- <script src="html5sortable.js"></script>  sortable --> 
     <script src="FileSaver_ed1.js"></script> <!-- FileSaver --> 
@@ -64,6 +64,7 @@ THE SOFTWARE.
   <link rel="stylesheet" href="basscss.css"><!-- Used for buttons + paragraphs -->
   <link rel="stylesheet" href="loading_screen.css"><!-- Used for buttons + paragraphs -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-html5-1.5.6/fc-3.2.5/datatables.min.css"/>    
+    
   <style>
 
 
@@ -286,10 +287,12 @@ THE SOFTWARE.
       border-radius: 50%;
       background: #C7C7C7;
       cursor: pointer;
-    }      
+    }
       
+    /*.context_button[title] {
+      content: "click for additional options";
+     }*/
       
-
     /*MENU STUFF WITH WACK STUFF
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -449,13 +452,30 @@ THE SOFTWARE.
             transform: translate(0,6px) rotate(90deg);
         }        
       
-      
-
+    .context_button:hover {
+        fill: rgb(224, 134, 91);
+        font-weight: 600;
+        
+            /*float: right;        
+            padding-right: 8px;*/
+        }
+    .active_context_button {
+           /* padding-right: 8px;
+            transform: translate(0,6px) rotate(90deg);*/
+            transform: translate(-100px,-35px) rotate(90deg);
+        }      
     /* Some media queries for responsiveness */
     @media screen and (max-height: 450px) {
         .sidenav {padding-top: 15px;}
         .sidenav a {font-size: 18px;}
     }
+      
+    .selected {
+      background-color: #f9c7c8 !important;
+      border: solid red 1px !important;
+      z-index: 1 !important;
+    }        
+      
 
         
   
@@ -971,7 +991,7 @@ THE SOFTWARE.
                         </h2>
                          <p class="PopUp_descriptive_paragraph">                    
                          <!--<p style="font-size: medium">-->
-                             Click and drag conditions to display to the "To Graph" list. Order them as you would like them to be displayed then click Submit</p>
+                             Click and drag conditions to display to the "To Graph" list. Multiple conditions can be moved at the same time by first clicking them individually, turning them red, and then dragging them. Order them as you would like them to be displayed then click Submit</p>
                     </div>
                     <div class="col col-4">
                         <span style="font-size: medium; font-weight: bold; display: block;" class="ml4">Condition List</span>            
@@ -1017,7 +1037,7 @@ THE SOFTWARE.
                         </h2>
                          <p class="PopUp_descriptive_paragraph">                                        
                          <!--<p style="font-size: medium">-->
-                             Click and drag conditions to display to the "To Graph" list. Order them as you would like them to be displayed then click Submit</p>
+                             Click and drag conditions to display to the "To Graph" list. Multiple conditions can be moved at the same time by first clicking them individually, turning them red, and then dragging them. Order them as you would like them to be displayed then click Submit</p>
                     </div>
                     <div class="col col-4">
                         <span style="font-size: medium; font-weight: bold; display: block;" class="ml4">Condition List</span>     
@@ -1066,10 +1086,10 @@ THE SOFTWARE.
                 <div class="clearfix bg-white blue col col-3">
                         <h2 class="h3 m0 PopUp_title">
                         <!--<h2 class="h3 m0" style="font-size: x-large; font-weight: bold; ">-->
-                                Group Files
+                                Sample Groups
                         </h2>
                         <p class="PopUp_descriptive_paragraph">                    
-                             Data will be averaged across files within user defined Condition groups. To group files enter a group (Condition) name (for example, (+)Drug) and click "Add Group". At this point a new column heading will appear with the entered title. To add files to the new group, click and drag them to the new group heading. Repeat this till all desired groups and files have been ordered. Click "Submit Form" at the bottom of the page when finished
+                             Data will be averaged across samples within user defined groups. To group samples enter a group (Condition) name (for example, (+)Drug) and click "Add Group". At this point a new column heading will appear with the entered title. To add samples to the new group, click and drag them to the new group heading. Multiple samples can be moved at the same time by first clicking them individually, turning them red, and then dragging them. Repeat this till all desired groups and files have been ordered then click "Submit Form".
                         </p>
                             <div style="font-size: 15px; font-weight: bold; color:black">
                             Condition Name: <input type='text' id='UserInputGroupName' />
@@ -1280,7 +1300,7 @@ THE SOFTWARE.
                                         Compare Metabolites
                                 </h2>
                                 <p class="PopUp_descriptive_paragraph">  
-                                     Click and drag conditions that will be included in the graph from "Condition List" to the "To Graph" list. Order them as you would like them to be displayed.
+                                     Click and drag conditions that will be included in the graph from "Condition List" to the "To Graph" list. Multiple conditions can be moved at the same time by first clicking them individually, turning them red, and then dragging them. Order them as you would like them to be displayed.
                                 </p>
                             </div>
                             <div class="col col-4">
@@ -1486,7 +1506,6 @@ function add_structures(result) {
     
     var FileNames=result.FileNames
     
-    
     var MIDs=result.MIDs
     var All_MIDs=result.All_MIDs
     var Graph_Location=result.Graph_Location 
@@ -1658,9 +1677,11 @@ function define_undefined(){
                      select_iso_MID_location="MID_M"+M_index.toString();
                      select_kin_iso_MID_location="Kin_MID_M"+M_index.toString();
                      select_iso_abundance_location="abundance_M"+M_index.toString();
+                     select_kin_iso_abundance_location="Kin_abundance_M"+M_index.toString();                    
                      Graph_Location[metabolite_name][fragment_name][select_iso_MID_location]={"x":"X","y":"X"}
                      Graph_Location[metabolite_name][fragment_name][select_kin_iso_MID_location]={"x":"X","y":"X"}
                      Graph_Location[metabolite_name][fragment_name][select_iso_abundance_location]={"x":"X","y":"X"}
+                     Graph_Location[metabolite_name][fragment_name][select_kin_iso_abundance_location]={"x":"X","y":"X"}
                 }
             }
         }
@@ -1687,9 +1708,12 @@ function define_undefined(){
                      select_iso_MID_location="MID_M"+M_index.toString();
                      select_kin_iso_MID_location="Kin_MID_M"+M_index.toString();
                      select_iso_abundance_location="abundance_M"+M_index.toString();
+                     select_kin_iso_abundance_location="Kin_abundance_M"+M_index.toString();
                      Graph_Attribute[metabolite_name][fragment_name][select_iso_MID_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" M"+M_index.toString(), "yaxis_label":"% Label"}
                      Graph_Attribute[metabolite_name][fragment_name][select_kin_iso_MID_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":"Kinetic "+fragment_name_cap+" M"+M_index.toString(), "yaxis_label":"% Label"}
                      Graph_Attribute[metabolite_name][fragment_name][select_iso_abundance_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" M"+M_index.toString()+" Abundance", "yaxis_label":"Counts"}
+                     Graph_Attribute[metabolite_name][fragment_name][select_kin_iso_abundance_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":"Kinetic "+fragment_name_cap+" M"+M_index.toString()+" Abundance", "yaxis_label":"Counts"}
+                    
                 }
             }
         }
@@ -1828,33 +1852,6 @@ function define_undefined(){
     
 
 
-    /*
-    function add_sortable_functions(e) {
-        //Adds functionality of including a place_holder which communicates to the user to insert items below the place holder when sortable lists are empty
-
-        $(e.detail.item).css("display", "block") //makes dragged item appear in new list
-        
-        if (e.detail.origin.items.length < 1) { //checks to see if list where item was dragged from has less then 1 entry in it, if so adds item_place_holder list item
-            if ($('#' + e.detail.origin.container.id).children('#item_place_holder').length < 1) { //checks to see if there are any item_place_holders located in the destination list, if not one will be added 
-
-                $('#' + e.detail.origin.container.id).append(
-                    '<li id="item_place_holder" class="p1 mb1 navy item sortable_list_item">Insert Items Below</li>'
-                )
-            }
-        }
-        
-        if (e.detail.destination.items.length > 1) { //checks to see if the destination of the dragged item has more then 1 entry in it, if so any item_place_holders located in the destination list will be removed
-
-            if ($('#' + e.detail.destination.container.id).children('#item_place_holder').length > 0) { //checks to see if there are any item_place_holders located in the destination list, if so they will be removed 
-                //$('#' + e.detail.destination.container.id)[0].removeChild($('#item_place_holder')[0])
-                $('#' + e.detail.destination.container.id).children('#item_place_holder').remove()
-
-            }
-        }
-
-    }*/
-    
-    
     function add_sortableJS_functions(e) {
         //Adds functionality of including a place_holder which communicates to the user to insert items below the place holder when sortable lists are empty
 
@@ -1891,59 +1888,15 @@ function define_undefined(){
         $('.all-file-list').sortable({        
             group: 'file-shared', // set both lists to same group
             ghostClass: "sortable-ghost",
+            multiDrag: true, // Enable the plugin
+            selectedClass: "selected", // Class name for selected item            
+    	    //delay: 5000, // time in milliseconds to define when the sorting should start
+	        //delayOnTouchOnly: true, // only delay if user is using touch        
             animation: 150,
             onSort: function (evt) {
                 add_sortableJS_functions(evt)
             }
         });
-
-      /*  $('.new_list').sortable({
-            group: 'file-shared',
-            ghostClass: "sortable-ghost",            
-            animation: 150,
-            onSort: function (evt) {
-                add_sortableJS_functions(evt)
-            }            
-        });  */      
-        
-  /*      
-        sortable('.all-file-list', { //instructions for list 1
-            forcePlaceholderSize: true,
-            //acceptFrom: false,
-            acceptFrom: '.new_list,.all-file-list',            
-            //acceptFrom: '.all-file-list, #new_list',
-            items: '.item',
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (item, container) {
-                item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                return item
-            }
-        });
-
-        sortable('.new_list', { //instructions for list 1
-            forcePlaceholderSize: true,
-            //acceptFrom: false,
-            acceptFrom: '.all-file-list, .new_list',
-            items: '.item',
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (item, container) {
-                item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                return item
-            }
-        });
-        */
-        //document.getElementById("all-file-list").addEventListener('sortupdate', function(e) {
-        /*document.getElementById("all-file-list").addEventListener('onUpdate', function(e) {
-                add_sortable_functions(e)
-            })*/
-        /*for (m = 0; m < sortable('.sortable').length; m++) { //for loop necessary so that the add_sortable_functions will be added to all ul's
-            
-            //if(sortable('.sortable')[m].id !='all-groups-list' && sortable('.sortable')[m].id !='graph-groups-list' && sortable('.sortable')[m].id !='CG_all-groups-list'&& sortable('.sortable')[m].id !='CG_graph-groups-list'){           
-                sortable('.sortable')[m].addEventListener('sortupdate', function(e) {
-                    add_sortable_functions(e)
-                })
-            //}
-        }*/        
 
         var clickcounts=0
         var list_classes=[];
@@ -1997,8 +1950,15 @@ function define_undefined(){
                                 
             }
             
-            
-            
+            Condition_Times=[]
+	        Group_Names=[]
+            All_Group_Names=[]            
+            Graph_Location=reset_kinetic_graph_locations()
+            graph_edited=false
+            load_TimeGroupDisplay_PopUp()
+            document.getElementById("Kin_MPE_button").style.display = "none";       
+            document.getElementById("Kin_abundance_button").style.display = "none";            
+	        //Graph_Location=[]            
             
             All_ConditionNames=ConditionNames
             Generate_MIDs_Shell()
@@ -2012,9 +1972,35 @@ function define_undefined(){
             //GenerateMID(fileorganizer)
             //sortable('.sortable', 'disable'); //AKSortTest
             div_hide('PopUp_file_display_List')   
-            document.getElementById("sidenav").style.display = "block";   
+            document.getElementById("sidenav").style.display = "block"; 
+            
+
 
         })
+        
+        function reset_kinetic_graph_locations(){
+
+                for(met_name_reset in Graph_Location){
+                    //Graph_Location[met_name_reset]={}    //defines Graph_Location[met_name_reset] as an object
+                    for(frag_name_reset in Graph_Location[met_name_reset]){
+                        Graph_Location[met_name_reset][frag_name_reset].Kin_abundance={"x":'X', "y":'X'}
+                        Graph_Location[met_name_reset][frag_name_reset].Kin_MPE={"x":'X', "y":'X'}
+
+                        for(M_index_reset=0; M_index_reset< Graph_Location[met_name_reset][frag_name_reset].length; M_index_reset++){ //adds MID and abundance locations for individual mass isotopologues to Graph_Locations
+                             select_iso_MID_location="MID_M"+M_index_reset.toString();
+                             select_kin_iso_MID_location="Kin_MID_M"+M_index_reset.toString();
+                             select_iso_abundance_location="abundance_M"+M_index_reset.toString();
+                             select_kin_iso_abundance_location="Kin_abundance_M"+M_index_reset.toString();
+                             Graph_Location[met_name_reset][frag_name_reset][select_iso_MID_location]={"x":"X","y":"X"}
+                             Graph_Location[met_name_reset][frag_name_reset][select_kin_iso_MID_location]={"x":"X","y":"X"}
+                             Graph_Location[met_name_reset][frag_name_reset][select_iso_abundance_location]={"x":"X","y":"X"}
+                             Graph_Location[met_name_reset][frag_name_reset][select_kin_iso_abundance_location]={"x":"X","y":"X"}
+                        }
+                    }
+                }
+            return Graph_Location
+        }
+        
 
         //document.querySelector('.Add_List').addEventListener('click', function () {
         document.getElementById('Add_List').addEventListener('click', function () {
@@ -2052,53 +2038,19 @@ function define_undefined(){
                 }
                 entry.appendChild(removeGroupImg);
             //END Add remove button to group Name
-/*
-            sortable('.sortable');
-            
-            sortable('.all-file-list', { //instructions for list 1, repitition of this list is essential inorder to allow .all-file-list to accept items from #new_list's
-                forcePlaceholderSize: true,
-                //acceptFrom: false,
-                acceptFrom: '.new_list,.all-file-list',            
-                //acceptFrom: '.all-file-list, #new_list',
-                items: '.item',
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (item, container) {
-                    item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                    return item
-                }
-            });*/
-            
-         /*   $('.all-file-list').sortable({        
-                group: 'file-shared', // set both lists to same group
-                ghostClass: "sortable-ghost",
-                animation: 150,
-                onSort: function (evt) {
-                    add_sortableJS_functions(evt)
-                }
-            });*/
 
             $('.new_list').sortable({
                 group: 'file-shared',
-                ghostClass: "sortable-ghost",            
+                ghostClass: "sortable-ghost", 
+                multiDrag: true, // Enable the plugin
+                selectedClass: "selected", // Class name for selected item                  
                 animation: 150,
                 onSort: function (evt) {
                     add_sortableJS_functions(evt)
                 }            
             });          
             //document.getElementById("list_"+ clickcounts.toString()).addEventListener('sortupdate', function(e) {
-           /* document.getElementById("list_"+ clickcounts.toString()).addEventListener('onUpdate', function(e) {
-                        add_sortable_functions(e)
-                    })*/
-            /*
-            for (m = 0; m < sortable('.sortable').length; m++) { //for loop necessary so that the add_sortable_functions will be added to all ul's
-               // if(sortable('.sortable')[m].id !='all-groups-list' && sortable('.sortable')[m].id !='graph-groups-list' && sortable('.sortable')[m].id !='CG_all-groups-list'&& sortable('.sortable')[m].id !='CG_graph-groups-list'){                 
-                    sortable('.sortable')[m].addEventListener('sortupdate', function(e) {
-                        add_sortable_functions(e)
 
-                    })
-            }*/
-            
-            
         })
 
         $('#close_file_organize_display').click( function() {
@@ -2106,108 +2058,7 @@ function define_undefined(){
             div_hide('PopUp_file_display_List')            
         });
     })
-     /*   
-    $(document).ready(function() {  //initilize all sortable lists, required to allow for placeholders to be dislpayed after using FileDisplay
-          sortable('.all-groups-list', { //instructions for the list containing groups that won't be visualized
-              forcePlaceholderSize: true,
-              //acceptFrom: false,
-              acceptFrom: '.all-groups-list,.graph-groups-list', //accepts list items from itself and .graph-groups-list
-              items: '.item',              
-              placeholderClass: 'mb1 bg-navy border border-yellow',
-              itemSerializer: function (item, container) {
-                item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                console.log(item)
-                return item
-              }
-            });
-          sortable('.graph-groups-list', { //instructions for the list containing groups that WILL be visualized
-              forcePlaceholderSize: true,
-              acceptFrom: '.all-groups-list,.graph-groups-list',
-              items: '.item',                            
-              placeholderClass: 'mb1 bg-navy border border-yellow',
-              itemSerializer: function (serializedItem, sortableContainer) {
-                console.log("inside itemserializer")
-                serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-                return serializedItem
-              }
-            });
-          sortable('.all-time-groups-list', { //instructions for the list containing groups that won't be visualized
-              forcePlaceholderSize: true,
-              //acceptFrom: false,
-              acceptFrom: '.all-time-groups-list,.graph-time-groups-list', //accepts list items from itself and .graph-groups-list
-              items: '.item',              
-              placeholderClass: 'mb1 bg-navy border border-yellow',
-              itemSerializer: function (item, container) {
-                item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                console.log(item)
-                return item
-              }
-            });
-          sortable('.graph-time-groups-list', { //instructions for the list containing groups that WILL be visualized
-              forcePlaceholderSize: true,
-              acceptFrom: '.all-time-groups-list,.graph-time-groups-list',
-              items: '.item',                            
-              placeholderClass: 'mb1 bg-navy border border-yellow',
-              itemSerializer: function (serializedItem, sortableContainer) {
-                console.log("inside itemserializer")
-                serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-                return serializedItem
-              }
-            });        
-        
-            sortable('.CG_all-groups-list', { //instructions for the list containing groups that won't be visualized
-                forcePlaceholderSize: true,
-                //acceptFrom: false,
-                acceptFrom: '.CG_all-groups-list,.CG_graph-groups-list', //accepts list items from itself and .CG_graph-groups-list
-                items: '.item',              
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (item, container) {
-                item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                console.log(item)
-                return item
-                }
-            });
-            sortable('.CG_graph-groups-list', { //instructions for the list containing groups that WILL be visualized
-                forcePlaceholderSize: true,
-                acceptFrom: '.CG_all-groups-list,.CG_graph-groups-list',
-                items: '.item',                            
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (serializedItem, sortableContainer) {
-                console.log("inside itemserializer")
-                serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-                return serializedItem
-                }
-            }); 
-        
-            sortable('.all-file-list', { //instructions for list 1
-                forcePlaceholderSize: true,
-                //acceptFrom: false,
-                acceptFrom: '.new_list,.all-file-list',            
-                //acceptFrom: '.all-file-list, #new_list',
-                items: '.item',
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (item, container) {
-                    item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                    return item
-                }
-            });
 
-            sortable('.new_list', { //instructions for list 1
-                forcePlaceholderSize: true,
-                //acceptFrom: false,
-                acceptFrom: '.all-file-list, .new_list',
-                items: '.item',
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (item, container) {
-                    item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                    return item
-                }
-            });
-        
-        
-        
-    })    
-    */
     
     
     function removeGroup(ul_id,list_classes){
@@ -2481,6 +2332,10 @@ function define_undefined(){
                         '<td><input type="text" id="row-'+i+'-exp_condition" name="row-'+i+'-exp_condition" value='+Condition_Times[i].group_name+'></td>'+
                         '<td><input type="text" id="row-'+i+'-timepoint" name="row-'+i+'-timepoint" style="width: 50px;" value='+Condition_Times[i].timepoint+'></td>'+
                         "</tr>" );
+
+                 $("#UserInputTimeUnits").value=UserInputTimeUnits;
+             
+                 
              }else{
                 $( "#TimePoint_Table tbody" ).append( '<tr class="table_element">' +
                         '<td style="font-size: small; font-family: Arial, Helvetica, sans-serif">' + ConditionNames[i] + "</td>" +
@@ -2936,7 +2791,9 @@ function define_undefined(){
         
         $('.CG_all-groups-list').sortable({
                 group: 'CG-group-shared',
-                ghostClass: "sortable-ghost",            
+                ghostClass: "sortable-ghost",
+                multiDrag: true, // Enable the plugin
+                selectedClass: "selected", // Class name for selected item              
                 animation: 150,
                 onSort: function (evt) {
                     add_sortableJS_functions(evt)
@@ -2946,7 +2803,9 @@ function define_undefined(){
         
         $('.CG_graph-groups-list').sortable({
                 group: 'CG-group-shared',
-                ghostClass: "sortable-ghost",            
+                ghostClass: "sortable-ghost", 
+                multiDrag: true, // Enable the plugin
+                selectedClass: "selected", // Class name for selected item             
                 animation: 150,
                 onSort: function (evt) {
                     add_sortableJS_functions(evt)
@@ -2956,69 +2815,6 @@ function define_undefined(){
             });           
         
         
-        /*
-        sortable('.CG_all-groups-list', { //instructions for the list containing groups that won't be visualized
-            forcePlaceholderSize: true,
-            //acceptFrom: false,
-            acceptFrom: '.CG_all-groups-list,.CG_graph-groups-list', //accepts list items from itself and .CG_graph-groups-list
-            items: '.item',              
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (item, container) {
-            item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-            console.log(item)
-            return item
-            }
-        });
-        sortable('.CG_graph-groups-list', { //instructions for the list containing groups that WILL be visualized
-            forcePlaceholderSize: true,
-            acceptFrom: '.CG_all-groups-list,.CG_graph-groups-list',
-            items: '.item',                            
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (serializedItem, sortableContainer) {
-            console.log("inside itemserializer")
-            serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-            return serializedItem
-            }
-        });
-
-
-        document.getElementById("CG_all-groups-list").addEventListener('sortupdate', function(e) {
-              //sortable('.sortable');                  
-            add_sortable_functions(e)
-            sortable('.CG_all-groups-list', { //instructions for the list containing groups that won't be visualized
-                forcePlaceholderSize: true,
-                //acceptFrom: false,
-                acceptFrom: '.CG_all-groups-list,.CG_graph-groups-list', //accepts list items from itself and .CG_graph-groups-list
-                items: '.item',              
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (item, container) {
-                item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                console.log(item)
-                return item
-                }
-            });
-            update_norm_condition()                           
-            
-        })
-
-        document.getElementById("CG_graph-groups-list").addEventListener('sortupdate', function(e) {
-            add_sortable_functions(e)
-             //sortable('.sortable');
-            sortable('.CG_graph-groups-list', { //instructions for the list containing groups that WILL be visualized
-                forcePlaceholderSize: true,
-                acceptFrom: '.CG_all-groups-list,.CG_graph-groups-list',
-                items: '.item',                            
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (serializedItem, sortableContainer) {
-                console.log("inside itemserializer")
-                serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-                return serializedItem
-                }
-            });
-            
-            update_norm_condition()               
-        })
-        */
         function update_norm_condition(){
              Number_groupstograph=0
 
@@ -3033,13 +2829,7 @@ function define_undefined(){
                 $("#choose-norm-metab").append('<option value=NA>N/A</option>');                     
                 
             }else{
-                /*
-                let serialized = sortable('.CG_graph-groups-list', 'serialize')
-                new_group_order=[] //will contain the user specified groups to visualize in order                    
-                for (i=0; i<serialized[0].items.length;i++){
-                    var srctext = serialized[0].items[i].name;
-                    new_group_order[i]=srctext
-                    }*/
+              
                 serialized = $('.CG_graph-groups-list')[0].children
                 new_group_order=[] //will contain the user specified groups to visualize in order                    
                 for (i=0; i<serialized.length;i++){
@@ -3182,7 +2972,9 @@ function define_undefined(){
             
             $('.CG_select-data-type-list').sortable({
                     group: 'CG-data-group-shared',
-                    ghostClass: "sortable-ghost",            
+                    ghostClass: "sortable-ghost",   
+                    multiDrag: true, // Enable the plugin
+                    selectedClass: "selected", // Class name for selected item                 
                     animation: 150,
                     onSort: function (evt) {
                         add_sortableJS_functions(evt)
@@ -3190,38 +2982,6 @@ function define_undefined(){
 
                     }            
                 });            
-            
-            /*
-            sortable('.CG_select-data-type-list', { //instructions for list 1
-                forcePlaceholderSize: true,
-                //acceptFrom: false,
-                acceptFrom: '.CG_select-data-type-list',            
-                //acceptFrom: '.CG_select-data-type-list, #new_list',
-                items: '.item',
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (item, container) {
-                    item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                    return item
-                }
-            });
-            
-            
-        document.getElementById("CG_select-data-type-list").addEventListener('sortupdate', function(e) {
-            add_sortable_functions(e)
-             //sortable('.sortable');
-            sortable('.CG_select-data-type-list', { //instructions for list 1
-                forcePlaceholderSize: true,
-                //acceptFrom: false,
-                acceptFrom: '.CG_select-data-type-list',            
-                //acceptFrom: '.CG_select-data-type-list, #new_list',
-                items: '.item',
-                placeholderClass: 'mb1 bg-navy border border-yellow',
-                itemSerializer: function (item, container) {
-                    item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                    return item
-                }
-            });
-        })*/             
             
 
         })
@@ -3247,14 +3007,6 @@ function define_undefined(){
             if(Number_groupstograph < 1 || Number_datalist < 1){ //if there are not items in #CG_graph-groups-list or .CG_select-data-type-list then the user is instructed to check their lists
                 alert("Make sure you have selected conditions and metabolite's to graph")
             }else{
-
-               /* let serialized = sortable('.CG_graph-groups-list', 'serialize')
-                var new_group_order=[] //will contain the user specified groups to visualize in order                    
-                for (i=0; i<serialized[0].items.length;i++){
-                    var srctext = serialized[0].items[i].name;
-                    new_group_order[i]=srctext
-                    
-                    }*/
                 
                 serialized = $('.CG_graph-groups-list')[0].children
                 new_group_order=[] //will contain the user specified groups to visualize in order                    
@@ -3275,26 +3027,9 @@ function define_undefined(){
                     new_group_order.splice(i, 1);
                 }          
 
-                  /*var custom_data_order=[] //will contain the user specified groups to visualize in order                            
-                  let serialized_data = sortable('.CG_select-data-type-list', 'serialize')
-                  for (i=0; i<serialized_data[0].items.length;i++){
-                    var srctext = serialized_data[0].items[i].html;
-                    re1=srctext.split('id="/+/') //splits the html text of the specified item
-                    re2=re1[1].split(" /+end+/")
-                    custom_data_order[i]=re2[0]  //captures the text of the list item (ie the group name)
-                  }*/
             //item_custom_id='/+start+/'+ metabolite + ' /+/ ' + frag +' /+/ '+ iso +' /+end+/'  
                   var custom_data_order=[] //will contain the user specified groups to visualize in order                                            
                   
-               /*     serialized = $('.CG_select-data-type-list')[0].children
-                    srctext_array=[]
-                  for (i=0; i<serialized.length;i++){
-                    srctext_array[i]=serialized[i].innerText  
-                    re1=srctext_array[i].split('/+start+/') //splits the html text of the specified item
-                    re2=re1[1].split(" /+end+/")
-                    custom_data_order[i]=re2[0]  //captures the text of the list item (ie the group name)                      
-                  } */               
-                
                   var srctext_array=$('.CG_select-data-type-list').sortable('toArray')
                   for (i=0; i<srctext_array.length;i++){
                     re1=srctext_array[i].split('/+start+/') //splits the html text of the specified item
@@ -3421,10 +3156,7 @@ function define_undefined(){
 
     function load_GroupDisplay_PopUp(){
 
-        /*if(typeof submit_graph_groups_button_click != "undefined"){
-            document.querySelector('#submit_graph_groups_button').removeEventListener('click', submit_graph_groups_button_click) //ineffective  
-        }*/
-
+       
         $("#all-groups-list").empty() //remove any previously entered elements of the table
         $("#graph-groups-list").empty() //remove any previously entered elements of the table
 
@@ -3443,7 +3175,9 @@ function define_undefined(){
 
         $('.all-groups-list').sortable({
                 group: 'group-shared',
-                ghostClass: "sortable-ghost",            
+                ghostClass: "sortable-ghost", 
+                multiDrag: true, // Enable the plugin
+                selectedClass: "selected", // Class name for selected item             
                 animation: 150,
                 onSort: function (evt) {
                     add_sortableJS_functions(evt)
@@ -3452,86 +3186,21 @@ function define_undefined(){
         
         $('.graph-groups-list').sortable({
                 group: 'group-shared',
-                ghostClass: "sortable-ghost",            
+                ghostClass: "sortable-ghost",
+                multiDrag: true, // Enable the plugin
+                selectedClass: "selected", // Class name for selected item             
                 animation: 150,
                 onSort: function (evt) {
                     add_sortableJS_functions(evt)
                 }            
             });           
         
-/*
-        sortable('.all-groups-list', { //instructions for the list containing groups that won't be visualized
-            forcePlaceholderSize: true,
-            //acceptFrom: false,
-            acceptFrom: '.all-groups-list,.graph-groups-list', //accepts list items from itself and .graph-groups-list
-            items: '.item',              
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (item, container) {
-            item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-            return item
-            }
-        });
-        sortable('.graph-groups-list', { //instructions for the list containing groups that WILL be visualized
-            forcePlaceholderSize: true,
-            acceptFrom: '.all-groups-list,.graph-groups-list',
-            items: '.item',                            
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (serializedItem, sortableContainer) {
-            console.log("inside itemserializer")
-            serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-            return serializedItem
-            }
-        });
 
-        //sortable('.sortable')
-        document.getElementById("all-groups-list").addEventListener('sortupdate', function(e) {
-              //sortable('.sortable');                  
-              add_sortable_functions(e)
-              sortable('.all-groups-list', { //instructions for the list containing groups that won't be visualized
-                  forcePlaceholderSize: true,
-                  //acceptFrom: false,
-                  acceptFrom: '.all-groups-list,.graph-groups-list', //accepts list items from itself and .graph-groups-list
-                  items: '.item',              
-                  placeholderClass: 'mb1 bg-navy border border-yellow',
-                  itemSerializer: function (item, container) {
-                    item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                    console.log(item)
-                    return item
-                  }
-                });
-        })
-
-        document.getElementById("graph-groups-list").addEventListener('sortupdate', function(e) {
-             add_sortable_functions(e)
-             //sortable('.sortable');
-             sortable('.graph-groups-list', { //instructions for the list containing groups that WILL be visualized
-                  forcePlaceholderSize: true,
-                  acceptFrom: '.all-groups-list,.graph-groups-list',
-                  items: '.item',                            
-                  placeholderClass: 'mb1 bg-navy border border-yellow',
-                  itemSerializer: function (serializedItem, sortableContainer) {
-                    console.log("inside itemserializer")
-                    serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-                    return serializedItem
-                  }
-                });
-        })       
-*/
-        //upon submission of popup the following is executed
-        //document.querySelector('#submit_graph_groups_button').addEventListener('click', function () {
-        //document.querySelector('#submit_graph_groups_button').addEventListener('click', submit_graph_groups_button_click, {once: true})
     }
         $('#submit_graph_groups_button').click(submit_graph_groups_button_click)
         
         function submit_graph_groups_button_click() {
-            /*let serialized_all = sortable('.all-groups-list', 'serialize')
-            let serialized = sortable('.graph-groups-list', 'serialize')
-            var new_group_order=[] //will contain the user specified groups to visualize in order                    
-            for (i=0; i<serialized[0].items.length;i++){
-                var srctext = serialized[0].items[i].name;
-                new_group_order[i]=srctext                
-            }   
-            */
+    
             serialized = $('.graph-groups-list')[0].children
             new_group_order=[] //will contain the user specified groups to visualize in order                    
             for (i=0; i<serialized.length;i++){
@@ -3589,10 +3258,7 @@ function define_undefined(){
 
     function load_TimeGroupDisplay_PopUp(){
 
-        /*if(typeof submit_graph_groups_button_click != "undefined"){
-            document.querySelector('#submit_graph_groups_button').removeEventListener('click', submit_graph_groups_button_click) //ineffective  
-        }*/
-
+    
         $("#all-time-groups-list").empty() //remove any previously entered elements of the table
         $("#graph-time-groups-list").empty() //remove any previously entered elements of the table
 
@@ -3609,7 +3275,9 @@ function define_undefined(){
 
         $('.all-time-groups-list').sortable({
                 group: 'group-time-shared',
-                ghostClass: "sortable-ghost",            
+                ghostClass: "sortable-ghost", 
+                multiDrag: true, // Enable the plugin
+                selectedClass: "selected", // Class name for selected item             
                 animation: 150,
                 onSort: function (evt) {
                     add_sortableJS_functions(evt)
@@ -3618,86 +3286,21 @@ function define_undefined(){
         
         $('.graph-time-groups-list').sortable({
                 group: 'group-time-shared',
-                ghostClass: "sortable-ghost",            
+                ghostClass: "sortable-ghost",  
+                multiDrag: true, // Enable the plugin
+                selectedClass: "selected", // Class name for selected item             
                 animation: 150,
                 onSort: function (evt) {
                     add_sortableJS_functions(evt)
                 }            
             }); 
         
-/*
-        sortable('.all-time-groups-list', { //instructions for the list containing groups that won't be visualized
-            forcePlaceholderSize: true,
-            //acceptFrom: false,
-            acceptFrom: '.all-time-groups-list,.graph-time-groups-list', //accepts list items from itself and .graph-time-groups-list
-            items: '.item',              
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (item, container) {
-            item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-            return item
-            }
-        });
-        sortable('.graph-time-groups-list', { //instructions for the list containing groups that WILL be visualized
-            forcePlaceholderSize: true,
-            acceptFrom: '.all-time-groups-list,.graph-time-groups-list',
-            items: '.item',                            
-            placeholderClass: 'mb1 bg-navy border border-yellow',
-            itemSerializer: function (serializedItem, sortableContainer) {
-            console.log("inside itemserializer")
-            serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-            return serializedItem
-            }
-        });
 
-        //sortable('.sortable')
-        document.getElementById("all-time-groups-list").addEventListener('sortupdate', function(e) {
-              //sortable('.sortable');                  
-              add_sortable_functions(e)
-              sortable('.all-time-groups-list', { //instructions for the list containing groups that won't be visualized
-                  forcePlaceholderSize: true,
-                  //acceptFrom: false,
-                  acceptFrom: '.all-time-groups-list,.graph-time-groups-list', //accepts list items from itself and .graph-time-groups-list
-                  items: '.item',              
-                  placeholderClass: 'mb1 bg-navy border border-yellow',
-                  itemSerializer: function (item, container) {
-                    item.name = item.node.innerText //stores the names of the lsit items in order in "item"
-                    console.log(item)
-                    return item
-                  }
-                });
-        })
-
-        document.getElementById("graph-time-groups-list").addEventListener('sortupdate', function(e) {
-             add_sortable_functions(e)
-             //sortable('.sortable');
-             sortable('.graph-time-groups-list', { //instructions for the list containing groups that WILL be visualized
-                  forcePlaceholderSize: true,
-                  acceptFrom: '.all-time-groups-list,.graph-time-groups-list',
-                  items: '.item',                            
-                  placeholderClass: 'mb1 bg-navy border border-yellow',
-                  itemSerializer: function (serializedItem, sortableContainer) {
-                    console.log("inside itemserializer")
-                    serializedItem.name = serializedItem.node.innerText //stores the names of the lsit items in order in "item"
-                    return serializedItem
-                  }
-                });
-        })       
-*/
-        //upon submission of popup the following is executed
-        //document.querySelector('#submit_graph_groups_button').addEventListener('click', function () {
-        //document.querySelector('#submit_graph_groups_button').addEventListener('click', submit_graph_groups_button_click, {once: true})
     }
         $('#submit_graph_time_groups_button').click(submit_graph_time_groups_button_click)
         
         function submit_graph_time_groups_button_click() {
-          /*  let serialized_all = sortable('.all-time-groups-list', 'serialize')
-            let serialized = sortable('.graph-time-groups-list', 'serialize')
-            var new_group_order=[] //will contain the user specified groups to visualize in order                    
-            for (i=0; i<serialized[0].items.length;i++){
-                var srctext = serialized[0].items[i].name;
-                new_group_order[i]=srctext                
-            }
-            */
+
             serialized = $('.graph-time-groups-list')[0].children
             new_group_order=[] //will contain the user specified groups to visualize in order                    
             for (i=0; i<serialized.length;i++){
@@ -3719,36 +3322,23 @@ function define_undefined(){
             for(i=0; i<new_group_order.length;i++){
                 order[i]=All_Group_Names.indexOf(new_group_order[i]) //stores the indices of the visualized groups (in order) from All_ConditionNames
             }
-             //MIDs={} //reset MIDs
-             //ConditionNames=[] //reset ConditionNames
-             //Cell_Numbers=[] //reset Cell_Numbers
-            //determine order from new_group_order and All_ConditionNames
+            
             Group_Names=[]//reset Group_Names
             for (i=0; i<order.length; i++){ //resets MIDs and ConditionNames to only have the selected groups in the specified order
-                //MIDs[Object.keys(All_MIDs)[order[i]]]=All_MIDs[Object.keys(All_MIDs)[order[i]]]
-                //MID_i=i+1
-                //MIDs["MID"+MID_i.toString()]=All_MIDs[Object.keys(All_MIDs)[order[i]]] //may want to make this a stringify/parse statement rather then purely and equivalence
-                //Cell_Numbers[i]=All_Cell_Numbers[order[i]]
+
                 Group_Names[i]=All_Group_Names[[order[i]]]
             }
             //ConditionAmount=Object.keys(MIDs).length; //stores the new total number of conditions to visualize
 
-            /*
-            load_TimeCourse_PopUp()
-            load_ConditionName_PopUp()
-            load_CellNumber_PopUp()
-            load_custom_graphs_PopUp()
-           // document.querySelector('#submit_graph_groups_button').removeEventListener('click', submit_graph_groups_button_click)  
-            load_GroupDisplay_PopUp() */             
-
+      
             document.getElementById("Kin_MPE_button").style.display = "block";       
             document.getElementById("Kin_abundance_button").style.display = "block";       
             reprint_graphs() //reprint graphs with updated menu including kinetic options        
         }                
 
-        $('#close_popup_group_display').click( function() {
+        $('#close_popup_time_group_display').click( function() {
             //sortable('.sortable', 'disable'); //AKSortTest                      
-            div_hide('PopUp_group_display_List')
+            div_hide('PopUp_time_group_display_List')
         } );      
 
 /////////////END Group Display functions
@@ -3861,10 +3451,6 @@ function define_undefined(){
                 .enter()
                 .append("circle")
                 .on("click",function(d){console.log(this)})
-               /* .on("click",function(d){
-                d3.select(this).attr("fill", "dodgerblue")})
-                .on("dblclick",function(d){
-                d3.select(this).attr("fill", "white")})*/
                 .attr("class", "popup_carbon_node")
                 .attr("cx", function(d) {
                     return d.x
@@ -4095,13 +3681,7 @@ function define_undefined(){
 
     //function print_carbon_circles(carbon_circle_location){//prints carbon circles on Escher Map
     function print_carbon_circles(){//prints carbon circles on Escher Map
-        //d3.select('.canvas-group')
-        //var dia_popup=20    //circle diameter in popup
-        //var dia_map=40 //circle diameter in the map 
-         
-        //i_count=0; // counter which allows for the number of context menu options to equal the number of integrated peaks
-            //counter_rand=0; //counter which allows for all condition data to be ploted via the data().enter() structure
-          
+
                     
         for(circle_metabolite in carbon_circle_location){
             var dia_map=carbon_circle_location[circle_metabolite].properties.diameter
@@ -4283,10 +3863,6 @@ function define_undefined(){
                 carbon_circle_location[circle_metabolite].circles[j].y=(carbon_circle_location[circle_metabolite].circles[j].y-last_data_index.y)*new_dia/old_dia+last_data_index.y
             }
 
-            //carbon_circle_location[circle_metabolite].textlabel[0]={x:0,y:0,text:""}
-   /*         carbon_circle_location[circle_metabolite].textlabel[0].x=(label_data_in.x-last_data_index.x)*dia_map/dia_popup
-            carbon_circle_location[circle_metabolite].textlabel[0].y=(label_data_in.y+20-last_data_index.y)*dia_map/dia_popup //10 added to account for the initial position being x:0, y:20
-        */
             carbon_circle_location[circle_metabolite].textlabel[0].x=(carbon_circle_location[circle_metabolite].textlabel[0].x-last_data_index.x)*new_dia/old_dia+last_data_index.x     
         
             carbon_circle_location[circle_metabolite].textlabel[0].y=(carbon_circle_location[circle_metabolite].textlabel[0].y-last_data_index.y)*new_dia/old_dia+last_data_index.y        
@@ -4750,54 +4326,6 @@ function begin_graph_display(){
          
     document.getElementById("exportJSON").style.display = "block";   
 
-   /* document.getElementById('exportJSON').onclick = function() {           
-    //exportJSON exports all of the MIDs/Graph_Location/ConditionNames into a json allowing the user to safe the exact look of their smart data sheet.    
-        el=this;
-        date_today = new Date();
-
-        full_date=String(date_today.getFullYear())+'-'+String(date_today.getMonth()+1)+'-'+String(date_today.getDate())+' '+String(date_today.getHours())+':'+String(date_today.getMinutes()+1); //generates the date and time which will be included in the file name
-        //var graph_edited=true
-        var new_file_name = prompt("Please enter the File name:", "");
-            if(new_file_name.length==0){ //if no file name is entered, generate a default file name
-                new_file_name="CarbonBIGG("+full_date+")"
-            }
-                
-        
-        graph_edited=true
-
-        
-        var writedata = "text/json;charset=utf-8," + encodeURIComponent(
-            '{"MIDs":'+JSON.stringify(MIDs)+
-            ',  "FileMIDs":'+JSON.stringify(FileMIDs)+
-            ',  "FileNames":'+JSON.stringify(FileNames)+
-            ',  "Graph_Location":'+JSON.stringify(Graph_Location)+
-            ',  "Graph_Attribute":'+JSON.stringify(Graph_Attribute)+
-            ',  "ConditionNames":'+JSON.stringify(ConditionNames)+
-            ',  "Condition_Times":'+JSON.stringify(Condition_Times)+
-            ',  "Isotopologue_Limit":'+JSON.stringify(Isotopologue_Limit)+
-            ',  "Std_Concentration":'+JSON.stringify(Std_Concentration)+
-            ',  "color_scheme_obj":'+JSON.stringify(color_scheme_obj)+
-            ',  "Cell_Numbers":'+JSON.stringify(Cell_Numbers)+
-            ',  "All_Cell_Numbers":'+JSON.stringify(All_Cell_Numbers)+
-            ',  "graph_scale_set":'+JSON.stringify(graph_scale_set)+
-            ',  "All_MIDs":'+JSON.stringify(All_MIDs)+
-            ',  "All_ConditionNames":'+JSON.stringify(All_ConditionNames)+
-            ',  "norm_metab":'+JSON.stringify(norm_metab)+
-            ',  "norm_frag":'+JSON.stringify(norm_frag)+
-            ',  "norm_cond":'+JSON.stringify(norm_cond)+
-            ',  "carbon_circle_location":'+JSON.stringify(carbon_circle_location)+
-            ',  "fileorganizer":'+JSON.stringify(fileorganizer)+            
-            ',  "display_legend_metrics":'+JSON.stringify(display_legend_metrics)+
-            ',  "display_bar_label":'+JSON.stringify(display_bar_label)+
-            ',  "graph_edited":'+JSON.stringify(graph_edited)+
-            ',  "CG_container":'+JSON.stringify(CG_container)+
-            '}'); //got rid of clickcount
-
-        el.setAttribute("href", "data:"+writedata);
-        //el.setAttribute("download", "CarbonBIGG("+full_date+").json");
-        el.setAttribute("download", new_file_name+".json");
-    }*/
-
     document.getElementById('exportJSON').onclick = function() {           
     //exportJSON exports all of the MIDs/Graph_Location/ConditionNames into a json allowing the user to safe the exact look of their smart data sheet.    
         el=this;
@@ -4889,11 +4417,27 @@ function begin_graph_display(){
         div_show('PopUp_quant_standard_display_Table')
         $($.fn.dataTable.tables(true)).DataTable().columns.adjust();  //corrects for DataTables 'scroller' glitch     
         
-    });      
-    d3.select("#group_order_button").on("click", function() {
+    });   
+    
+  /*  d3.select("#group_order_button").on("click", function() {
         //sortable('.sortable', 'enable'); //AKSortTest      
         div_show('PopUp_group_display_List')
-    }); 
+    }); */
+    
+    d3.select("#group_order_button").on("click", function(){group_order_button_function(Condition_Times)});     
+    
+    function group_order_button_function(Condition_Times){
+        console.log(Condition_Times)
+        
+        if(Condition_Times == ""){
+            div_show('PopUp_group_display_List')
+        }else{
+            load_TimeGroupDisplay_PopUp()            
+            div_show('PopUp_time_group_display_List')
+        }
+        
+    }
+    
     d3.select("#file_order_button").on("click", function() {
         //remove_graphs("remove_graphs_only")
         //sortable('.sortable', 'enable'); //AKSortTest        
@@ -5417,6 +4961,20 @@ function print_graphs(data,met_MIDs,svg_car){
 
                 makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,data.bigg_id,selected_Iso_MID,ConditionNames,svg_car,"MID_select_iso")
             }
+            if(CheckGraph['abundance_M'+M_index.toString()].x != "X"){ //if there is location data for the single isotopologue then it will be printed below
+                    loc_var={"x_loc":Graph_Location[data.bigg_id][metab_frag_name]['abundance_M'+M_index.toString()].x,
+                            "y_loc":Graph_Location[data.bigg_id][metab_frag_name]['abundance_M'+M_index.toString()].y}
+                    selected_Iso_abundance=obtain_isotopologue_data(data.bigg_id,metab_frag_name,M_index) //obtain the isotopologue specific data via obtain_isotopologue_data.
+
+                makegraph_abundance(metab_frag_name,loc_var,ConditionAmount,data.bigg_id,selected_Iso_abundance,ConditionNames,svg_car,"select_iso")
+            }
+            if(CheckGraph['Kin_abundance_M'+M_index.toString()].x != "X"){ //if there is location data for the single isotopologue then it will be printed below
+                    loc_var={"x_loc":Graph_Location[data.bigg_id][metab_frag_name]['Kin_abundance_M'+M_index.toString()].x,
+                            "y_loc":Graph_Location[data.bigg_id][metab_frag_name]['Kin_abundance_M'+M_index.toString()].y}
+                    selected_Iso_abundance=obtain_isotopologue_data(data.bigg_id,metab_frag_name,M_index) //obtain the isotopologue specific data via obtain_isotopologue_data.
+
+                makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,data.bigg_id,selected_Iso_abundance,ConditionNames,svg_car,"abundance_select_iso")
+            }            
         }
     }
 
@@ -5461,8 +5019,9 @@ function reprint_graphs(){ //removes previously displayed graphs, replaces them 
                         if(graph_type=="Kin_abundance"){
                             d3.select('#'+mass_fragment+'_'+graph_type).remove() //removes previous Kin_abundance                
                             
-                            selected_Iso_MID=obtain_isotopologue_data(metabolite_fragment,mass_fragment,0)//obtain the isotopologue specific data via obtain_isotopologue_data of M0 as M0 contains total_abundance and total_abundance_error
-                            makegraph_timecourse(mass_fragment,loc_var,ConditionAmount,metabolite_fragment,selected_Iso_MID,ConditionNames,svg_car,"total_abundance")
+                            //selected_Iso_MID=obtain_isotopologue_data(metabolite_fragment,mass_fragment,0)//obtain the isotopologue specific data via obtain_isotopologue_data of M0 as M0 contains total_abundance and total_abundance_error
+                            //makegraph_timecourse(mass_fragment,loc_var,ConditionAmount,metabolite_fragment,selected_Iso_MID,ConditionNames,svg_car,"total_abundance")
+                            makegraph_timecourse(mass_fragment,loc_var,ConditionAmount,metabolite_fragment,MIDs,ConditionNames,svg_car,"total_abundance")
                        }
                         if(graph_type=="Kin_MPE"){
                             d3.select('#'+mass_fragment+'_'+graph_type).remove() //removes previous Kin_MPE                
@@ -5519,7 +5078,43 @@ function reprint_graphs(){ //removes previously displayed graphs, replaces them 
                     }
                     catch (e){
                         console.log(mass_fragment)
-                    } 
+                    }
+                    try{ //allows for an exit incase invalid mass_fragment (any id starting without a letter)
+                        if(d3.select('#'+mass_fragment+'_abundance_M'+M_index.toString())._groups[0][0]!=null){
+
+                            svg_car=d3.select('.canvas-group');                   
+
+                            d3.select('#'+mass_fragment+'_abundance_M'+M_index.toString()).remove() //removes previous all MIDs
+
+                            loc_var={"x_loc":Graph_Location[metabolite_fragment][mass_fragment]['abundance_M'+M_index.toString()].x,
+                                    "y_loc":Graph_Location[metabolite_fragment][mass_fragment]['abundance_M'+M_index.toString()].y}
+
+                            selected_Iso_abundance=obtain_isotopologue_data(metabolite_fragment,mass_fragment,M_index)
+                            makegraph_abundance(mass_fragment,loc_var,ConditionAmount,metabolite_fragment,selected_Iso_abundance,ConditionNames,svg_car,"select_iso")  //reprints new MIDs
+                        }
+                    }
+                    catch (e){
+                        console.log(mass_fragment)
+                    }
+                    //reprinting of select Kinetic isotopologue MID graphs
+                    try{ //allows for an exit incase invalid mass_fragment (any id starting without a letter)
+                        if(d3.select('#'+mass_fragment+'_Kin_abundance_M'+M_index.toString())._groups[0][0]!=null){
+
+                            svg_car=d3.select('.canvas-group');                          
+
+                            d3.select('#'+mass_fragment+'_Kin_abundance_M'+M_index.toString()).remove() //removes previous all Kinetic MIDs
+
+                            loc_var={"x_loc":Graph_Location[metabolite_fragment][mass_fragment]['Kin_abundance_M'+M_index.toString()].x,
+                                    "y_loc":Graph_Location[metabolite_fragment][mass_fragment]['Kin_abundance_M'+M_index.toString()].y}
+
+                            selected_Iso_abundance=obtain_isotopologue_data(metabolite_fragment,mass_fragment,M_index)
+                            makegraph_timecourse(mass_fragment,loc_var,ConditionAmount,metabolite_fragment,selected_Iso_abundance,ConditionNames,svg_car,"abundance_select_iso")  //reprints new MIDs
+                        }
+                    }
+                    catch (e){
+                        console.log(mass_fragment)
+                    }                    
+                    
                }
             }
         }
@@ -5901,12 +5496,12 @@ g.append("rect")//creates box with condition color
     .attr("id", "click_box")
     .attr("class", "click_box")
     .on('contextmenu', d3.contextMenu(menu))
-    .on('touchstart', d3.contextMenu(menu))
+    /*.on('touchstart', d3.contextMenu(menu))
     .on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })     
+                    }) */    
     .attr("height",bargraph_height+25*graph_scale)
     .attr("width",bargraph_width+60*graph_scale)    
     .attr("x", -60*graph_scale)
@@ -5918,7 +5513,18 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
     
-    
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-60*graph_height_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu));      
 
 g.append("text")
    .on('contextmenu', d3.contextMenu(menu))
@@ -6356,12 +5962,12 @@ g.append("rect")//creates box with condition color
     //.on('click',context_menu_click(this))
     .on('contextmenu', d3.contextMenu(menu))
     //.on('touchstart', context_menu_touch(this))
-    .on('touchstart', d3.contextMenu(menu))
+    /*.on('touchstart', d3.contextMenu(menu))
     .on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })    
+                    })    */
     /*.on('touchstart',function(d){
         console.log(this)
         if (d3.event.defaultPrevented){
@@ -6380,11 +5986,11 @@ g.append("rect")//creates box with condition color
                       // Clear timeout
                       return false;
                     })   */   
-    .on("touchmove", function(d){
+    /*.on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })    
+                    })  */  
     /*.on("touchend", function(d){
                      clearTimeout(pressTimer);
                       // Clear timeout
@@ -6401,38 +6007,20 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options");
     
-//d3.select(metab_frag_name+'_MID').on('touchstart', context_menu_touch(this))  
-    function context_menu_test(){
-        return d3.contextMenu(menu)
-    }
-   function context_menu_click(){
-      /*  if (d3.event.defaultPrevented){
-            alert('no contextmenu')
-            return;} // dragged
-            //alert(' contextmenu next') */    
-       d3.event.preventDefault()
-       return d3.contextMenu(menu)
-   }
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-60*graph_height_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu));
     
-    function context_menu_touch(){
-      /*  if (d3.event.defaultPrevented){
-            alert('no contextmenu')
-            return;} // dragged
-            //alert(' contextmenu next')*/
     
-                        //pressTimer = setTimeout(function() {
-     
-        d3.event.preventDefault()
-        
-             return d3.contextMenu(menu)
-        }
-    
-  //$('click_box').on('taphold',d3.contextMenu(menu))  
-   /* 
-    $('click_box').addEventListener('long-press', function(e) {
-        console.log(e)
-        d3.contextMenu(menu)})*/
-
 
 g.append("text")
    .on('contextmenu', d3.contextMenu(menu))
@@ -6474,14 +6062,21 @@ g.append("g")
   .attr("font-size",String(13*graph_scale*graph_avg_scale)+"px");
         
     
-if (mode!="select_iso"){  
+if (mode!="select_iso"){ 
+    
   g.selectAll('.tick') //makes axis ticks clickable and identifiable
       .style("cursor", "pointer")        
       .on('mouseover', function(d){
-                d3.select(this).attr("font-size",String(13*graph_scale*graph_avg_scale)*3+"px") //increases size of tick text upon mouseover to make it easier for the user to select the isotopologue MID
+                 el_mo =  d3.select(this)._groups[0][0].getElementsByTagName('text')[0]
+                 style_mo = window.getComputedStyle(el_mo, null).getPropertyValue('font-size');
+                 fontSize = parseFloat(style_mo);     
+                 d3.select(this).attr("font-size",String(fontSize*3)+"px") //increases size of tick text upon mouseover to make it easier for the user to select the isotopologue MID
                     })
       .on('mouseout', function(d){
-                d3.select(this).attr("font-size",String(13*graph_scale*graph_avg_scale)+"px") //returns the size of tick text upon mouse over
+                 el_mo =  d3.select(this)._groups[0][0].getElementsByTagName('text')[0]
+                 style_mo = window.getComputedStyle(el_mo, null).getPropertyValue('font-size');
+                 fontSize = parseFloat(style_mo);        
+                 d3.select(this).attr("font-size",String(fontSize/3)+"px") //returns the size of tick text upon mouse over
                     })
       .on('click', function(d) {// console.log(MIDs[prop][metab_name][metab_frag_name]),
                               iso_index=Number(d.replace("M","")) //index of the selected isotopologue
@@ -6879,22 +6474,51 @@ g.append("rect")//creates box with condition color
     .attr("id", "click_box")
     .attr("class", "click_box")
     .on('contextmenu', d3.contextMenu(menu))
-    .on('touchstart', d3.contextMenu(menu))
+   /* .on('touchstart', d3.contextMenu(menu))
     .on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })     
+                    })     */
+    .attr("height",function(d){
+            return this.parentElement.getBBox().height+40*graph_scale
+        })
+    .attr("width",function(d){
+            return this.parentElement.getBBox().width+40*graph_scale*graph_avg_scale
+        })
+    .attr("x",function(d){
+            return this.parentElement.getBBox().x-40*graph_scale*graph_avg_scale
+        })     
+    .attr("y",function(d){
+            return this.parentElement.getBBox().y-40*graph_scale
+        })      
+   /* .attr("width",width)    
+    .attr("x", -40*graph_scale*graph_avg_scale)    
+    .attr("y", -50*graph_height_scale)*//*    
     .attr("height",bargraph_height+25*graph_scale)
     .attr("width",width)    
     .attr("x", 0)    
-    .attr("y", -25*graph_scale)
+    .attr("y", -25*graph_scale)*/
     .style("opacity", 0)    
     .attr("fill", "white")        
     //.attr("fill", "transparent")
     .style("cursor", "move")
     .append("svg:title")
-        .text("Right Click to Access Additional Options");    
+        .text("Right Click to Access Additional Options"); 
+    
+    
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-50*graph_scale*graph_avg_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu))
 
 g.append("text")  //adds y axis label
   .attr("class", "y_axis_label")
@@ -7202,23 +6826,49 @@ g.append("rect")//creates box with condition color
     .attr("id", "click_box")
     .attr("class", "click_box")
     .on('contextmenu', d3.contextMenu(menu))
-    .on('touchstart', d3.contextMenu(menu))
+   /* .on('touchstart', d3.contextMenu(menu))
     .on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })     
-    .attr("height",bargraph_height)
+                    })*/
+    .attr("height",function(d){
+            return this.parentElement.getBBox().height+40*graph_scale
+        })
+    .attr("width",function(d){
+            return this.parentElement.getBBox().width+40*graph_scale*graph_avg_scale
+        })
+    .attr("x",function(d){
+            return this.parentElement.getBBox().x-40*graph_scale*graph_avg_scale
+        })     
+    .attr("y",function(d){
+            return this.parentElement.getBBox().y-40*graph_scale
+        })    
+    /*.attr("height",bargraph_height)
     .attr("width",bargraph_width)    
     .attr("x", 0)
-    .attr("y", -25)
+    .attr("y", -25)*/
     .style("opacity", 0)    
     .attr("fill", "white")        
     //.attr("fill", "transparent")
     .style("cursor", "move")
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
-
+    
+    
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-50*graph_scale*graph_avg_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu));
+    
 g.append("text")  //adds y axis label
   .attr("class", "y_axis_label")
   .attr("id", metab_name+"stacked_MID_y_axis_label")
@@ -7248,7 +6898,7 @@ g.append("text")
 /////End MID Stacked GRAPH            
 
  /////START Abundance GRAPH
-function makegraph_abundance(metab_frag_name,location,ConditionAmount,metab_name,MIDs,ConditionNames,svg){
+function makegraph_abundance(metab_frag_name,location,ConditionAmount,metab_name,MIDs,ConditionNames,svg,mode){
 /*
 INPUTS:
 metab_frag_name= the name of the metabolite fragment (ex. pyr174)
@@ -7298,20 +6948,49 @@ if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){
     graph_width_scale=1  
 }
     
+if(mode=="select_iso"){
+        var select_iso_name=MIDs[Object.keys(MIDs)[0]][metab_name][metab_frag_name][0].fragment
+        var select_iso_id=  metab_frag_name+'_abundance_'+select_iso_name
+        
+        //graph_scale=Graph_Attribute[metab_name][metab_frag_name]['MID_'+select_iso_name].scale 
+        //color=color_scheme_obj[Graph_Attribute[metab_name][metab_frag_name]['MID_'+select_iso_name].color_index]
+    
+        color=color_scheme_obj[Graph_Attribute[metab_name][metab_frag_name]['abundance_'+select_iso_name].color_index]
+        graph_scale=Graph_Attribute[metab_name][metab_frag_name]['abundance_'+select_iso_name].scale    
+        title_text=Graph_Attribute[metab_name][metab_frag_name]['abundance_'+select_iso_name].title    
+        yaxis_label_text=Graph_Attribute[metab_name][metab_frag_name]['abundance_'+select_iso_name].yaxis_label   
+        graph_height_scale=Graph_Attribute[metab_name][metab_frag_name]['abundance_'+select_iso_name].height_scale
+        graph_width_scale=Graph_Attribute[metab_name][metab_frag_name]['abundance_'+select_iso_name].width_scale
+        graph_avg_scale=(graph_width_scale+graph_height_scale)/2
+
+    
+}    
+    
+    
 //color=["#4F5060","#67819D","#ADBD37","#588133","purple","gold","silver","light brown"]
 var xpos=location.x_loc;
 var ypos=location.y_loc;
 var current_location=location
 
 MID_xy= [{"x":xpos, "y":ypos}]; 
-//var g = svg.append("svg:g")
+//var g = svg.append("svg:g")   
+    
+    
 var g = svg.append("g")
     //.attr("id", metab_name)
-    .attr("id", metab_frag_name+'_abundance')
+    .attr("id", function(d){
+                    if(mode=="select_iso"){
+                        //select_iso_name=MIDs[Object.keys(MIDs)[0]][metab_name][metab_frag_name][0].fragment
+                            return select_iso_id
+                    }else{
+                       return  metab_frag_name+'_abundance'
+                    }
+    }) 
+    //.attr("id", metab_frag_name+'_abundance')
     .attr("class",metab_name)
     .data(MID_xy)
     .attr("transform", "translate(" + xpos + "," + ypos + ")")
-    .call(d3.drag()
+   /* .call(d3.drag()
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", function(d){
@@ -7321,7 +7000,23 @@ var g = svg.append("g")
                     current_location.y_loc=d.y;
                     }
            ),
+         )*/
+    .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", function(d){
+                        dragended
+                        if(mode=="select_iso"){
+                            Graph_Location[metab_name][metab_frag_name]['abundance_'+select_iso_name]=d;
+                        }else{                           
+                            Graph_Location[metab_name][metab_frag_name].abundance=d;
+                        }
+                        current_location.x_loc=d.x;
+                        current_location.y_loc=d.y;
+                    }
+           ),
          )
+
 
 ConditionIndex=0;
     
@@ -7354,7 +7049,7 @@ for(var prop3 in MIDs){ //cycles through conditions
     var bar_width=x.bandwidth()/ConditionAmount;
     //ContextMenuStuff
 
-    var menu=[]; //variable which will hold the context menu for each metabolite
+   /* var menu=[]; //variable which will hold the context menu for each metabolite
     i_count=0; // counter which allows for the number of context menu options to equal the number of integrated peaks
         counter_rand=0; //counter which allows for all condition data to be ploted via the data().enter() structure
     menu[i_count]={title: "delete",
@@ -7371,6 +7066,43 @@ for(var prop3 in MIDs){ //cycles through conditions
     //menu=make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_height)
     menu=make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_height,metab_frag_name,"abundance",svg,d3.select('#'+metab_frag_name+'_abundance'))
 
+    */
+    
+    var menu=[]; //variable which will hold the context menu for each metabolite
+    i_count=0; // counter which allows for the number of context menu options to equal the number of integrated peaks
+        counter_rand=0; //counter which allows for all condition data to be ploted via the data().enter() structure
+    menu[i_count]={title: "delete",
+                   onMouseClick: function(elm, d, i) {
+
+                    if(mode=="select_iso"){
+                       svg.selectAll("#"+select_iso_id).remove() //remove old MPE of the selected fragment
+                       Graph_Location[metab_name][metab_frag_name]['abundance_'+select_iso_name]={"x":"X","y":"X"}
+                    }else{                           
+                       svg.selectAll("#"+metab_frag_name+'_abundance').remove() //remove old MPE of the selected fragment
+                       Graph_Location[metab_name][metab_frag_name].MID={"x":"X","y":"X"}
+                    }
+                       d3.select('.d3-context-menu').style('display', 'none');
+
+                    },
+                    onMouseOver: function(elm,d,i){},
+                       chidernItems: []
+                }
+        i_count=i_count+1
+
+    //    menu=make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_height)
+    if(mode=="select_iso"){
+        //menu=make_menu2(menu,i_count,met_MIDs,metab_name,current_location,bargraph_height,metab_frag_name,'MID_'+select_iso_name,svg,d3.select('#'+select_iso_id))
+        menu=make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_height,metab_frag_name,'abundance_'+select_iso_name,svg,d3.select('#'+select_iso_id))
+
+    }else{   
+        //menu=make_menu2(menu,i_count,met_MIDs,metab_name,current_location,bargraph_height,metab_frag_name,"MID",svg,d3.select('#'+metab_frag_name+'_MID'))
+        menu=make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_height,metab_frag_name,"abundance",svg,d3.select('#'+metab_frag_name+'_abundance'))
+    }     
+    
+    
+    
+    
+    
     g.selectAll(".bar")
       //g.append("g")
         .data(frag_MID, function(d){counter_rand=counter_rand+1
@@ -7414,7 +7146,14 @@ for(var prop3 in MIDs){ //cycles through conditions
         .attr("class", "legendlabel")
         .attr("x", width+legend_scale/1.5+graph_scale)
         //.attr("y", (bar_width)*(ConditionIndex+.75))
-        .attr("y", (legend_scale/1.5)*(ConditionIndex+.6))
+       // .attr("y", (legend_scale/1.5)*(ConditionIndex+.6))
+        .attr("y",function(d){
+            if (mode=="select_iso"){
+                return (legend_scale/1.5)*(ConditionIndex+.53)                
+            }else{
+                return (legend_scale/1.5)*(ConditionIndex+.6)
+            }             
+        })    
         .attr("font-size",String(10*graph_scale*graph_avg_scale)+"px")
         .text(function(d){return ConditionNames[ConditionIndex]});
 
@@ -7477,6 +7216,41 @@ for(var prop3 in MIDs){ //cycles through conditions
     ConditionIndex=ConditionIndex+1;
 }
     
+    
+//block which makes graph clickable
+g.append("rect")//creates box with condition color
+    .attr("id", "click_box")
+    .attr("class", "click_box")
+    .on('contextmenu', d3.contextMenu(menu))
+    /*.on('touchstart', d3.contextMenu(menu))
+    .on("touchmove", function(d){
+		d3.select('.d3-context-menu').style('display', 'none');
+                      // Clear timeout
+                      return false;
+                    })    */ 
+    .attr("height",bargraph_height)
+    .attr("width",bargraph_width)    
+    .attr("x", 0)
+    .attr("y", -25)
+    .style("opacity", 0)    
+    .attr("fill", "white")        
+    //.attr("fill", "transparent")
+    .style("cursor", "move")
+    .append("svg:title")
+        .text("Right Click to Access Additional Options");    
+    
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-60*graph_height_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu));    
 
 g.append("g")
   .attr("id", "MID_xaxis")
@@ -7518,29 +7292,7 @@ g.append("g")
     
   .attr("stroke-width",String(1*graph_scale*graph_avg_scale)+"px")  
   .attr("font-size",String(12*graph_scale*graph_avg_scale)+"px");
-
-//block which makes graph clickable
-g.append("rect")//creates box with condition color
-    .attr("id", "click_box")
-    .attr("class", "click_box")
-    .on('contextmenu', d3.contextMenu(menu))
-    .on('touchstart', d3.contextMenu(menu))
-    .on("touchmove", function(d){
-		d3.select('.d3-context-menu').style('display', 'none');
-                      // Clear timeout
-                      return false;
-                    })     
-    .attr("height",bargraph_height)
-    .attr("width",bargraph_width)    
-    .attr("x", 0)
-    .attr("y", -25)
-    .style("opacity", 0)    
-    .attr("fill", "white")        
-    //.attr("fill", "transparent")
-    .style("cursor", "move")
-    .append("svg:title")
-        .text("Right Click to Access Additional Options");    
-    
+        
 g.append("text")
    .on('contextmenu', d3.contextMenu(menu))
    .attr("class","titlelabel")
@@ -7549,7 +7301,52 @@ g.append("text")
    .attr("transform", "translate("+ (width/2) +","+(-25*graph_scale)+")")  // text is drawn off the screen top left, move down and out and rotate     
    .attr("font-size",String(13*graph_scale*graph_avg_scale)+"px")      
    .text(title_text)
-   .on("click", function(d){make_editable(this,d,'title',metab_name,metab_frag_name,"abundance")})    
+   .on("click", function(d){make_editable(this,d,'title',metab_name,metab_frag_name,"abundance")})
+    
+    
+if (mode!="select_iso"){ 
+    
+  g.selectAll('.tick') //makes axis ticks clickable and identifiable
+      .style("cursor", "pointer")        
+      .on('mouseover', function(d){
+                 el_mo =  d3.select(this)._groups[0][0].getElementsByTagName('text')[0]
+                 style_mo = window.getComputedStyle(el_mo, null).getPropertyValue('font-size');
+                 fontSize = parseFloat(style_mo);     
+                 d3.select(this).attr("font-size",String(fontSize*3)+"px") //increases size of tick text upon mouseover to make it easier for the user to select the isotopologue MID
+                    })
+      .on('mouseout', function(d){
+                 el_mo =  d3.select(this)._groups[0][0].getElementsByTagName('text')[0]
+                 style_mo = window.getComputedStyle(el_mo, null).getPropertyValue('font-size');
+                 fontSize = parseFloat(style_mo);        
+                 d3.select(this).attr("font-size",String(fontSize/3)+"px") //returns the size of tick text upon mouse over
+                    })
+      .on('click', function(d) {// console.log(MIDs[prop][metab_name][metab_frag_name]),
+                              iso_index=Number(d.replace("M","")) //index of the selected isotopologue
+                                console.log("click")
+                             // console.log(MIDs[prop][metab_name][metab_frag_name][dumm]);
+                             var selected_Iso_abundance='{"selected_Iso_abundance":{';
+                                 for(var prop4 in MIDs){
+                                //the line below creates a string which will converted into a json object, that holds the data of the selected Isotopologue
+                                selected_Iso_abundance=selected_Iso_abundance+'"'+prop4+'":{"'+metab_name+'":{"'+metab_frag_name+'":['+JSON.stringify(MIDs[prop4][metab_name][metab_frag_name][iso_index])+']}},'
+                                 }
+                                selected_Iso_abundance=selected_Iso_abundance.slice(0, -1)+'}}'
+                                selected_Iso_abundance_parse=JSON.parse(selected_Iso_abundance) //select_Iso_MID from a string to an object
+                                selected_Iso_abundance=selected_Iso_abundance_parse.selected_Iso_abundance //selects the select_Iso_MID key from the object created above (provide the the data for the selected isotopologue in a format identical to MID)
+                                current_location.y_loc=current_location.y_loc+bargraph_height+25*graph_scale
+                                Graph_Location[metab_name][metab_frag_name]['abundance_M'+iso_index]={"x":current_location.x_loc, "y":current_location.y_loc} //assigns a location to the isotopologue MID
+                             makegraph_abundance(metab_frag_name,current_location,ConditionAmount,metab_name,selected_Iso_abundance,ConditionNames,svg,"select_iso")
+                             if(Condition_Times != ''){
+                                current_location.x_loc=current_location.x_loc+bargraph_width/2
+                                Graph_Location[metab_name][metab_frag_name]['Kin_abundance_M'+iso_index]={"x":current_location.x_loc, "y":current_location.y_loc} //assigns a location to the isotopologue MID
+                                makegraph_timecourse(metab_frag_name,current_location,ConditionAmount,metab_name,selected_Iso_abundance,ConditionNames,svg,"abundance_select_iso")
+                             }
+
+                             }
+       )
+     .attr("stroke-width",String(1*graph_scale*graph_avg_scale)+"px");
+}    
+    
+    
           
 }
 /////End Abundance GRAPH  
@@ -7863,16 +7660,28 @@ g.append("rect")//creates box with condition color
     .attr("id", "click_box")
     .attr("class", "click_box")
     .on('contextmenu', d3.contextMenu(menu))
-    .on('touchstart', d3.contextMenu(menu))
+    /*.on('touchstart', d3.contextMenu(menu))
     .on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })     
-    .attr("height",bargraph_height)
+                    })  */   
+    .attr("height",function(d){
+            return this.parentElement.getBBox().height+40*graph_scale
+        })
+    .attr("width",function(d){
+            return this.parentElement.getBBox().width+40*graph_scale*graph_avg_scale
+        })
+    .attr("x",function(d){
+            return this.parentElement.getBBox().x-40*graph_scale*graph_avg_scale
+        })     
+    .attr("y",function(d){
+            return this.parentElement.getBBox().y-40*graph_scale
+        })    
+   /* .attr("height",bargraph_height)
     .attr("width",bargraph_width)    
     .attr("x", 0)
-    .attr("y", -25)
+    .attr("y", -25)*/
     .style("opacity", 0)    
     .attr("fill", "white")        
     //.attr("fill", "transparent")
@@ -7880,6 +7689,19 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
     
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-50*graph_scale*graph_avg_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu));
+        
 g.append("text")
     .on('contextmenu', d3.contextMenu(menu))
     .attr("class","titlelabel")
@@ -8199,16 +8021,28 @@ g.append("rect")//creates box with condition color
     .attr("id", "click_box")
     .attr("class", "click_box")
     .on('contextmenu', d3.contextMenu(menu))
-    .on('touchstart', d3.contextMenu(menu))
+    /*.on('touchstart', d3.contextMenu(menu))
     .on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })     
-    .attr("height",bargraph_height)
+                    })*/
+    .attr("height",function(d){
+            return this.parentElement.getBBox().height+40*graph_scale
+        })
+    .attr("width",function(d){
+            return this.parentElement.getBBox().width+40*graph_scale*graph_avg_scale
+        })
+    .attr("x",function(d){
+            return this.parentElement.getBBox().x-40*graph_scale*graph_avg_scale
+        })     
+    .attr("y",function(d){
+            return this.parentElement.getBBox().y-40*graph_scale
+        })    
+    /*.attr("height",bargraph_height)
     .attr("width",bargraph_width)    
     .attr("x", 0)
-    .attr("y", -25)
+    .attr("y", -25)*/
     .style("opacity", 0)    
     .attr("fill", "white")        
     //.attr("fill", "transparent")
@@ -8216,7 +8050,19 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options");
 
-    
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-50*graph_scale*graph_avg_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu));
+        
 g.append("text")
     .on('contextmenu', d3.contextMenu(menu))
     .attr("class","titlelabel")
@@ -8252,6 +8098,16 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
         color=color_scheme_obj[Graph_Attribute[metab_name][metab_frag_name]["Kin_MID_"+iso_name].color_index]
         
     }
+    else if(mode=="abundance_select_iso"){
+        iso_name=MIDs[Object.keys(MIDs)[0]][metab_name][metab_frag_name][0].fragment
+        graph_scale=Graph_Attribute[metab_name][metab_frag_name]["Kin_abundance_"+iso_name].scale
+        title_text=Graph_Attribute[metab_name][metab_frag_name]["Kin_abundance_"+iso_name].title    
+        yaxis_label_text=Graph_Attribute[metab_name][metab_frag_name]["Kin_abundance_"+iso_name].yaxis_label 
+        graph_height_scale=Graph_Attribute[metab_name][metab_frag_name]["Kin_abundance_"+iso_name].height_scale
+        graph_width_scale=Graph_Attribute[metab_name][metab_frag_name]["Kin_abundance_"+iso_name].width_scale 
+        color=color_scheme_obj[Graph_Attribute[metab_name][metab_frag_name]["Kin_abundance_"+iso_name].color_index]
+        
+    }    
     else if(mode=="total_abundance"){
         graph_scale=Graph_Attribute[metab_name][metab_frag_name].Kin_abundance.scale
         title_text=Graph_Attribute[metab_name][metab_frag_name].Kin_abundance.title    
@@ -8342,6 +8198,9 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
                 if(mode=="MID_select_iso"){
                     Kinetic_Condition_data[Group_Names[j]][k_tc]={x: Condition_Times[i].timepoint, y: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].frequency, y_error: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].error}
                 }
+                else if(mode=="abundance_select_iso"){
+                    Kinetic_Condition_data[Group_Names[j]][k_tc]={x: Condition_Times[i].timepoint, y: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].abundance, y_error: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].abundance_error}
+                }                
                 else if(mode=="total_abundance"){
                     Kinetic_Condition_data[Group_Names[j]][k_tc]={x: Condition_Times[i].timepoint, y: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].total_abundance, y_error: MIDs[Object.keys(MIDs)[i]][metab_name][metab_frag_name][0].total_abundance_error}
                 }
@@ -8375,6 +8234,11 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
                     ybound=frag_MID_cyc[j].frequency+frag_MID_cyc[j].error //includes error in the ybound
                 }
             }
+            else if(mode=="abundance_select_iso"){
+                if (frag_MID_cyc[j].abundance+frag_MID_cyc[j].abundance_error>ybound) {
+                    ybound=frag_MID_cyc[j].abundance+frag_MID_cyc[j].abundance_error //includes error in the ybound
+                }
+            }        
             else if(mode=="total_abundance"){
                 if (frag_MID_cyc[j].total_abundance+frag_MID_cyc[j].total_abundance_error>ybound) {
                     ybound=frag_MID_cyc[j].total_abundance+frag_MID_cyc[j].total_abundance_error //includes error in the ybound
@@ -8418,6 +8282,9 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
     if(mode=="MID_select_iso"){
         select_Kin_iso_id=  metab_frag_name+'_Kin_MID_'+select_iso_name
         graph_location_id='Kin_MID_'+select_iso_name
+    }else if(mode=="abundance_select_iso"){
+        select_Kin_iso_id=  metab_frag_name+'_Kin_abundance_'+select_iso_name
+        graph_location_id='Kin_abundance_'+select_iso_name    
     }else if(mode=="total_abundance"){
         select_Kin_iso_id=  metab_frag_name+'_Kin_abundance'
         graph_location_id='Kin_abundance'
@@ -8439,7 +8306,9 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
         .on("end", function(d){
                         dragended
                         if(mode=="MID_select_iso"){
-                            Graph_Location[metab_name][metab_frag_name]['Kin_MID_'+select_iso_name]=d;                         
+                            Graph_Location[metab_name][metab_frag_name]['Kin_MID_'+select_iso_name]=d; 
+                        }else if(mode=="abundance_select_iso"){
+                            Graph_Location[metab_name][metab_frag_name]['Kin_abundance_'+select_iso_name]=d; 
                         }else if(mode=="total_abundance"){
                             Graph_Location[metab_name][metab_frag_name].Kin_abundance=d;                         
                         }else if(mode=="MPE"){
@@ -8461,7 +8330,10 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
                       onMouseClick: function(elm, d, i) {
                             if(mode=="MID_select_iso"){
                                 svg.selectAll("#"+this.isotopologue_holder).remove() //remove old MPE of the selected fragment                                
-                                Graph_Location[metab_name][metab_frag_name]['Kin_MID_'+select_iso_name]={"x":"X","y":"X"};                         
+                                Graph_Location[metab_name][metab_frag_name]['Kin_MID_'+select_iso_name]={"x":"X","y":"X"};
+                            }else if(mode=="abundance_select_iso"){
+                                svg.selectAll("#"+this.isotopologue_holder).remove() //remove old MPE of the selected fragment                                
+                                Graph_Location[metab_name][metab_frag_name]['Kin_abundance_'+select_iso_name]={"x":"X","y":"X"};                                
                             }else if(mode=="total_abundance"){
                                 svg.selectAll("#"+metab_frag_name+'_Kin_abundance').remove() //remove old MPE of the selected fragment                                                                
                                 Graph_Location[metab_name][metab_frag_name].Kin_abundance={"x":"X","y":"X"};                         
@@ -8495,7 +8367,7 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
     .attr("tick-size",6*graph_scale*graph_avg_scale)
     .attr("font-size",String(13*graph_scale*graph_avg_scale)+"px");
 
-if(mode=="total_abundance"){
+if(mode=="total_abundance" || mode=="abundance_select_iso"){
     g.append("g")
     .attr("id", select_Kin_iso_id+"_yaxis")
     .attr("class", "axis axis--y")
@@ -8613,12 +8485,12 @@ yaxis_label_x=document.getElementById(select_Kin_iso_id+"_yaxis").lastChild.last
     .attr("id", "click_box")
     .attr("class", "click_box")
     .on('contextmenu', d3.contextMenu(menu))
-    .on('touchstart', d3.contextMenu(menu))
+    /*.on('touchstart', d3.contextMenu(menu))
     .on("touchmove", function(d){
 		d3.select('.d3-context-menu').style('display', 'none');
                       // Clear timeout
                       return false;
-                    })     
+                    })  */   
     .attr("height",bargraph_height)
     .attr("width",bargraph_width)    
     .attr("x", 0)
@@ -8630,6 +8502,19 @@ yaxis_label_x=document.getElementById(select_Kin_iso_id+"_yaxis").lastChild.last
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
 
+g.append("text") //adds clickable arrow to induce contextmenu
+  .attr("id", "context_button")     
+  .attr("class", "context_button")     
+  .attr("x",-60*graph_height_scale)
+  .attr("y",-50*graph_height_scale)
+  .attr("style","font-family:FontAwesome; cursor:pointer;")    
+  .attr("font-weight", 300)
+  .attr("fill","#337ab7")
+  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .text(function(d) { return '\uf152'; })
+  .on('click', d3.contextMenu(menu))
+  .on('touchstart', d3.contextMenu(menu));
+        
   g.append("text")
     //.on('contextmenu', d3.contextMenu(menu))
     .attr("class","titlelabel")
@@ -9136,6 +9021,47 @@ function make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_he
                         ]
                 }
             menu[i_count].chidernItems[0].chidernItems.push(iso_menu)
+                
+                
+                iso_menu={
+                        title: prop2+' '+iso_name_menu,
+                        onMouseClick:function(elm,d,i){
+                            },
+                        onMouseOver: function(elm,d,i){},
+                        chidernItems: [
+                                {
+                                    title: prop2+' '+iso_name_menu+' bar',
+                                    fragment_holder:prop2,
+                                    isotopologue_holder:iso_name_menu,                                                        
+                                    onMouseClick:
+                                        function(elm, d, i) {
+                                            selectMID=MIDs[Object.keys(MIDs)[0]]
+                                            met_MIDs=selectMID[metab_name]// selects the 
+                                            frag_keys=Object.keys(selectMID[metab_name]) //returns array of mass fragments of met prop2
+                                            metab_frag_name =  frag_keys[0]
+                                            prop2=this.fragment_holder //selects the mass fragment corresponding to the title
+                                            //prop2=this.title.replace(' '+iso_name_menu+' bar', '') //selects the mass fragment corresponding to the title
+                                            current_location.y_loc=current_location.y_loc+bargraph_height+25*graph_scale
+
+                                            isotopologue=this.isotopologue_holder.split("M")
+                                            M_index=Number(isotopologue[1])      
+
+                                            select_iso_abundance_location="abundance_M"+M_index.toString();
+                            
+                                            Graph_Location[metab_name][metab_frag_name][select_iso_abundance_location]={"x":current_location.x_loc, "y":current_location.y_loc} //assigns a location to the isotopologue MID
+
+                                            selected_Iso_abundance=obtain_isotopologue_data(metab_name,prop2,M_index)
+
+                                            makegraph_abundance(prop2,current_location,ConditionAmount,metab_name,selected_Iso_abundance,ConditionNames,svg,"select_iso")
+                                        return
+                                        },
+                                    onMouseOver: function(elm,d,i){},
+                                    chidernItems: []                                    
+                                }
+                        ]
+                }
+            menu[i_count].chidernItems[1].chidernItems.push(iso_menu)                
+                
             }
             
     ////////// END Individual Isotopologues        
@@ -9161,7 +9087,7 @@ function make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_he
                                     isotopologue=this.isotopologue_holder.split("M")
                                     M_index=Number(isotopologue[1])      
 
-                                    select_iso_MID_location="MID_M"+M_index.toString();
+                                    select_iso_MID_location="Kin_MID_M"+M_index.toString();
 
                                     Graph_Location[metab_name][metab_frag_name][select_iso_MID_location]={"x":current_location.x_loc, "y":current_location.y_loc} //assigns a location to the isotopologue MID
 
@@ -9175,6 +9101,39 @@ function make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_he
                             }
                        
             menu[i_count].chidernItems[0].chidernItems[o+2].chidernItems.push(iso_kin_menu)
+    
+                iso_kin_menu={
+                            title: prop2+' '+iso_name_menu+' kinetic',
+                            fragment_holder:prop2,                    
+                            isotopologue_holder:iso_name_menu,                    
+                            onMouseClick:
+                                function(elm, d, i) {
+                                    selectMID=MIDs[Object.keys(MIDs)[0]]
+                                    met_MIDs=selectMID[metab_name]// selects the 
+                                    frag_keys=Object.keys(selectMID[metab_name]) //returns array of mass fragments of met prop2
+                                    metab_frag_name =  frag_keys[0]
+                                    prop2=this.fragment_holder //selects the mass fragment corresponding to the title                                            
+                                    //prop2=this.title.replace(' '+iso_name_menu+' kinetic', '') //selects the mass fragment corresponding to the title
+                                    current_location.y_loc=current_location.y_loc+bargraph_height+25*graph_scale
+
+                                    isotopologue=this.isotopologue_holder.split("M")
+                                    M_index=Number(isotopologue[1])      
+
+                                    select_iso_abundance_location="Kin_abundance_M"+M_index.toString();
+
+                                    Graph_Location[metab_name][metab_frag_name][select_iso_abundance_location]={"x":current_location.x_loc, "y":current_location.y_loc} //assigns a location to the isotopologue MID
+
+                                    selected_Iso_abundance=obtain_isotopologue_data(metab_name,prop2,M_index)
+
+                                    makegraph_timecourse(prop2,current_location,ConditionAmount,metab_name,selected_Iso_abundance,ConditionNames,svg,"abundance_select_iso")
+                                return
+                                },
+                            onMouseOver: function(elm,d,i){},
+                            chidernItems: []                    
+                            }
+                       
+            menu[i_count].chidernItems[1].chidernItems[o+3].chidernItems.push(iso_kin_menu)                
+                
             }            
             
             
@@ -9214,8 +9173,9 @@ function make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_he
                                 prop2=this.title.replace(' Kinetic abundance', '') //selects the mass fragment corresponding to the title
                                 current_location.y_loc=current_location.y_loc+bargraph_height+25*graph_scale
                                 Graph_Location[metab_name][metab_frag_name].Kin_abundance={"x":current_location.x_loc, "y":current_location.y_loc} //assigns a location to the isotopologue MID
-                                selected_Iso_MID=obtain_isotopologue_data(metab_name,prop2,0)
-                                makegraph_timecourse(prop2,current_location,ConditionAmount,metab_name,selected_Iso_MID,ConditionNames,svg,"total_abundance")
+                                //selected_Iso_MID=obtain_isotopologue_data(metab_name,prop2,0)
+                                makegraph_timecourse(prop2,current_location,ConditionAmount,metab_name,MIDs,ConditionNames,svg,"total_abundance")
+                                //makegraph_timecourse(prop2,current_location,ConditionAmount,metab_name,selected_Iso_MID,ConditionNames,svg,"total_abundance")
                             return
                             },
                         onMouseOver: function(elm,d,i){},
@@ -9223,7 +9183,9 @@ function make_menu(menu,i_count,met_MIDs,metab_name,current_location,bargraph_he
             
                         }
                 
-                menu[i_count].chidernItems[1].chidernItems.push(kinetic_menu)
+                //menu[i_count].chidernItems[1].chidernItems.push(kinetic_menu)
+                menu[i_count].chidernItems[1].chidernItems.splice(3,0,kinetic_menu)
+                //menu[i_count].chidernItems[1].chidernItems[3].push(kinetic_menu)
                 //menu[i_count].chidernItems=[menu[i_count].chidernItems,kinetic_menu]
                 //console.log(menu[i_count].chidernItems)
             }
@@ -9489,6 +9451,9 @@ function writeDownloadLink_svg(svg,title){ //downloads svg to user
     svg2=svg._groups[0][0].cloneNode(true) //clones the svg object (done because 'click_box' will be removed from downloaded svg to avoid issues with Adobe Illustrator)
     click_box_var=svg2.getElementsByClassName('click_box')[0] //stores the transparent clickable rectangle click_box as click_box_var
     svg2.getElementsByTagName('rect')["click_box"].parentNode.removeChild(click_box_var) //deletes click_box_var from svg2
+    context_button_var=svg2.getElementsByClassName('context_button')[0] //stores the triangle context_button as context_button_var
+    svg2.getElementsByTagName('text')["context_button"].parentNode.removeChild(context_button_var) //deletes context_button_var from svg2
+    
     var html = svg2 //obtain the innerHTML (string) of the graph svg //stores innerHTML of svg2 as html
         .innerHTML;
     
@@ -9512,12 +9477,16 @@ function writeDownloadLink_png(svg,title){ //converts svg to png and downloads t
     /*var html = svg //obtain the innerHTML (string) of the graph svg
         .attr("title", "test2")
         .attr("version", 1.1)
+        
         .attr("xmlns", "http://www.w3.org/2000/svg")
         .node().innerHTML;*/
     
     svg2=svg._groups[0][0].cloneNode(true) //clones the svg object (done because 'click_box' will be removed from downloaded svg to avoid issues with Adobe Illustrator)
     click_box_var=svg2.getElementsByClassName('click_box')[0] //stores the transparent clickable rectangle click_box as click_box_var
     svg2.getElementsByTagName('rect')["click_box"].parentNode.removeChild(click_box_var) //deletes click_box_var from svg2
+    context_button_var=svg2.getElementsByClassName('context_button')[0] //stores the triangle context_button as context_button_var
+    svg2.getElementsByTagName('text')["context_button"].parentNode.removeChild(context_button_var) //deletes context_button_var from svg2
+    
     var html = svg2 //obtain the innerHTML (string) of the graph svg //stores innerHTML of svg2 as html
         .innerHTML;
     
@@ -9581,13 +9550,26 @@ function reprint_specific_graph(metab_name,metab_frag_name,graph_type,svg){ //re
                     makegraph_MID(metab_frag_name,loc_var,ConditionAmount,metab_name,selected_Iso_MID,ConditionNames,svg,"select_iso")  //reprints new MIDs
                     
                     
-                }else if(graph_type_spl[0]=="Kin"){
+                }else if(graph_type_spl[0]=="Kin" && graph_type_spl[1]=="MID"){
                     isotopologue=graph_type_spl[2].split("M")
                     M_index=Number(isotopologue[1])                    
                     selected_Iso_MID=obtain_isotopologue_data(metab_name,metab_frag_name,M_index)
                     makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,metab_name,selected_Iso_MID,ConditionNames,svg,"MID_select_iso")                     
+                
+                }else if(graph_type_spl[0]=="abundance"){
+                    isotopologue=graph_type_spl[1].split("M")
+                    M_index=Number(isotopologue[1])
+                    selected_Iso_abundance=obtain_isotopologue_data(metab_name,metab_frag_name,M_index)
+                    makegraph_abundance(metab_frag_name,loc_var,ConditionAmount,metab_name,selected_Iso_abundance,ConditionNames,svg,"select_iso")  //reprints new MIDs
                     
-                }
+                    
+                }else if(graph_type_spl[0]=="Kin" && graph_type_spl[1]=="abundance"){
+                    isotopologue=graph_type_spl[2].split("M")
+                    M_index=Number(isotopologue[1])                    
+                    selected_Iso_abundance=obtain_isotopologue_data(metab_name,metab_frag_name,M_index)
+                    makegraph_timecourse(metab_frag_name,loc_var,ConditionAmount,metab_name,selected_Iso_abundance,ConditionNames,svg,"abundance_select_iso")                     
+                    
+                }                
             }
     
     
@@ -10039,7 +10021,7 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
    // load the map and embedded CSS
    //AK: This will be the first bit of javascript to be executed, despite being located near the end of the file. 
    //d3.json('RECON1.Glycolysis TCA compact final.json', function(e, data) { //access data in the map file (RECON1.Glycolysis TCA (Presentable 2).json)
-   d3.json('RECON1.Glycolysis TCA Serine.json', function(e, data) { //access data in the map file (RECON1.Glycolysis TCA (Presentable 2).json)
+   d3.json('RECON1.Glycolysis TCA Serine Lactate.json', function(e, data) { //access data in the map file (RECON1.Glycolysis TCA (Presentable 2).json)
        if (e) console.warn(e);
        /*var options = {
            menu: 'all',
