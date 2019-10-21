@@ -7064,7 +7064,8 @@ function save_map (obj, callback_before, callback_after, map_type) {
     obj.canvas.mouse_node.attr('transform', null)
 
     // hide the segment control points
-    var hidden_sel = obj.sel.selectAll('.multimarker-circle,.midmarker-circle,#canvas')
+    //var hidden_sel = obj.sel.selectAll('.multimarker-circle,.midmarker-circle,#canvas')
+    var hidden_sel = obj.sel.selectAll('.multimarker-circle,.midmarker-circle,#canvas,.context_button')
       .style('visibility', 'hidden')
 
     // do the export
