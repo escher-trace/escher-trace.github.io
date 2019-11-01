@@ -9,6 +9,6 @@ nav:
         - 7. Edit the Data: EditData.md
         - 8. Save Workspace: SaveWorkspace.md
     
-theme: 'rtd-dropdown'
+theme: 'readthedocs'
 markdown_extensions:
     - attr_list
