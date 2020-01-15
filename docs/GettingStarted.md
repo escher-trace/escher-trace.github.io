@@ -20,6 +20,9 @@ Baseline corrected mass spectrometer labeling data can be imported into Escher-T
 
 #### 1.3.1.1	Example Data Files
 
+Natural Isotope Uncorrected [CSV File](./example_files/Escher-Trace Uncorrected Example Data File.csv)
+
+Natural Isotope Corrected [CSV File](./example_files/Escher-Trace Corrected Example Data File.csv)
 
 #### 1.3.1.2	Natural Isotope Uncorrected CSV Format
 Uncorrected tracing data can be imported into Escher-Trace in the following CSV format:
@@ -95,6 +98,10 @@ First click on the blue Import Tracing Data button in the bottom right of the sc
 Depending on the format of the data you are uploading (baseline corrected CSV, natural isotope corrected CSV, or previously saved Escher Workspace JSON) Click **Choose File** and **Import** your data.
  
  ![Screenshot](img/FileUpload.png)
+ 
+If uploading baseline corrected data (uncorrected for natural isotope abundance), choose the tracer type that was used for the dataset. This is information is used to correct the data for natural isotope abundance.
+
+ ![Screenshot](../img/FileUploadChooseTracer.png)
  
 If the user is uploading data for the first time the "Sample Groups" popup will appear, if they are reuploading a previously saved Escher-Trace workspace then the previous workspace (graphs) will be displayed.
 
