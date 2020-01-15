@@ -1,4 +1,4 @@
-<!-- index_AK_JM_066_link_docs.html - An Escher map with metabolite structures.
+<!-- index_AK_JM_070_fixed_double_Save_graph.html - An Escher map with metabolite structures.
 The MIT License (MIT)
 This software is Copyright © 2015 The Regents of the University of
 California. All Rights Reserved.
@@ -23,22 +23,9 @@ THE SOFTWARE.
 <!-- //AK:  To follow the script linearly I would start by looking at line 2316-->
 <!DOCTYPE html>
 <html>
-  <title>Escher Structures</title>
+  <title>Escher-Trace</title>
   <!-- Bootstrap dependencies for the menu and buttons -->
 
-    
- 
-<head>
-    
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150525889-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-150525889-1');
-</script>
     
  
 <!-- JS -->  
@@ -53,7 +40,7 @@ THE SOFTWARE.
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script><!-- DataTables -->     
     <script src="https://d3js.org/d3.v4.min.js"></script><!-- d3 -->     
     <script src="escher.js" charset="utf-8"></script><!-- escher --> 
-    <script src="d3.contextMenu5.js"></script><!-- context menu --> 
+    <script src="d3.contextMenu6.js"></script><!-- context menu --> 
     <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
    <!-- <script src="html5sortable.js"></script>  sortable --> 
     <script src="FileSaver_ed1.js"></script> <!-- FileSaver --> 
@@ -78,9 +65,6 @@ THE SOFTWARE.
   <link rel="stylesheet" href="loading_screen.css"><!-- Used for buttons + paragraphs -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-html5-1.5.6/fc-3.2.5/datatables.min.css"/>    
     
-    
-    
-</head> 
   <style>
 
 
@@ -366,6 +350,7 @@ THE SOFTWARE.
         position: fixed;
         z-index: 0;
         top: 15%;
+        right: 30px;
     }
     /*  
     .sidenav {
@@ -571,6 +556,8 @@ THE SOFTWARE.
           <button id = "color_picker_button" class = "dropdown-data">Color Scheme</button>
           <button id = "label_switch" class = "dropdown-data">Remove Bar Labels</button>
           <button id = "legend_metrics" class = "dropdown-data">Remove Legend Metrics</button>
+          <button id = "context_button_show" class = "dropdown-data">Remove Context Buttons <i class="fa fa-caret-square-o-right" style="fill: #337ab7;"></i></button>
+                  
             
          <!-- <button class="dropdown-data" id = "Height_slide_graphs_button">Height</button>
           <button class="dropdown-data" id = "Width_slide_graphs_button">Width</button>-->
@@ -783,7 +770,15 @@ THE SOFTWARE.
                         <p style="font-size: small; text-align:center;">Baseline corrected MS data can be uploaded in CSV format. The proper CSV schema is located <a href="https://escher-trace.readthedocs.io/en/latest/GettingStarted/#1312-natural-isotope-uncorrected-csv-format" target="_blank"><strong>here</strong></a>  </p>
 
                         <input type="file" id="selectFiles_csv" value="Import" style="display:block; font-size: small; margin: auto" /> 
-
+                        
+                        <div style="text-align: center; margin:0.5rem">
+                            <span style="font-size: small;">Tracer Type:</span>                        
+                            <select id="iso-type" style="font-size: small; height: 30px;">
+                                <option value="13C">13C</option>
+                                <option value="2H">2H</option>
+                                <option value="15N">15N</option>
+                            </select>                         
+                        </div>
                         <button id="import_csv" class="submit_file_button">Import Uncorrected CSV Data File</button>
                     </div>
                     
@@ -1562,6 +1557,7 @@ function add_structures(result) {
     var UserInputTimeUnits=result.UserInputTimeUnits
     var display_bar_label=result.display_bar_label
     var display_legend_metrics=result.display_legend_metrics
+    var display_context_buttons=result.display_context_buttons
     var sel_color_index=0;
     var carbon_circle_location=result.carbon_circle_location;
     
@@ -1570,7 +1566,11 @@ function add_structures(result) {
     }     
     if(typeof display_legend_metrics == "undefined"){
         display_legend_metrics=true
-    }    
+    }  
+    if(typeof display_context_buttons == "undefined"){
+        display_context_buttons=true
+    }     
+    
     if(typeof norm_frag == "undefined"){
         norm_frag="undefined"
     }
@@ -4381,6 +4381,7 @@ function begin_graph_display(){
             ',  "carbon_circle_location":'+JSON.stringify(carbon_circle_location)+
             ',  "fileorganizer":'+JSON.stringify(fileorganizer)+            
             ',  "display_legend_metrics":'+JSON.stringify(display_legend_metrics)+
+            ',  "display_context_button":'+JSON.stringify(display_context_button)+
             ',  "display_bar_label":'+JSON.stringify(display_bar_label)+
             ',  "graph_edited":'+JSON.stringify(graph_edited)+
             ',  "CG_container":'+JSON.stringify(CG_container)+
@@ -4500,7 +4501,16 @@ function begin_graph_display(){
         display_legend_metrics=false
         }
         reprint_graphs() 
-    })    
+    }) 
+    
+    d3.select("#context_button_show").on("click", function() {
+        if(display_context_buttons==false){
+            display_context_buttons=true
+        }else{
+        display_context_buttons=false
+        }
+        reprint_graphs() 
+    })      
     
         
     
@@ -4920,6 +4930,9 @@ function print_graphs(data,met_MIDs,svg_car){
             svg_car=d3.select('.canvas-group');
     }        
 
+    //gap_fill_Graph_Location(met_MIDs)
+    gap_fill_Graph_Location(data.bigg_id,selectMID)
+    
     for(var frag in met_MIDs){
         metab_frag_name=frag;
         CheckGraph=Graph_Location[data.bigg_id][metab_frag_name]
@@ -4995,7 +5008,124 @@ function print_graphs(data,met_MIDs,svg_car){
     }
 
 }        
-       
+ 
+function gap_fill_Graph_Location(metabolite_name,selectMID){
+    
+    
+        //for(var metabolite_name in selectMID){
+           // Graph_Location[metabolite_name]={}    //defines Graph_Location[metabolite_name] as an object
+            for(var fragment_name in selectMID[metabolite_name]){
+                
+                fragment_name_cap=fragment_name.charAt(0).toUpperCase() + fragment_name.slice(1)
+                
+                for(M_index=0; M_index< selectMID[metabolite_name][fragment_name].length; M_index++){ //adds MID and abundance locations for individual mass isotopologues to Graph_Locations
+                     select_iso_MID_location="MID_M"+M_index.toString();
+                     select_kin_iso_MID_location="Kin_MID_M"+M_index.toString();
+                     select_iso_abundance_location="abundance_M"+M_index.toString();
+                     select_kin_iso_abundance_location="Kin_abundance_M"+M_index.toString(); 
+                    
+                    if(typeof Graph_Location[metabolite_name][fragment_name][select_iso_MID_location]=="undefined"){
+                        Graph_Location[metabolite_name][fragment_name][select_iso_MID_location]={"x":"X","y":"X"}
+                        Graph_Attribute[metabolite_name][fragment_name][select_iso_MID_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" M"+M_index.toString(), "yaxis_label":"% Label"}
+                    }
+                    
+                    if(typeof Graph_Location[metabolite_name][fragment_name][select_kin_iso_MID_location]=="undefined"){
+                        Graph_Location[metabolite_name][fragment_name][select_kin_iso_MID_location]={"x":"X","y":"X"}
+                        Graph_Attribute[metabolite_name][fragment_name][select_kin_iso_MID_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":"Kinetic "+fragment_name_cap+" M"+M_index.toString(), "yaxis_label":"% Label"}
+                    }  
+                    
+                    if(typeof Graph_Location[metabolite_name][fragment_name][select_iso_abundance_location]=="undefined"){
+                        Graph_Location[metabolite_name][fragment_name][select_iso_abundance_location]={"x":"X","y":"X"}
+                        Graph_Attribute[metabolite_name][fragment_name][select_iso_abundance_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" M"+M_index.toString()+" Abundance", "yaxis_label":"Counts"}
+                    } 
+                    
+                    if(typeof Graph_Location[metabolite_name][fragment_name][select_kin_iso_abundance_location]=="undefined"){
+                        Graph_Location[metabolite_name][fragment_name][select_kin_iso_abundance_location]={"x":"X","y":"X"}
+                        Graph_Attribute[metabolite_name][fragment_name][select_kin_iso_abundance_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":"Kinetic "+fragment_name_cap+" M"+M_index.toString()+" Abundance", "yaxis_label":"Counts"}
+                    }                      
+                    
+                }
+            }
+        //}    
+    
+    
+    /*
+    
+    function update_graph_location(metabolite_name,fragment_name,graph_key){
+        Graph_Location[metabolite_name][fragment_name][graph_key]={"x":"X","y":"X"}
+    }
+    
+    function update_graph_attribute(metabolite_name,fragment_name,fragment_name_cap,graph_key){
+        
+    }    
+    
+    
+    if(typeof Graph_Location == "undefined"){   //defines Group_Location in case it is not included in the user uploaded file, likely the case if the user is uploading data for the first time
+        Graph_Location={} //stores the x,y coordinates of all graphs displayed on the page
+        //Initially all locations of graphs are stored in Graph_Location as {"x":"X","y":"X"}
+        for(var metabolite_name in selectMID){
+            Graph_Location[metabolite_name]={}    //defines Graph_Location[metabolite_name] as an object
+            for(var fragment_name in selectMID[metabolite_name]){
+                Graph_Location[metabolite_name][fragment_name]= {
+                                                 "MID" :{"x":"X","y":"X"},
+                                                 "stacked_MID" :{"x":"X","y":"X"},
+                                                 "abundance" :{"x":"X","y":"X"},
+                                                 "stacked_abundance" :{"x":"X","y":"X"},
+                                                 "total_abundance" :{"x":"X","y":"X"},
+                                                 "MPE" :{"x":"X","y":"X"},
+                                                 "Kin_abundance" :{"x":"X","y":"X"},
+                                                 "Kin_MPE" :{"x":"X","y":"X"}
+                                                };
+                for(M_index=0; M_index< selectMID[metabolite_name][fragment_name].length; M_index++){ //adds MID and abundance locations for individual mass isotopologues to Graph_Locations
+                     select_iso_MID_location="MID_M"+M_index.toString();
+                     select_kin_iso_MID_location="Kin_MID_M"+M_index.toString();
+                     select_iso_abundance_location="abundance_M"+M_index.toString();
+                     select_kin_iso_abundance_location="Kin_abundance_M"+M_index.toString();                    
+                     Graph_Location[metabolite_name][fragment_name][select_iso_MID_location]={"x":"X","y":"X"}
+                     Graph_Location[metabolite_name][fragment_name][select_kin_iso_MID_location]={"x":"X","y":"X"}
+                     Graph_Location[metabolite_name][fragment_name][select_iso_abundance_location]={"x":"X","y":"X"}
+                     Graph_Location[metabolite_name][fragment_name][select_kin_iso_abundance_location]={"x":"X","y":"X"}
+                }
+            }
+        }
+    } 
+
+    if(typeof Graph_Attribute == "undefined"){   //defines Group_Location in case it is not included in the user uploaded file, likely the case if the user is uploading data for the first time
+        Graph_Attribute={} //stores the x,y coordinates of all graphs displayed on the page
+        //Initially all locations of graphs are stored in Graph_Attribute as {"x":"X","y":"X"}
+        for(var metabolite_name in selectMID){
+            Graph_Attribute[metabolite_name]={}    //defines Graph_Attribute[metabolite_name] as an object
+            for(var fragment_name in selectMID[metabolite_name]){
+                fragment_name_cap=fragment_name.charAt(0).toUpperCase() + fragment_name.slice(1)
+                Graph_Attribute[metabolite_name][fragment_name]= {
+                                                 "MID" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" MID", "yaxis_label":"% Label"},
+                                                 "stacked_MID" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" MID", "yaxis_label":"% Label"},
+                                                 "abundance" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" Abundance", "yaxis_label":"Counts"},
+                                                 "stacked_abundance" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" Abundance", "yaxis_label":"Counts"},
+                                                 "total_abundance" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" Abundance", "yaxis_label":"Counts"},
+                                                 "MPE" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" MPE", "yaxis_label":"% Enrichment"},
+                                                 "Kin_abundance" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" Kinetic Abundance", "yaxis_label":"Counts"},
+                                                 "Kin_MPE" :{"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" Kinetic MPE", "yaxis_label":"% Enrichment"}                    
+                                                };
+                for(M_index=0; M_index< selectMID[metabolite_name][fragment_name].length; M_index++){ //adds MID and abundance locations for individual mass isotopologues to Graph_Attributes
+                     select_iso_MID_location="MID_M"+M_index.toString();
+                     select_kin_iso_MID_location="Kin_MID_M"+M_index.toString();
+                     select_iso_abundance_location="abundance_M"+M_index.toString();
+                     select_kin_iso_abundance_location="Kin_abundance_M"+M_index.toString();
+                     Graph_Attribute[metabolite_name][fragment_name][select_iso_MID_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" M"+M_index.toString(), "yaxis_label":"% Label"}
+                     Graph_Attribute[metabolite_name][fragment_name][select_kin_iso_MID_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":"Kinetic "+fragment_name_cap+" M"+M_index.toString(), "yaxis_label":"% Label"}
+                     Graph_Attribute[metabolite_name][fragment_name][select_iso_abundance_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":fragment_name_cap+" M"+M_index.toString()+" Abundance", "yaxis_label":"Counts"}
+                     Graph_Attribute[metabolite_name][fragment_name][select_kin_iso_abundance_location]={"scale":1.75,"height_scale":1,"width_scale":1,"color_index":0, "title":"Kinetic "+fragment_name_cap+" M"+M_index.toString()+" Abundance", "yaxis_label":"Counts"}
+                    
+                }
+            }
+        }
+    }     
+    
+    */
+    
+}    
+    
 function reprint_graphs(){ //removes previously displayed graphs, replaces them with updated color scheme/size info
     for(var metabolite_fragment in Graph_Location){
         for(var mass_fragment in Graph_Location[metabolite_fragment]){
@@ -5226,6 +5356,8 @@ if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){
     graph_height_scale=1
     graph_width_scale=1  
 }    
+graph_min_scale=math.min(graph_height_scale,graph_width_scale)
+    
     
 ybound=0; //will hold the maximum y axis value
 //finds maximum value of the y axis and lengths of the mass fragment for all conditions
@@ -5528,20 +5660,24 @@ g.append("rect")//creates box with condition color
     .style("cursor", "move")
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
+
+if(display_context_buttons != false){    
     
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-60*graph_height_scale)
-  .attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu));      
-
+}
+    
 g.append("text")
    .on('contextmenu', d3.contextMenu(menu))
    .attr("class","titlelabel")
@@ -5631,6 +5767,7 @@ if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){
     graph_height_scale=1
     graph_width_scale=1  
 }
+graph_min_scale=math.min(graph_height_scale,graph_width_scale)
     
     
 ybound=0; //will hold the maximum y axis value
@@ -6023,19 +6160,22 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options");
     
+    
+if(display_context_buttons != false){    
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-60*graph_height_scale)
-  .attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu));
-    
+}
     
 
 g.append("text")
@@ -6234,7 +6374,9 @@ yaxis_label_text=Graph_Attribute[metab_name][metab_frag_name].MPE.yaxis_label
 if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){        
     graph_height_scale=1
     graph_width_scale=1  
-}    
+} 
+graph_min_scale=math.min(graph_height_scale,graph_width_scale)
+    
     
 var xpos=location.x_loc;
 var ypos=location.y_loc;
@@ -6522,20 +6664,23 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options"); 
     
+if(display_context_buttons != false){    
     
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-50*graph_scale*graph_avg_scale)
-  .attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu))
-
+}
+    
 g.append("text")  //adds y axis label
   .attr("class", "y_axis_label")
   .attr("id", metab_name+"MPE_y_axis_label")
@@ -6609,6 +6754,7 @@ if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){
     graph_height_scale=1
     graph_width_scale=1  
 }    
+graph_min_scale=math.min(graph_height_scale,graph_width_scale)
     
 
 var xpos=location.x_loc;
@@ -6871,19 +7017,22 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
     
+if(display_context_buttons != false){    
     
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-50*graph_scale*graph_avg_scale)
-  .attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu));
+}
     
 g.append("text")  //adds y axis label
   .attr("class", "y_axis_label")
@@ -6963,6 +7112,8 @@ if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){
     graph_height_scale=1
     graph_width_scale=1  
 }
+graph_min_scale=math.min(graph_height_scale,graph_width_scale)
+  
     
 if(mode=="select_iso"){
         var select_iso_name=MIDs[Object.keys(MIDs)[0]][metab_name][metab_frag_name][0].fragment
@@ -7254,19 +7405,23 @@ g.append("rect")//creates box with condition color
     .style("cursor", "move")
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
+
+if(display_context_buttons != false){    
     
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-60*graph_height_scale)
-  .attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu));    
+}
 
 g.append("g")
   .attr("id", "MID_xaxis")
@@ -7414,6 +7569,12 @@ if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){
     graph_height_scale=1
     graph_width_scale=1  
 }     
+    
+    
+graph_min_scale=math.min(graph_height_scale,graph_width_scale)
+    
+   
+    
     
 var xpos=location.x_loc;
 var ypos=location.y_loc;
@@ -7703,20 +7864,25 @@ g.append("rect")//creates box with condition color
     //.attr("fill", "transparent")
     .style("cursor", "move")
     .append("svg:title")
-        .text("Right Click to Access Additional Options");    
+        .text("Right Click to Access Additional Options");
+    
+if(display_context_buttons != false){    
     
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-50*graph_scale*graph_avg_scale)
-  .attr("y",-50*graph_height_scale)
+  //.attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu));
+}
         
 g.append("text")
     .on('contextmenu', d3.contextMenu(menu))
@@ -7798,14 +7964,18 @@ color=color_scheme_obj[Graph_Attribute[metab_name][metab_frag_name].total_abunda
 graph_scale=Graph_Attribute[metab_name][metab_frag_name].total_abundance.scale   
 title_text=Graph_Attribute[metab_name][metab_frag_name].total_abundance.title    
 yaxis_label_text=Graph_Attribute[metab_name][metab_frag_name].total_abundance.yaxis_label    
-graph_height_scale=Graph_Attribute[metab_name][metab_frag_name].stacked_MID.height_scale
-graph_width_scale=Graph_Attribute[metab_name][metab_frag_name].stacked_MID.width_scale
+graph_height_scale=Graph_Attribute[metab_name][metab_frag_name].total_abundance.height_scale
+graph_width_scale=Graph_Attribute[metab_name][metab_frag_name].total_abundance.width_scale
 graph_avg_scale=(graph_width_scale+graph_height_scale)/2    
     
 if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){        
     graph_height_scale=1
     graph_width_scale=1  
-}    
+}
+  
+graph_min_scale=math.min(graph_height_scale,graph_width_scale)
+    
+    
         
     
 
@@ -8066,19 +8236,23 @@ g.append("rect")//creates box with condition color
     .append("svg:title")
         .text("Right Click to Access Additional Options");
 
+if(display_context_buttons != false){    
+    
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-50*graph_scale*graph_avg_scale)
-  .attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu));
-        
+}
+    
 g.append("text")
     .on('contextmenu', d3.contextMenu(menu))
     .attr("class","titlelabel")
@@ -8148,7 +8322,8 @@ function makegraph_timecourse(metab_frag_name,location,ConditionAmount,metab_nam
         graph_height_scale=1
         graph_width_scale=1  
     }
-    
+    graph_min_scale=math.min(graph_height_scale,graph_width_scale)
+
     graph_avg_scale=(graph_width_scale+graph_height_scale)/2
     
     //color=color_scheme_obj[Graph_Attribute[metab_name][metab_frag_name].MID.color_index]
@@ -8518,18 +8693,22 @@ yaxis_label_x=document.getElementById(select_Kin_iso_id+"_yaxis").lastChild.last
     .append("svg:title")
         .text("Right Click to Access Additional Options");    
 
+if(display_context_buttons != false){    
+    
 g.append("text") //adds clickable arrow to induce contextmenu
   .attr("id", "context_button")     
   .attr("class", "context_button")     
   .attr("x",-60*graph_height_scale)
-  .attr("y",-50*graph_height_scale)
+  .attr("y",-50*graph_scale)
   .attr("style","font-family:FontAwesome; cursor:pointer;")    
   .attr("font-weight", 300)
   .attr("fill","#337ab7")
-  .attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  //.attr('font-size', function(d) { return (graph_height_scale*50).toString()+'px';} )
+  .attr('font-size', function(d) { return (graph_min_scale*50).toString()+'px';} )
   .text(function(d) { return '\uf152'; })
   .on('click', d3.contextMenu(menu))
   .on('touchstart', d3.contextMenu(menu));
+}
         
   g.append("text")
     //.on('contextmenu', d3.contextMenu(menu))
@@ -9984,7 +10163,26 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
         return FileMIDs
 
         function mscorrect(element,element_num,c_measured){   //takes in an an array containing the element names (element) corresponding element amounts (element_num) and measured MID (c_measured) and returns a corrected MID c_corrected
-            ncarbons=element_num[0]
+            
+            var iso_type=$('#iso-type').val()
+            console.log(iso_type)
+
+            if(iso_type =="2H"){
+                chosen_element="H"
+            }else if(iso_type =="13C"){
+                chosen_element="C"
+            }else if(iso_type =="15N"){
+                chosen_element="N"
+            }else{
+                chosen_element="C"
+            }
+
+            if(element.indexOf(chosen_element)>-1){
+                ncarbons=element_num[element.indexOf(chosen_element)]
+            }else{
+                ncarbons=0
+            }
+            //ncarbons=element_num[0] //0 due to carbon?? 19-12-19 AK YES THIS IS AN ERROR... NEED TO HAVE LOOP WHERE THE INDEX IS CHOSEN BASED ON THE LABEL TYPE SELECTED.. could potentially also just search for the selected tracer here???
             l=math.min(ncarbons+1,c_measured.length)
             c_measured_length=c_measured.length
             c_measured=c_measured.slice(0, l);
@@ -9996,7 +10194,12 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
                 for(p=q;p<=l;p++){
                     M.subset(math.index(q-1,p-1), math.subset(nat, math.index(p-q)))
                 }
-                element_num[0]=element_num[0]-1 //only for carbon labeling currently
+                //element_num[0]=element_num[0]-1 //only for carbon labeling currently
+                ncarbons=ncarbons-1 //need to introducte break if ncarbons<0
+                
+                if(ncarbons<0){
+                    break
+                }
             }
  
             c_corrected=math.multiply(c_measured, math.inv(M))        // worrkkssss
@@ -10119,7 +10322,7 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
             var fileTypes = ['csv'];  
 
             readUncorCSVFile(files)
-            function readUncorCSVFile(files) {
+            function readUncorCSVFile(files) { 
                 if (files && files[0]) {
                     var extension = files[0].name.split('.').pop().toLowerCase(),  //file extension from input file
                         isSuccess = fileTypes.indexOf(extension) > -1;  //is extension in acceptable types
@@ -10211,6 +10414,7 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
                                     }
                                     
                                     if(FinalCheckisSuccess){
+                                        //19-12-2019 AK INPUT selection input for this field for correction
                                         FileMIDs=returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas) //submits rawFileCounts to be corrected, outputs FileMIDs
                                         result={"FileMIDs":FileMIDs, "FileNames":FileNames}
                                         console.log(result)                                        
