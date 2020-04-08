@@ -10197,6 +10197,8 @@ function returnFileMIDs(FileMIDs,rawFileCounts,Fragment_Formulas){
                 //element_num[0]=element_num[0]-1 //only for carbon labeling currently
                 ncarbons=ncarbons-1 //need to introducte break if ncarbons<0
                 
+                element_num[element.indexOf(chosen_element)]=element_num[element.indexOf(chosen_element)]-1 //new line
+                
                 if(ncarbons<0){
                     break
                 }
