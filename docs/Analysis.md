@@ -1,11 +1,11 @@
 # 6. Analysis 
-This portion of the guide will explain how to normalize conditions, compare individual metabolites, enter time points, and enter quantitative standards.
+This section of the documentation explains how to generate graphs which compare data across metabolites, normalize metabolite abundnaces to various variables(internal standard, experimental condition, cell number/sample mass), enter time points to generate time course graphs, and enter quantitative standard information to generate quantiative abundance graphs.
 
 ## 6.1 Compare Metabolites
-This button allows the user to generate graphs directly comparing metbolite abundance, enrichment, or individual isotopologue labeling across metabolites and conditions.
+This selection allows the user to generate graphs directly comparing metbolite abundance, enrichment, or individual isotopologue labeling across metabolites and conditions.
 
 ### 6.1.0 Make the Compare Metabolites Pop-up Appear
-Make the options appear by clicking the **Compare Metabolites** button:
+Click **Compare Metabolites**:
 
 ![Screenshot](../img/CompareMetabolitesHover.png){: style='height:200px' }
 
@@ -54,26 +54,26 @@ Submit:
 
 Generating a new graph in the top left corner of the Escher Map
 
-![Screenshot](../img/CompareMetabolitesAfterSubmit.PNG){: style='height:250px' }
+![Screenshot](../img/CompareMetabolitesAfterSubmit.PNG){: style='width:400px' }
 
 The graph title, y-axis, and x-axis label text can be edited by clicking them
 
-![Screenshot](../img/CompareMetabolitesEditText.png){: style='height:250px' }
+![Screenshot](../img/CompareMetabolitesEditText.png){: style='width:400px' }
 
 After edits:
 
-![Screenshot](../img/CompareMetabolitesFinalGraph.PNG){: style='height:250px' }
+![Screenshot](../img/CompareMetabolitesFinalGraph.PNG){: style='width:400px' }
 
 
 Abort:
 
 ![Screenshot](../img/CompareMetabolitesAbort.png)
 
-## 6.2  Normalize Abundances
-This button allows the user to normalize metabolite abundances to a specific experimental condition, an internal standard (metabolite) and/or by cell numbers/sample mass.
+## 6.2  Normalize Metabolite Abundances
+This selection allows the user to normalize metabolite abundances to a specific experimental condition, an internal standard (metabolite) and/or by cell numbers/sample mass. More information about normalization calculation can be found [here.](../Calculations/#92-abundance-normalization)
     
 ### 6.2.0 Make Normalize Abundances Pop-up Appear
-Click **Normalize Abundances** and left click to make the menu appear.
+Click **Normalize Abundances**
 
 ![Screenshot](../img/NormalizeAbundancesHover.png){: style='height:200px' }
 
@@ -117,17 +117,17 @@ Before Submit:
  
 After Submit:
 
-![Screenshot](../img/NormalizeAbundancesAfterSubmit.PNG){: style='width:400px' }
+![Screenshot](../img/NormalizeAbundancesAfterSubmit.PNG){: style='width:350px' }
  
 Abort: 
 
 ![Screenshot](../img/NormalizeAbundancesAbort.png){: style='width:400px' }
  
-## 6.3 Enter Time Points
-This button allows the user to enter time point information allowing for creation of kinetic (time-course) graphs for single isotopologues, metabolite abundances, and mole percent enrichment of a metabolite.
+## 6.3 Generate Time Series Graphs
+This selection allows the user to enter time point information allowing for creation of kinetic (time-course) graphs for single isotopologues, metabolite abundances, and mole percent enrichment of a metabolite.
 
 ### 6.3.0 Make Enter Time Points Pop-up Appear
-Click the **Enter Time Points** button.
+Click **Enter Time Points**:
 
 ![Screenshot](../img/TimePointsHover.png){: style='width:200px' }
  
@@ -168,7 +168,7 @@ Submit
 ![Screenshot](../img/TimePointsOrderConditionsSubmit.png){: style='width:600px' }
 
 
-### 6.3.6 Acessing Kinetic Graphs
+### 6.3.6 Accessing Kinetic Graphs
 To access line graphs of time course data, the user can access kinetic graph options in the Escher menu under graph type:
 
 ![Screenshot](../img/TimePointsEscherTraceMenu.png){: style='width:200px' }
@@ -182,12 +182,11 @@ Kinetic graphs of single isotopologue labeling, enrichment, and abundance look l
 ![Screenshot](../img/TimePointsGraphs.png)
 
  
-## 6.4 Enter Quantitative Standards
-This portion of the user guide will explain how to input quantitative standards into Escher-Trace to allow for absolute quantitation of metabolites. Quantitation is be performed by taking the ratio of the unlabeled counts (M0) over the counts of the spiked labeled standard, as indicated by the user, and multiplying by the concentration of the spiked standard in the sample. Ratios are taken within each data file, and averaged across files within the same condition group.
-
+## 6.4 Quantify Metabolite Abundances
+This selection allows users to generate graphs of quantitative metabolite abundance in Escher-Trace for experments where isotopically labeled standards were spiked into samples. Quantitation calculations are performed as described [here.](../Calculations/#93-quantitative-abundance-calculation)
 
 ### 6.4.0 Making Quantitative Standards Pop-up Appear
-Click the **Enter Quantitative Standards** button:
+Click **Enter Quantitative Standards**:
 
 ![Screenshot](../img/QuantitativeStandardsHover.png){: style='width:200px' }
 
@@ -195,7 +194,7 @@ After Click:
 
 ![Screenshot](../img/QuantitativeStandards.png){: style='width:450px' }
  
-For general understanding of how to use the table see [here.](../DataDisplayed/#511-make-the-options-appear)
+For general understanding of how to use the table see [here.](../DataDisplayed/#511-metabolite-selection-table-functionality)
 
 ### 6.4.1 Concentration Units
 Click the white box next to **Concentration Units** and enter in the units of concentration that will be used for the spiked standard. 
@@ -228,11 +227,11 @@ Submit:
  
 Before Submit:
 
-![Screenshot](../img/QuantitativeStandardsBeforeSubmit.PNG){: style='width:250px' }
+![Screenshot](../img/QuantitativeStandardsBeforeSubmit.PNG){: style='width:220px' }
 
 After Submit:
 
-![Screenshot](../img/QuantitativeStandardsAfterSubmit.PNG){: style='width:220px' }
+![Screenshot](../img/QuantitativeStandardsAfterSubmit.PNG){: style='width:200px' }
 
 Abort:
 

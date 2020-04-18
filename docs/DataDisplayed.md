@@ -1,10 +1,8 @@
-# 5. Changing Data Displayed
-This portion of the guide will explain how to edit the metabolite and isotopologue data that appears on the Escher Map.
-
-
+# 5. Change Which Data is Displayed
+This section of the documentation explains how to edit the metabolite and isotopologue data that appears on the Escher Map.
 
 ## 5.1 Metabolites to Display
-This button allows the user to choose which metabolites will have data displayed on the Escher Map.
+Escher-Trace allows users to select to only display data from a subset of metabolites. Below, is a walkthrough of how this is done.
 
 ### 5.1.0 Make the Metabolites to Display Pop-up Appear
 Click **Metabolites to Display** to make the selection appear.
@@ -17,8 +15,8 @@ After click:
 
 After the Metabolite to Display pop-up appears, the user may begin selecting metabolites whose data they would like to have displayed on the Escher Map. 
 
-### 5.1.1 Functionality of Metabolites Selection
-This section of the guide will explain how to select metabolites and different options the user has to find and make selections.
+### 5.1.1 Metabolite Selection Table Functionality
+Many Escher-Trace pop-ups include tables. Below is a walkthrough of interacting with the Metabolite Selection table, but much of it is applicable to all Escher-Trace pop-up tables.
 
 #### 5.1.1.1 Entries Displayed
 Change the number of entries displayed in the pop-up by clicking on the drop down menu in the top left and selecting a number.
@@ -84,34 +82,31 @@ Abort Changes:
 ![Screenshot](../img/MetaboliteDisplayAbort.png){: style='width:300px' }
  
 ## 5.2 Isotopologues to Display
-This button allows the user to limit the isotopologue range that will be included in graphs generated for each metabolite/fragment. The majority instructions for how to interact with the table can be found above in the Metabolites to Display section of the guide. The main difference is how to select the individual metabolite’s isotopologue limit. Rather than checking a box, the user must click a dropdown menu and select an isotopolgue which will be used as the upper range for the displayed isotopologues. For example, selecting M3 results in M0, M1, M2, M3 isotopologue data being included for graph of the selected metabolite/fragment. The default selection for all metabolites/fragments is all isotopologues included in the uploaded data file. The isotopologue will be applied to ALL graph types of the selected metabolite.
-
-NOTE: The selected isotopologue limit is important for Mole Percent Enrichment calculations and graphs, as only isotopologues through the selected isotopologue are included in the enrichment calculation, and the selected isotopologue limit is assumed to be the total number of carbons in the selected metabolite/fragment. For example if M4 is selected for a fragment, Escher-Trace assumes that there are 4 carbons in the metabolite and calculates the enrichment with this number.  
+Escher-Trace allows the user to limit the range of isotopologues that are included in graphs generated for each metabolite/fragment. These entries are important for cleaning up data presentation in Escher-Trace graphs as well as critical for Mole Percent Enrichment calculations and graphs, as only isotopologues through the selected isotopologue are included in the enrichment calculation, more information can be found [here](../Calculations/#94-mole-percent-enrichment-calculation).  Below is a walkthrough of how to edit the isotopologue range of each metabolite/fragment in a dataset.
 
 Click the **Isotopologues to Display** button to make the selection appear.
 
 ![Screenshot](../img/IsotopologueDisplayHover.png){: style='width:200px' }
 
-After click:
+After Click:
 
-
-![Screenshot](../img/IsotopologueDisplay.png){: style='width:300px' }
+![Screenshot](../img/IsotopologueDisplay.png){: style='width:500px' }
+ 
+The majority of instructions for interacting with the Escher-Trace data tables can be found [here](../DataDisplayed/#511-metabolite-selection-table-functionality). In the Isotopologues to Display data table, the user selects the isotopologue limit of a metabolite from the adjacent dropdown menu. Graphs of metabolites will display isotopolologues from M0 to the user selected value.  
  
 To submit changes click **Submit Form**. 
 
 Before Submit:
 
-![Screenshot](../img/MetaboliteDisplayIsoBeforeSubmit.PNG){: style='width:550px' }
+![Screenshot](../img/MetaboliteDisplayIsoBeforeSubmit.PNG){: style='width:650px' }
 
 After Submit:
 
 ![Screenshot](../img/MetaboliteDisplayIsoAfterSubmit.PNG){: style='width:550px' }
 
 
-
-
 ## 5.3 Create Carbon Diagram
-This button allows the user to create carbon circle diagrams which will be displayed on the Escher Map. These diagrams are useful for depicting labeled vs unlabeled carbon positions. The circles in the diagram can be clicked to change their color indicating that the carbon is either labeled or unlabeled. 
+Labeling diagrams are useful for depicting labeled vs unlabeled isotope positions in molecules. Below is a walkthrough of how to generate and use circle labeling diagrams in Escher-Trace. The circles in each diagram can be clicked to change their color indicating that the element is labeled or unlabeled. 
 
 ### 5.3.0 Make the Create Carbon Diagram Pop-up Appear
 Click the **Create Carbon Diagram** button to make the selection appear.
@@ -137,7 +132,7 @@ Hover over which circle you would like to remove. The circles will turn red as y
 
 ![Screenshot](../img/CarbonDiagramDisplayRemoveCirclesRed.png){: style='width:600px' }
 
-Click the red circle and it will be removed. All other circles positions will remain unaffected.
+Click the red circle to remove it. All other circles positions will remain unaffected.
 
 ![Screenshot](../img/CarbonDiagramDisplayRemoveCirclesRemoved.PNG){: style='width:600px' }
 
@@ -147,7 +142,7 @@ To add a text label to the diagram, enter the text you would like included in th
 
 ![Screenshot](../img/CarbonDiagramDisplayEditText.PNG){: style='width:600px' }
 
-Click **Add Text Label** to have the label included in the diagram. The label can be updated by reentering text in the Text Label input and reclick **Add Text Label**.
+Click **Add Text Label** to have the label included in the diagram. The label can be updated by reentering text in the Text Label input and reclicking **Add Text Label**.
 
 ![Screenshot](../img/CarbonDiagramDisplaySubmitText.PNG){: style='width:600px' }
 
@@ -170,7 +165,7 @@ The diagram can be moved anywhere in the Escher map by clicking and dragging it:
 
 
 ### 5.3.5 Carbon Diagram Options
-After the carbon diagram has been added to the Escher-Trace workspace the diagrams can be clicked and dragged to move them around the map. Individual carbon circles can be clicked to change their color.
+Individual circles in the diagram can be clicked to change their color.
 
 Before left click:
 
@@ -197,7 +192,7 @@ After click:
 
 ![Screenshot](../img/CarbonDiagramDisplayChangeColor.PNG){: style='width:500px' }
 
-You can then choose which color will indicate a labeled or unlabeled carbon by entering a HEX code into the color inputs, or selecting the color from the color pallete that appears when clicking on the color inputs.
+The colors indicating a labeled or unlabeled circles can be updated by entering a HEX code into the color inputs, or selecting the color from the color pallete that appears when clicking on the color inputs.
 
 ![Screenshot](../img/CarbonDiagramDisplayChooseColor.png){: style='width:500px' }
 
