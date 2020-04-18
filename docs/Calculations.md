@@ -28,6 +28,6 @@ Abundance data can alternativley can be reported quantitatively in Escher-Trace 
 ## 9.4 Mole Percent Enrichment Calculation
 Metabolite enrichment from a stable isotope tracer is calculated as shown below **within each sample**, prior to being averaged across all samples within a group and displayed in abundance related graphs.
 
-![Screenshot](../img/MPE Calculation.PNG){: style='width:500px' }
+![Screenshot](img/MPE Calculation.PNG){: style='width:500px' }
 
 **NOTE:** N<sub>t</sub> values are specified by the user in the [Isotopologues to Display table.](../DataDisplayed/#52-isotopologues-to-display) In order to ensure correct calculation of metabolite enrichment, the values in this table must be adjusted as necessary.
