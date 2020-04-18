@@ -2,7 +2,7 @@
 
 Escher-Trace is a tool for visualizing and analyzing stable isotope tracing data. You can find more information about how to use the tool by selecting from the menu options on the left. Escher-Trace is built on top of [Escher.](https://escher.github.io/#/) New users may be interested in the [**Getting Started with Escher-Trace**](GettingStarted) guide. 
 
-![Screenshot](../img/Escher-Trace Complete Interface Figure.png)
+![Screenshot](img/Escher-Trace Complete Interface Figure.png)
 
 ## Features
 1. Upload data in a simple JSON or CSV [format](GettingStarted/#13-importing-tracer-data)
@@ -18,7 +18,7 @@ Escher-Trace is a tool for visualizing and analyzing stable isotope tracing data
 7. Integration with Escher maps, allowing for simple loading and editing of pathway maps.
 
 
-![Screenshot](../img/Escher-Trace Showcase Graph Type Figure.png)
+![Screenshot](img/Escher-Trace Showcase Graph Type Figure.png)
 
 ## Supported browsers
 We recommend using Google Chrome for the best user experience, however Escher-Trace will also run on Internet Explorer, Firefox, and Safari as well as mobile browsers.

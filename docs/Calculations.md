@@ -23,11 +23,11 @@ If an sample group is specified (any option other then the default N/A), each me
 ## 9.3 Quantitative Abundance Calculation
 Abundance data can alternativley can be reported quantitatively in Escher-Trace if metabolite quantitation is performed via introduction of stable isotope labeled standards (include reference with more information). If standards are entered into the [quantitative abundance table](../Analysis/#64-quantify-metabolite-abundances), the quantitative abundance of metabolites, for which standards have been entered, will be calculated as shown below, **within each sample**, prior to being averaged across all samples within a group and displayed in total abundance graphs.
 
-![Screenshot](../img/Quantitative abundance calculation.png){: style='width:500px' }
+![Screenshot](../img/Quantitative abundance calculation.PNG){: style='width:500px' }
 
 ## 9.4 Mole Percent Enrichment Calculation
 Metabolite enrichment from a stable isotope tracer is calculated as shown below **within each sample**, prior to being averaged across all samples within a group and displayed in abundance related graphs.
 
-![Screenshot](../img/MPE Calculation.png){: style='width:500px' }
+![Screenshot](../img/MPE Calculation.PNG){: style='width:500px' }
 
 **NOTE:** N<sub>t</sub> values are specified by the user in the [Isotopologues to Display table.](../DataDisplayed/#52-isotopologues-to-display) In order to ensure correct calculation of metabolite enrichment, the values in this table must be adjusted as necessary.
