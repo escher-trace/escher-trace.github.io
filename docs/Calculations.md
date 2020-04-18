@@ -30,11 +30,5 @@ Metabolite enrichment from a stable isotope tracer is calculated as shown below 
 
 ![Screenshot](../img/MPE Calculation.PNG){: style='width:500px' }
 
-![Screenshot](../img/MPE Calculation.png){: style='width:500px' }
-
-![Screenshot](img/MPE Calculation.PNG){: style='width:500px' }
-
-![Screenshot](img/MPE Calculation.png){: style='width:500px' }
-
 
 **NOTE:** N<sub>t</sub> values are specified by the user in the [Isotopologues to Display table.](../DataDisplayed/#52-isotopologues-to-display) In order to ensure correct calculation of metabolite enrichment, the values in this table must be adjusted as necessary.
