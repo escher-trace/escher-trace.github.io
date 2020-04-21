@@ -113,6 +113,26 @@ a {
     font-size: 16px
 }
 
+
+#github-link-box {
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  font-size: 18px;
+}
+#github-link-box>a {
+  border: 1px solid #CF6965;
+  margin: 0 3px;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+#github-link {
+  height: 20px;
+  top: 3px;
+  position: relative;
+  margin-right: 3px;
+}
+
 .helpOverlay {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

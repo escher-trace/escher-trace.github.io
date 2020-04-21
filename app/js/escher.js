@@ -7065,13 +7065,14 @@ function save_map (obj, callback_before, callback_after, map_type) {
 
     // hide the segment control points
     //var hidden_sel = obj.sel.selectAll('.multimarker-circle,.midmarker-circle,#canvas')
-    var hidden_sel = obj.sel.selectAll('.multimarker-circle,.midmarker-circle,#canvas,.context_button')
+    var hidden_sel = obj.sel.selectAll('.multimarker-circle,.midmarker-circle,#canvas,.context_button') //AK: Edited to remove context-buttons
       .style('visibility', 'hidden')
 
     // do the export
     if(map_type == 'svg') {
       utils.download_svg('saved_map', obj.svg, true)
     } else if(map_type == 'png') {
+      obj.sel.selectAll('.context_button').remove()//AK: Added to remove context-buttons completely, and prevent crashing       
       utils.download_png('saved_map', obj.svg, true)
     }
 

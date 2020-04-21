@@ -104,6 +104,7 @@ d3.contextMenu = function (menu, openCallback) {
                                                             d.onMouseClick(elm, data, index);
                                                             if(d.chidernItems.length==0 ){
                                                                 d3.select('.d3-context-menu').style('display', 'none');
+                                                                deactivate_context_button()
                                                             }else{
                                                                // this.classList.toggle('active_context_2nd')
                                                             }
