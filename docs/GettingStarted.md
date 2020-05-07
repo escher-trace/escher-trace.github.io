@@ -40,6 +40,7 @@ Uncorrected tracing data can be imported into Escher-Trace in the following CSV 
 |            |             | lac263     | 110000   | 76515    | 70800    |
 |            |             | lac264     | 17400    | 14300    | 12548    |
 
+**Note**: For each metabolite/fragment, the number of isotopologues to include abundances of should be as close to the total number of possible labeled states from the applied tracer as possible, without compromising the purity of the metabolite peak integration.
 
 Important formating details for uncorrected data:
 
