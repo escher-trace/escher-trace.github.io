@@ -117,7 +117,9 @@ After Click:
 
  
 ## 4.4 Remove/Add Legend Metrics
-Legend metrics can appear in graphs of mass isotopologue distributions. The metric shown is equal to the sum of the isotopologue fractions across all displayed isotopologues for a specific metabolite and condition. It can be utilized to quickly get a sense of labeling data quality, values differing from 100% suggest improper metabolite integration and/or natural isotope correction. Below is a walkthrough of how to add/remove legend metrics from Escher-Trace graphs.
+Legend metrics can appear in graphs of mass isotopologue distributions. The metric shown is equal to the sum of the isotopologue fractions across all displayed isotopologues for a specific metabolite and condition. It can be utilized to quickly get a sense of labeling data quality, values differing from 100% suggest improper metabolite integration and/or natural isotope correction and will appear red. Additionally, graphs containing data with a legend metric value other than 100% or which contain individual isotopologue labeling >100% or <0% (which can occur due improper natural isotope correction) will be flagged.
+
+Below is a walkthrough of how to add/remove legend metrics from Escher-Trace graphs.
 
 Click the toggle button next to **Legend Metrics** to change the option.
 
@@ -125,11 +127,15 @@ Click the toggle button next to **Legend Metrics** to change the option.
 
 Before Click:
 
-![Screenshot](img/RemoveMetricsBefore.png){: style='width:650px' }
+![Screenshot](img/RemoveMetricsBefore.png){: style='width:500px' }
  
 After Click: 
 
-![Screenshot](img/RemoveMetricsAfter.png){: style='width:600px' }
+![Screenshot](img/RemoveMetricsAfter.png){: style='width:500px' }
+
+Hover over Flag:
+
+![Screenshot](img/RemoveMetricsFlagHover.png){: style='width:650px' }
  
 
 ## 4.5 Remove/Add Context Button
