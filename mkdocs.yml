@@ -9,6 +9,7 @@ nav:
         - 7. Reorganize Data: EditData.md
         - 8. Save Workspace: SaveWorkspace.md
         - 9. Calculations: Calculations.md
+        - 10. Isotopologue Range Calculator: IsoCalculator.md
     
 theme: 'readthedocs'
 markdown_extensions:

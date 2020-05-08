@@ -1,4 +1,4 @@
-<!-- index_AK_JM_087_organized_src.html - An Escher map with metabolite structures.
+<!-- index_AK_JM_088_updated_QC_metrix.html - An Escher map with metabolite structures.
 The MIT License (MIT)
 This software is Copyright © 2019 The Regents of the University of
 California. All Rights Reserved.
@@ -57,7 +57,15 @@ THE SOFTWARE.
     <!--<link rel="stylesheet" href="css/font-awesome.min.css"/> -->       
     <!--<link rel="stylesheet" href="css/bootstrap.min.css"/><!--  escher --> 
     
-    
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150525889-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-150525889-1');
+    </script>    
     <style>
 
         .titlelabel{
@@ -120,7 +128,17 @@ THE SOFTWARE.
             background-color: rgba(49,49,49,0.95);
             overflow:auto
             } 
-
+        .PopUp_flag {
+            width:250px;
+            height:200px;
+            opacity:.95;
+            top:25%;
+            left:50%;
+            display:none;
+            position:fixed;
+            background-color:#337ab7;
+            overflow:auto
+            }
         .PopUp_slider {
             width:250px;
             height:200px;
@@ -489,6 +507,26 @@ THE SOFTWARE.
           fill: red;
           }*/
 
+        .speech_bubble {
+          background-color:#fff;      
+          opacity:1;
+          border-radius: 8px;
+          border: 4px solid #337ab7;            
+        /*  position: relative;
+          width: 200px;
+          height: 100px;
+          text-align: center;
+          line-height: 100px;
+          background-color: #fff;
+          border: 8px solid #666;
+          -webkit-border-radius: 30px;
+          -moz-border-radius: 30px;
+          border-radius: 30px;
+          -webkit-box-shadow: 2px 2px 4px #888;
+          -moz-box-shadow: 2px 2px 4px #888;
+          box-shadow: 2px 2px 4px #888;*/
+        }        
+        
         /*css for toggle switch */  
         .switch {
             position: relative;
@@ -817,7 +855,21 @@ THE SOFTWARE.
         
         
         
-        
+<!--<div id="PopUp_flag" style="top: 0%; left: 40%; position:fixed; display: none; margin-bottom: 0rem;" role="dialog">-->
+<div id="PopUp_flag" style="position: fixed; display: none; z-index:1200;" role="dialog">
+  <div class="modal-dialog" style="width: 300px">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 10px">
+              <p style="font-size: small; margin-bottom: 0rem;">This fragment contains nonsensical labeling. If Escher-Trace's natural abundance correction was utilized, include data for additional isotopologues for this metabolite/fragment and reupload the dataset. For assistance, go to section 10. Isotopologue Range Calculator in the Escher-Trace documentation.
+              </p>
+      </div>         
+      
+    </div>
+
+  </div>
+</div>         
         
         
         
@@ -6476,7 +6528,9 @@ function add_structures(result) {
     graph_width_scale=Graph_Attribute[metab_name][metab_frag_name][this_graph_type].width_scale
     graph_avg_scale=(graph_width_scale+graph_height_scale)/2
     title_text=Graph_Attribute[metab_name][metab_frag_name][this_graph_type].title    
-    yaxis_label_text=Graph_Attribute[metab_name][metab_frag_name][this_graph_type].yaxis_label         
+    yaxis_label_text=Graph_Attribute[metab_name][metab_frag_name][this_graph_type].yaxis_label  
+        
+    var flag_graph=false    
 
     if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){        
         graph_height_scale=1
@@ -6627,6 +6681,9 @@ function add_structures(result) {
             .transition()
             .duration(1000)//time in ms            
             .attr("y", function (d, i) {
+                    if(d.frequency<-0.015 || d.frequency>1.015){
+                        flag_graph=true
+                    }
                     if(d.frequency<0){
                         return 0}
                     else{
@@ -6680,8 +6737,12 @@ function add_structures(result) {
                 .attr("y", function (d) { return y(d.frequency+d.error)-5; })
                 .attr("class","barlabel")
                 .attr("fill",function(d){
-                        if(d.frequency<0 && display_legend_metrics==true){
-                            return "red"}
+                        if(display_legend_metrics==true){
+                            if(d.frequency<-0.015 || d.frequency>1.015){
+                                return "red"
+                            }                            
+                            return "black"
+                        }
                         else{
                             return "black"}})    
                 //.attr("font-family","Palatino Linotype", "Book Antiqua", "Palatino, serif")
@@ -6768,9 +6829,19 @@ function add_structures(result) {
                 }             
             })
             .style("fill",function(d){
-                if(total_frequency<0.95 && mode!="select_iso" && display_legend_metrics==true){ //if total_frequency is below .95 alert user with red text
-                        return "red"
-                    }else{"black"}})
+                if(mode!="select_iso" && display_legend_metrics==true){//if total_frequency is below .95 alert user with red text
+                    if(total_frequency<0.98 ||  total_frequency>1.015){
+                            flag_graph=true
+                            return "red"            
+                       }else{
+                            return "black"            
+                       }                    
+                /*if(total_frequency<0.97 && mode!="select_iso" && display_legend_metrics==true){ //if total_frequency is below .95 alert user with red text
+                        return "red"*/
+                    }else{
+                        "black"
+                    }
+                })
            // .style("font-size",String(10*graph_scale*graph_height_scale)+"px")
             .style("font-size",String(10*graph_scale*graph_avg_scale)+"px")
             .text(function(d){
@@ -7020,10 +7091,54 @@ function add_structures(result) {
                                  }
            )
          .attr("stroke-width",String(1*graph_scale*graph_avg_scale)+"px");
-    }
+
+        if(display_legend_metrics != false && flag_graph != false){            
+
+            //display_legend_metrics==false
+        g.append("text") //adds clickable arrow to induce contextmenu
+          .attr("id", "QC_alert")     
+          .attr("class", "QC_alert")     
+          .attr("x",width+legend_scale/1.5+graph_scale)
+          .attr("y",-40*graph_scale*graph_avg_scale)
+          .attr("style","font-family:FontAwesome; cursor:pointer;")    
+          .attr("font-weight", 300)
+          .attr("fill", "red")
+          //.style("font-size", function(d) { return (graph_height_scale*50).toString()+'px';} )
+          .style("font-size", function(d) { return (graph_avg_scale*50).toString()+'px';} )
+          .text(function(d) { return '\uf024'; })
+          //.on('click', d3.contextMenu(menu))
+          //.on('touchstart', d3.contextMenu(menu))
+          .on("mouseover", function(d){
+            console.log(this)
+            this.style.fontSize=(Number(this.style.fontSize.split('px')[0])*2).toString()+'px'
+
+            flagMouseOver(d)})
+          .on("mouseout", function(d){
+            this.style.fontSize=(Number(this.style.fontSize.split('px')[0])/2).toString()+'px'
+            flagMouseOut(d)})
+          //.on("mouseout", function(d){flagMouseOut(d)});
+                   
+        }        
+
+        }
 
     } 
 
+    function flagMouseOver(d){
+        //document.getElementById("PopUp_flag").style.display = "block";  
+
+        d3.select('#PopUp_flag')
+            .style('left', (d3.event.pageX - 2) + 'px')
+            .style('top', (d3.event.pageY - 2) + 'px')
+            .style('display', 'block');        
+        //$("#PopUp_flag").css({top: d.y, left: d.x})
+        //document.getElementById("PopUp_flag").style.display = "block";  
+    }
+
+    function flagMouseOut(d){
+        d3.select('#PopUp_flag').style('display', 'none');        
+    }         
+    
     function get_individual_data(metab_name,metab_frag_name,condition_index,select_iso_index){
         individual_file_data=[]
 
@@ -7664,7 +7779,8 @@ function add_structures(result) {
     graph_height_scale=Graph_Attribute[metab_name][metab_frag_name].stacked_MID.height_scale
     graph_width_scale=Graph_Attribute[metab_name][metab_frag_name].stacked_MID.width_scale
     graph_avg_scale=(graph_width_scale+graph_height_scale)/2    
-
+    var flag_graph=false;
+        
     if(typeof graph_height_scale=='undefined' || graph_width_scale=='undefined'){        
         graph_height_scale=1
         graph_width_scale=1  
@@ -7763,6 +7879,10 @@ function add_structures(result) {
                 .attr("fill",function (d, i) {return color[i]}) //sets a different bar color for each condition
                 .attr("stroke","black") 
 
+        if(sum_bar>1.015 || sum_bar<0.98){
+            flag_graph=true
+        }
+        
         sum_bar1=0; //sum_bar allows for bars to stack ontop of eachother
         sum_bar2=0; //sum_bar allows for bars to stack ontop of eachother
         sum_bar3=0; //sum_bar allows for bars to stack ontop of eachother
@@ -7969,7 +8089,33 @@ function add_structures(result) {
        .text(title_text)
        .on("click", function(d){make_editable(this,d,'title',metab_name,metab_frag_name,"stacked_MID")})    
 
+    if(display_legend_metrics != false && flag_graph != false){            
 
+        //display_legend_metrics==false
+    g.append("text") //adds clickable arrow to induce contextmenu
+      .attr("id", "QC_alert")     
+      .attr("class", "QC_alert")     
+      .attr("x",width)
+      .attr("y",-40*graph_scale*graph_avg_scale)
+      .attr("style","font-family:FontAwesome; cursor:pointer;")    
+      .attr("font-weight", 300)
+      .attr("fill", "red")
+      //.style("font-size", function(d) { return (graph_height_scale*50).toString()+'px';} )
+      .style("font-size", function(d) { return (graph_avg_scale*50).toString()+'px';} )
+      .text(function(d) { return '\uf024'; })
+      //.on('click', d3.contextMenu(menu))
+      //.on('touchstart', d3.contextMenu(menu))
+      .on("mouseover", function(d){
+        console.log(this)
+        this.style.fontSize=(Number(this.style.fontSize.split('px')[0])*2).toString()+'px'
+
+        flagMouseOver(d)})
+      .on("mouseout", function(d){
+        this.style.fontSize=(Number(this.style.fontSize.split('px')[0])/2).toString()+'px'
+        flagMouseOut(d)})
+      //.on("mouseout", function(d){flagMouseOut(d)});
+
+    }  
 
 
 

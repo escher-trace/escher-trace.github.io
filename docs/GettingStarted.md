@@ -40,7 +40,12 @@ Uncorrected tracing data can be imported into Escher-Trace in the following CSV 
 |            |             | lac263     | 110000   | 76515    | 70800    |
 |            |             | lac264     | 17400    | 14300    | 12548    |
 
-**Note**: For each metabolite/fragment, the number of isotopologues to include abundances of should be as close to the total number of possible labeled states from the applied tracer as possible, without compromising the purity of the metabolite peak integration.
+
+**Note**: For each metabolite/fragment, the number of isotopologues to include abundances of should be as close to the total number of possible labeled states from the applied tracer as possible, without compromising the purity of the metabolite peak integration. A calculator to help assist in determing this range can be found [here.](../IsoCalculator/)
+
+As for the number of isotopologues that should be included for each metabolite/fragment in the data file uploaded by the user, ideally the number of included isotopologues for each fragment would be equivalent to the total number of possible labeled isotopologues for that compound. This number, however, is often large even for small, derivatized metabolites, and as a result including all such isotopologues when integrating chromatographic peaks would lead to overlap between the metabolite of interest and isobaric compounds. 
+For derivatized molecules, however, the backbone size of the molecule is often much smaller than the total amount of element positions in the fully derivatized compound. Because only the backbone molecules are able to be labeled by the applied stable isotope tracer, the lowest number of isotopologues that should be included for a metabolite/fragment in the Escher-Trace upload file is equivalent to this backbone size. This is not enough for proper correction in cases where the metabolite is significantly labeled, however, as the abundance of larger isotopologues increases due to contribution from the labeled tracer as well as natural isotope abundance in the backbone and derivatized fragments. It is therefore, up to the user to determine the upper bound of the isotopologue number included for each metabolite without sacrificing integration purity based on their chromatography and spectrometry methods. In summary, the number of isotopologues to be included for each metabolite/fragment should be as close to the total number of possible labeled states, without compromising the purity of the metabolite peak integration. All of this information has now been included in the user documentation.
+
 
 Important formating details for uncorrected data:
 
