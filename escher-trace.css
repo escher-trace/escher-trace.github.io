@@ -635,6 +635,8 @@ p {
 
 #homepage-title-box {
     width: 100%;
+    position: relative;
+    text-align: center;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: row;
@@ -654,9 +656,10 @@ p {
     -ms-flex: 1 1 100%;
     flex: 1 1 100%;
     color: #291e1e;
-    font-size: 140px;
+    font-size: 145px;
     font-family: tulpen-one,Futura,serif;
-    font-weight: 400
+    font-weight: 400;
+    margin: 25px 0 25px 0;
 }
 
 #homepage-description {
