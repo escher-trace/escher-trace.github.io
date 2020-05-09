@@ -123,7 +123,7 @@ a {
 #github-link-box>a {
   border: 1px solid #CF6965;
   margin: 0 3px;
-  padding: 2px 4px;
+  padding: 1px 0px;
   border-radius: 3px;
 }
 #github-link {
@@ -630,7 +630,8 @@ p {
 
 #homepage-body {
     -ms-flex: 0 1 700px;
-    flex: 0 1 700px
+    flex: 0 1 700px;
+    margin: auto
 }
 
 #homepage-title-box {
@@ -684,7 +685,8 @@ p {
 #homepage-launch-box-centered {
     -ms-flex: 0 1 515px;
     flex: 0 1 515px;
-    margin: 0 10px;
+    /*margin: 0 10px;*/
+    margin: auto;
     position: relative
 }
 
