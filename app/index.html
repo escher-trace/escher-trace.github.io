@@ -1,4 +1,4 @@
-<!-- index_AK_JM_088_updated_QC_metrix.html - An Escher map with metabolite structures.
+<!-- index_AK_JM_089.html - An Escher map with metabolite structures.
 The MIT License (MIT)
 This software is Copyright © 2019 The Regents of the University of
 California. All Rights Reserved.
@@ -65,7 +65,8 @@ THE SOFTWARE.
       gtag('js', new Date());
 
       gtag('config', 'UA-150525889-1');
-    </script>    
+    </script>      
+    
     <style>
 
         .titlelabel{
@@ -862,7 +863,7 @@ THE SOFTWARE.
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-body" style="padding: 10px">
-              <p style="font-size: small; margin-bottom: 0rem;">This fragment contains nonsensical labeling. If Escher-Trace's natural abundance correction was utilized, include data for additional isotopologues for this metabolite/fragment and reupload the dataset. For assistance, go to section 10. Isotopologue Range Calculator in the Escher-Trace documentation.
+              <p style="font-size: small; margin-bottom: 0rem;">This fragment contains nonsensical labeling likely due to improper peak integration or natural abundance correction. If Escher-Trace's natural abundance correction was utilized, include data for additional isotopologues for this metabolite/fragment and reupload the dataset. For assistance, go to section 10. Isotopologue Range Calculator in the Escher-Trace documentation.
               </p>
       </div>         
       
@@ -6682,6 +6683,7 @@ function add_structures(result) {
             .duration(1000)//time in ms            
             .attr("y", function (d, i) {
                     if(d.frequency<-0.015 || d.frequency>1.015){
+                    //if(d.frequency<-0.005 || d.frequency>1.005){
                         flag_graph=true
                     }
                     if(d.frequency<0){
@@ -6738,7 +6740,8 @@ function add_structures(result) {
                 .attr("class","barlabel")
                 .attr("fill",function(d){
                         if(display_legend_metrics==true){
-                            if(d.frequency<-0.015 || d.frequency>1.015){
+                            if(d.frequency<-0.005 || d.frequency>1.005){
+                            //if(d.frequency<-0.015 || d.frequency>1.015){
                                 return "red"
                             }                            
                             return "black"
@@ -9951,11 +9954,17 @@ function add_structures(result) {
                             for(m=0;m<file_index_inorder.length;m++){
                                 total_abundance_data=FileMIDs['File'+(file_index_inorder[m]+1).toString()][metab_name][metab_frag_name].abundance                        
                                 isotopologue_frequency=FileMIDs['File'+(file_index_inorder[m]+1).toString()][metab_name][metab_frag_name].labeling[l].frequency;
+                                
+                                if((100*isotopologue_frequency).toFixed(1)=="-0.0"){
+                                    isotopologue_frequency=0
+                                }       
+                                
                                 isotopologue_abundance=isotopologue_frequency*total_abundance_data
                                 if(graph_type=='abundance' || graph_type=='stacked_abundance' || graph_type=='total_abundance'|| graph_type=='Kin_abundance'){
                                     row_string=row_string+'<td>'+isotopologue_abundance.toFixed(0)+'</td>'
                                 }else{
-                                    row_string=row_string+'<td>'+(100*isotopologue_frequency).toFixed(3)+'</td>'
+                                    //row_string=row_string+'<td>'+(100*isotopologue_frequency).toFixed(3)+'</td>'
+                                    row_string=row_string+'<td>'+(100*isotopologue_frequency).toFixed(1)+'</td>'
                                 }
                             }                        
 
@@ -9974,7 +9983,8 @@ function add_structures(result) {
 
                                     MPE_inorder = calculate_MPE(metab_name,metab_frag_name)
                                     for(m=0;m<MPE_inorder[2].length;m++){
-                                        row_string=row_string+'<td>'+(100*MPE_inorder[2][m]).toFixed(3)+'</td>'
+                                        //row_string=row_string+'<td>'+(100*MPE_inorder[2][m]).toFixed(3)+'</td>'
+                                        row_string=row_string+'<td>'+(100*MPE_inorder[2][m]).toFixed(1)+'</td>'
                                     }
                                 }                            
 
