@@ -1,4 +1,4 @@
-# 4. Alter Graph Attributes
+# 4. Alter graph attributes
 This section of the documentation explains how to change the attributes of graphs including size, scheme, bar labels, legend metrics, prescence of the context button, and plotting individual data points as well as show how to import these characteristics and others from a different Escher-Trace Workspace.
 
 ## 4.1 Changing Graph Size

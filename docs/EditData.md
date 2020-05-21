@@ -1,4 +1,4 @@
-# 7. Reorganize Data
+# 7. Reorganize data
 This section of the documentation explains how to change how data files are organized in Escher-Trace. Specifically it contains walkthroughs of altering the order in which condition groups are presented in graphs, changing how samples are grouped together, as well as renaming condition groups. 
 
 ## 7.1 Reorder Conditions

@@ -1,4 +1,4 @@
-# 5. Change Which Data is Displayed
+# 5. Change what data is displayed
 This section of the documentation explains how to edit the metabolite and isotopologue data that appears on the Escher Map.
 
 ## 5.1 Metabolites to Display

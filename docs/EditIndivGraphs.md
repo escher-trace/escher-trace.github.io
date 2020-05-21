@@ -1,4 +1,4 @@
-# 2. Edit Individual Graphs
+# 2. Edit individual graphs
 This section of the documentation explains how individual Escher-Trace graphs can be edited, downloaded, or used to access additional data associated with the graphed metabolite. Additionally, a walkthrough of how to edit title and y-axis label text is presented. These processes apply to all Escher-Trace graphs, not just the ones shown below.
 
 

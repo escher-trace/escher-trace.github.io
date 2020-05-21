@@ -1,15 +1,15 @@
 site_name: Escher-Trace
 nav:
-        - 1. Getting Started with Escher-Trace: GettingStarted.md
-        - 2. Edit Individual Graphs: EditIndivGraphs.md
-        - 3. Cycle through Data Types: GraphTypes.md
-        - 4. Alter Graph Attributes: GraphAttributes.md
-        - 5. Change Which Data is Displayed: DataDisplayed.md
+        - 1. Getting started with Escher-Trace: GettingStarted.md
+        - 2. Edit individual graphs: EditIndivGraphs.md
+        - 3. Cycle through data types: GraphTypes.md
+        - 4. Alter graph attributes: GraphAttributes.md
+        - 5. Change what data is displayed: DataDisplayed.md
         - 6. Analysis: Analysis.md
-        - 7. Reorganize Data: EditData.md
-        - 8. Save Workspace: SaveWorkspace.md
+        - 7. Reorganize data: EditData.md
+        - 8. Save workspace: SaveWorkspace.md
         - 9. Calculations: Calculations.md
-        - 10. Isotopologue Range Calculator: IsoCalculator.md
+        - 10. Isotopologue range calculator: IsoCalculator.md
     
 theme: 'readthedocs'
 markdown_extensions:

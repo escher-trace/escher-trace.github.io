@@ -1,4 +1,4 @@
-# 10. Isotopologue Range Calculator
+# 10. Isotopologue range calculator
 Inorder to properly correct for natural isotope abundance of a compound, abundance data for a sufficient number of isotopologues of the compound must be included in the uploaded data file. This page will assist in determing the range of isotopologues to include abundance data for inorder to sufficiently correct for natural isotope abundance in Escher-Trace.  
 
 <header>

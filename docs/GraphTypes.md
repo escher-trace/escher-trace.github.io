@@ -1,4 +1,4 @@
-# 3. Cycle through Data Types
+# 3. Cycle through data types
 This section of the documentation explains how to switch graphs for all metabolites to one the following options: MID, Stacked MID, Abundance, Stacked Abundance, MPE. These options can be accessed by clicking **Graph Type** in the Escher-Trace Menu
 
 
