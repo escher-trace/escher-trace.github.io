@@ -1,5 +1,5 @@
 # 10. Isotopologue range calculator
-Inorder to properly correct for natural isotope abundance of a compound, abundance data for a sufficient number of isotopologues of the compound must be included in the uploaded data file. This page will assist in determing the range of isotopologues to include abundance data for inorder to sufficiently correct for natural isotope abundance in Escher-Trace.  
+In order to properly correct for natural isotope abundance of a compound, abundance data for a sufficient number of isotopologues of the compound must be included in the uploaded data file. This page will assist in determing the range of isotopologues to include abundance data for in order to sufficiently correct for natural isotope abundance in Escher-Trace.  
 
 <header>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>     
@@ -164,7 +164,7 @@ d3.select("#enter_data").on("click", function() {
             
     }
     
-    text +="To ensure proper natural isotope correction of compound "+compound_formula+" using Escher-Trace, include isotopologues M0 through MX+"+limit.toString()+" in the file to be uploaded. X is equivalent to the amount of the applied stable isotope tracer  element (i.e. if a 13C tracer was used this will be the number of Carbon atoms) in the backbone of "+compound_formula+"</span>"
+    text +="To ensure proper natural isotope correction of compound "+compound_formula+" using Escher-Trace, include isotopologues M0 through MX+"+limit.toString()+" in the file to be uploaded. X is equivalent to the amount of the applied stable isotope tracer element (i.e. if a 13C tracer was used, this will be the number of Carbon atoms) in the metabolite backbone, excluding derivatization additions, of "+compound_formula+". Inclusion of isotopologues greater than the amount of the applied stable tracer element in the entire compound "+compound_formula+", will not impact the natural isotope correction.</span>"
     
     paragraph.innerHTML = text;
 

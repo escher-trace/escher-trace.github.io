@@ -41,7 +41,7 @@ Uncorrected tracing data can be imported into Escher-Trace in the following CSV 
 |            |             | lac264     | 17400    | 14300    | 12548    |
 
 
-**Note**: For each metabolite/fragment, the number of isotopologues to include abundances of should be as close to the total number of possible labeled states from the applied tracer as possible, without compromising the purity of the metabolite peak integration. A calculator to help assist in determing this range can be found [here.](../IsoCalculator/)
+**Note**: For each metabolite/fragment, the number of isotopologues to include abundances of should be as close to, but no more than, the total number of possible labeled states from the applied tracer as possible, without compromising the purity of the metabolite peak integration. A calculator to help assist in determing this range can be found [here.](../IsoCalculator/)
 
 Important formating details for uncorrected data:
 
@@ -51,8 +51,8 @@ Important formating details for uncorrected data:
 + If including data measured from multiple fragments for the same metabolite, simply enter the same **Metabolite name** for all fragments.
 + The isotopologue '(M#)' does not need to be included in fragment name, the first row of data for each fragment is assumed to be M0, the second M1, and so on.
 + Chemical formulas must be entered in in empirical format, absent of any non alpha-numeric characters (such as "()", "{}", etc.).
-+ Isotopologue counts should be baseline corrected inorder to obtain accurate corrected labeling distributions.
-+ Inorder to have data appear next to specific escher metabolite node, use the bigg_ID of the desired metabolite node as the metabolite name. 
++ Isotopologue counts should be baseline corrected in order to obtain accurate corrected labeling distributions.
++ In order to have data appear next to specific escher metabolite node, use the bigg_ID of the desired metabolite node as the metabolite name. 
   
 #### 1.3.1.3	Natural Isotope Corrected CSV Format
   
@@ -82,7 +82,7 @@ Important formating details for corrected data:
 + Entries in **Metabolite** column indicate that data for a new fragment is being entered, thus only include these entries in rows containing your fragment abundance. The entry in the **Fragment** column directly below the **Abundance** entry is used as the identifier for the fragment as well as for graph titles in Escher-Trace.
 + If including data measured from multiple fragments for the same metabolite, simply enter the same **Metabolite** name for all fragments.
 + The isotopologue '(M#)' does not need to be included in fragment name, the first row of data for each fragment is assumed to be M0, the second M1, and so on.
-+ Inorder to have data appear next to specific escher metabolite node, use the bigg_ID of the desired metabolite node as the metabolite name
++ In order to have data appear next to specific escher metabolite node, use the bigg_ID of the desired metabolite node as the metabolite name
 
 
 ### 1.3.2	Loading Data in
