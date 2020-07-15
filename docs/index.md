@@ -24,4 +24,5 @@ Escher-Trace is a tool for visualizing and analyzing stable isotope tracing data
 We recommend using Google Chrome for the best user experience, however Escher-Trace will also run on Internet Explorer, Firefox, and Safari as well as mobile browsers.
 
 ## Citing Escher-Trace
-Coming Soon.
+Avi Kumar, Jack Mitchener, Zachary A. King, and Christian M. Metallo. Escher-Trace: a web application for pathway-based visualization of stable isotope tracing data. *BMC Bioinformatics* **21,** 297 (2020). [https://doi.org/10.1186/s12859-020-03632-0](https://doi.org/10.1186/s12859-020-03632-0)
+
