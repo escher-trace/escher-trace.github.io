@@ -1,8 +1,8 @@
 # 4. Alter graph attributes
-This section of the documentation explains how to change the attributes of graphs including size, scheme, bar labels, legend metrics, prescence of the context button, and plotting individual data points as well as show how to import these characteristics and others from a different Escher-Trace Workspace.
+This section of the documentation explains how to change the attributes of graphs including size, scheme, bar labels, legend metrics, presence of the context button, and plotting individual data points as well as show how to import these characteristics and others from a different Escher-Trace Workspace.
 
 ## 4.1 Changing Graph Size
-Escher-Trace graphs can **all** be resized simultaneosly. Below, is a walkthrough of how this is done.
+Escher-Trace graphs can **all** be resized simultaneously. Below, is a walkthrough of how this is done.
 
 ### 4.1.0 Making Graph Size Pop-up Appear
 After opening the **Graph Attributes** option, click **Size**.
@@ -53,7 +53,7 @@ Click in any of the color input boxes and a color palette will appear.
 
 ![Screenshot](img/GraphColorCustomClick.png){: style='width:650px' }
  
-Click anywhere on the color palette to select the color as the value for the color input box. Alternatively you can enter HEX color codes to select colors. 
+Click anywhere on the color palette to select the color as the value for the color input box. Alternatively, you can enter HEX color codes to select colors. 
 
 ### 4.2.3 Add colors to an Existing Color Scheme 
 To add additional entries to an existing color scheme, click the "+" button located next to the color scheme you wish to add a new entry to. 
@@ -139,7 +139,7 @@ Hover over Flag:
  
 
 ## 4.5 Remove/Add Context Button
-Context Buttons provide an alternative method, besides right-clicking, for accessing the context menu of an Escher-Trace graph context menu for individual graph editing and [more]. When visibile, clicking the context button will make the graph context menu appear. These buttons can be useful on devices where right clicking is not possible. Below is a walkthrough of how to add/remove context buttons from Escher-Trace graphs.
+Context Buttons provide an alternative method, besides right-clicking, for accessing the context menu of an Escher-Trace graph context menu for individual graph editing and [more]. When visible, clicking the context button will make the graph context menu appear. These buttons can be useful on devices where right clicking is not possible. Below is a walkthrough of how to add/remove context buttons from Escher-Trace graphs.
 
 Click the toggle button next to **Context Button** to change the option.
 
@@ -155,7 +155,7 @@ After Click:
 
 
 ## 4.6 Remove/Add Individual Data Point Labels
-Labels for individual sample data points are required for figures in some academic journals, and provide an extra layer of information in scientific plots. Individual data labels can appear in any non-stacked format Escher-Trace graph. Below is a walkthrough of how to add/remove individual data point labels from Escher-Trace graphs.
+Labels for individual sample data points are required for figures in some academic journals and provide an extra layer of information in scientific plots. Individual data labels can appear in any non-stacked format Escher-Trace graph. Below is a walkthrough of how to add/remove individual data point labels from Escher-Trace graphs.
 
 Click the toggle button next to **Plot Individual Data** to change the option.
 

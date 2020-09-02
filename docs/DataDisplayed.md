@@ -92,7 +92,7 @@ After Click:
 
 ![Screenshot](../img/IsotopologueDisplay.png){: style='width:500px' }
  
-The majority of instructions for interacting with the Escher-Trace data tables can be found [here](../DataDisplayed/#511-metabolite-selection-table-functionality). In the Isotopologues to Display data table, the user selects the isotopologue limit of a metabolite from the adjacent dropdown menu. Graphs of metabolites will display isotopolologues from M0 to the user selected value.  
+The majority of instructions for interacting with the Escher-Trace data tables can be found [here](../DataDisplayed/#511-metabolite-selection-table-functionality). In the Isotopologues to Display data table, the user selects the isotopologue limit of a metabolite from the adjacent dropdown menu. Graphs of metabolites will display isotopologues from M0 to the user selected value.  
  
 To submit changes click **Submit Form**. 
 
@@ -142,7 +142,7 @@ To add a text label to the diagram, enter the text you would like included in th
 
 ![Screenshot](../img/CarbonDiagramDisplayEditText.PNG){: style='width:600px' }
 
-Click **Add Text Label** to have the label included in the diagram. The label can be updated by reentering text in the Text Label input and reclicking **Add Text Label**.
+Click **Add Text Label** to have the label included in the diagram. The label can be updated by reentering text in the Text Label input and re-clicking **Add Text Label**.
 
 ![Screenshot](../img/CarbonDiagramDisplaySubmitText.PNG){: style='width:600px' }
 
@@ -192,7 +192,7 @@ After click:
 
 ![Screenshot](../img/CarbonDiagramDisplayChangeColor.PNG){: style='width:500px' }
 
-The colors indicating a labeled or unlabeled circles can be updated by entering a HEX code into the color inputs, or selecting the color from the color pallete that appears when clicking on the color inputs.
+The colors indicating a labeled or unlabeled circles can be updated by entering a HEX code into the color inputs, or selecting the color from the color palette that appears when clicking on the color inputs.
 
 ![Screenshot](../img/CarbonDiagramDisplayChooseColor.png){: style='width:500px' }
 

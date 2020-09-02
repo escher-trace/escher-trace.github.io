@@ -89,7 +89,7 @@ After Click:
  ![Screenshot](img/DifferentGraphTypeIndivAfter.png){: style='width:400px' }
 
 ## 2.7	Changing Graph Title or Y-axis Label
-The text of every Escher-Trace graph title and y-axis label can be edited by simply hovering and then clicking over thet title or y-axis label text.
+The text of every Escher-Trace graph title and y-axis label can be edited by simply hovering and then clicking over the title or y-axis label text.
 
 Before Hover:
 

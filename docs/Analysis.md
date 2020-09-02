@@ -1,8 +1,8 @@
 # 6. Analysis 
-This section of the documentation explains how to generate graphs which compare data across metabolites, normalize metabolite abundnaces to various variables(internal standard, experimental condition, cell number/sample mass), enter time points to generate time course graphs, and enter quantitative standard information to generate quantiative abundance graphs.
+This section of the documentation explains how to generate graphs which compare data across metabolites, normalize metabolite abundances to various variables(internal standard, experimental condition, cell number/sample mass), enter time points to generate time course graphs, and enter quantitative standard information to generate quantitative abundance graphs.
 
 ## 6.1 Compare Metabolites
-This selection allows the user to generate graphs directly comparing metbolite abundance, enrichment, or individual isotopologue labeling across metabolites and conditions.
+This selection allows the user to generate graphs directly comparing metabolite abundance, enrichment, or individual isotopologue labeling across metabolites and conditions.
 
 ### 6.1.0 Make the Compare Metabolites Pop-up Appear
 Click **Compare Metabolites**:
@@ -151,7 +151,7 @@ Click in the white box below **Time Point** and type the desired time point for 
 ![Screenshot](../img/TimePointsEnter.png){: style='width:600px' }
  
 ### 6.3.4 Submit or Abort Changes
-Submit the selections by clicking **Submit Form** or abort changes by clicking the X in the top right. If the form was filled out correctly, submission will cause additional graph types (Kinetic Abundance and Kinetic MPE) to appear in the Escher-Trace Menu under **Graph Type**. Additionally these options will appear in the context menu's for each graph (acessed by right-clicking a graph). The kinetic graph of an individual isotopologue can be accessed by selecting the desired isotopologue on the x-axis of an MID graph.
+Submit the selections by clicking **Submit Form** or abort changes by clicking the X in the top right. If the form was filled out correctly, submission will cause additional graph types (Kinetic Abundance and Kinetic MPE) to appear in the Escher-Trace Menu under **Graph Type**. Additionally, these options will appear in the context menu's for each graph (accessed by right-clicking a graph). The kinetic graph of an individual isotopologue can be accessed by selecting the desired isotopologue on the x-axis of an MID graph.
 
 Submit:
 
@@ -183,7 +183,7 @@ Kinetic graphs of single isotopologue labeling, enrichment, and abundance look l
 
  
 ## 6.4 Quantify Metabolite Abundances
-This selection allows users to generate graphs of quantitative metabolite abundance in Escher-Trace for experments where isotopically labeled standards were spiked into samples. Quantitation calculations are performed as described [here.](../Calculations/#93-quantitative-abundance-calculation)
+This selection allows users to generate graphs of quantitative metabolite abundance in Escher-Trace for experiments where isotopically labeled standards were spiked into samples. Quantitation calculations are performed as described [here.](../Calculations/#93-quantitative-abundance-calculation)
 
 ### 6.4.0 Making Quantitative Standards Pop-up Appear
 Click **Enter Quantitative Standards**:
