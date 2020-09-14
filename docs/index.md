@@ -27,4 +27,4 @@ We recommend using Google Chrome for the best user experience, however Escher-Tr
 Avi Kumar, Jack Mitchener, Zachary A. King, and Christian M. Metallo. Escher-Trace: a web application for pathway-based visualization of stable isotope tracing data. *BMC Bioinformatics* **21,** 297 (2020). [https://doi.org/10.1186/s12859-020-03632-0](https://doi.org/10.1186/s12859-020-03632-0)
 
 ## Questions?
-Please contact us at [mailto](mailto:eschertrace@gmail.com) if you have any questions about Escher-Trace.                   
+Please contact us at [eschertrace@gmail.com](mailto:eschertrace@gmail.com) if you have any questions about Escher-Trace.                   
