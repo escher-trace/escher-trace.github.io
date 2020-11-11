@@ -9963,8 +9963,8 @@ function add_structures(result) {
                                 if(graph_type=='abundance' || graph_type=='stacked_abundance' || graph_type=='total_abundance'|| graph_type=='Kin_abundance'){
                                     row_string=row_string+'<td>'+isotopologue_abundance.toFixed(0)+'</td>'
                                 }else{
-                                    //row_string=row_string+'<td>'+(100*isotopologue_frequency).toFixed(3)+'</td>'
-                                    row_string=row_string+'<td>'+(100*isotopologue_frequency).toFixed(1)+'</td>'
+                                    row_string=row_string+'<td>'+(100*isotopologue_frequency).toFixed(3)+'</td>'
+                                    //row_string=row_string+'<td>'+(100*isotopologue_frequency).toFixed(1)+'</td>'
                                 }
                             }                        
 
@@ -9983,8 +9983,8 @@ function add_structures(result) {
 
                                     MPE_inorder = calculate_MPE(metab_name,metab_frag_name)
                                     for(m=0;m<MPE_inorder[2].length;m++){
-                                        //row_string=row_string+'<td>'+(100*MPE_inorder[2][m]).toFixed(3)+'</td>'
-                                        row_string=row_string+'<td>'+(100*MPE_inorder[2][m]).toFixed(1)+'</td>'
+                                        row_string=row_string+'<td>'+(100*MPE_inorder[2][m]).toFixed(3)+'</td>'
+                                        //row_string=row_string+'<td>'+(100*MPE_inorder[2][m]).toFixed(1)+'</td>'
                                     }
                                 }                            
 
